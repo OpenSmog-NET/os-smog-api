@@ -8,8 +8,8 @@ The **.NET** implementation of the data ingress API for OpenSmog.
 
 |Branch   |Status|
 |---------|------|
-feature/* |[badge](https://opensmog-net.visualstudio.com/_apis/public/build/definitions/dbf362cf-6d45-4160-8ea6-622363ba1a82/7/badge)
-dev/master|[badge](https://opensmog-net.visualstudio.com/_apis/public/build/definitions/dbf362cf-6d45-4160-8ea6-622363ba1a82/8/badge)
+feature/* |![badge](https://opensmog-net.visualstudio.com/_apis/public/build/definitions/dbf362cf-6d45-4160-8ea6-622363ba1a82/7/badge)
+dev/master|![badge](https://opensmog-net.visualstudio.com/_apis/public/build/definitions/dbf362cf-6d45-4160-8ea6-622363ba1a82/8/badge)
 
 ## Building the project
 
