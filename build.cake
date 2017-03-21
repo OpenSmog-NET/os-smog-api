@@ -15,19 +15,21 @@ var apps = getProjectsDirs(new string [] {
     "OS.Smog.Api"
 });
 
-Task(Clean).Does(() => {
+Task(Clean)
+    .WithCriteria(DirectoryExists(ArtifactsDir))
+    .Does(() => {
     CleanDirectories("./**/bin");
     CleanDirectories("./**/obj");
-    DeleteDirectory(ArtifactsDir, true);   
-});
+    DeleteDirectory(ArtifactsDir, true);
+}); // Clean
 
 Task(Restore)
-    .IsDependentOn(Clean)
     .Does(() => {
     DotNetCoreRestore(SolutionFile, getDotNetCoreRestoreSettings());
 }); // Restore
 
 Task(Build)
+    .IsDependentOn(Clean)
     .IsDependentOn(Restore)
     .Does(() => {
     Information($"Starting build({configuration}, {platform})");
