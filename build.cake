@@ -15,9 +15,15 @@ var apps = getProjectsDirs(new string [] {
     "OS.Smog.Api"
 });
 
-Task()
+Task(Clean).Does(() => {
+    CleanDirectories("./**/bin");
+    CleanDirectories("./**/obj");
+    DeleteDirectory(ArtifactsDir, true);   
+});
 
-Task(Restore).Does(() => {
+Task(Restore)
+    .IsDependentOn(Clean)
+    .Does(() => {
     DotNetCoreRestore(SolutionFile, getDotNetCoreRestoreSettings());
 }); // Restore
 
