@@ -8,7 +8,7 @@ namespace OS.Smog.Domain.Sensors.Expressions
         private const float PressMin = 800.0f;
         private const float PressMax = 1200.0f;
 
-        public void Interpret(PayloadInterpretationContext context)
+        public bool Interpret(PayloadInterpretationContext context)
         {
             for (var i = 0; i < context.Input.Count; i++)
             {
@@ -20,6 +20,8 @@ namespace OS.Smog.Domain.Sensors.Expressions
                     context.Errors.Add($"{item.Timestamp} : {PressError} ({item.Data.Press.Value}[hPa])");
                 }
             }
+
+            return true;
         }
     }
 }

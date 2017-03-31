@@ -6,7 +6,7 @@ namespace OS.Smog.Domain.Sensors.Expressions
     {
         private const string HumidityError = "Humidity must be greater or equal to 0.0 and less or equal than 100.0";
 
-        public void Interpret(PayloadInterpretationContext context)
+        public bool Interpret(PayloadInterpretationContext context)
         {
             for (var i = 0; i < context.Input.Count; i++)
             {
@@ -18,6 +18,8 @@ namespace OS.Smog.Domain.Sensors.Expressions
                     context.Errors.Add($"{item.Timestamp} : {HumidityError} ({item.Data.Hum.Value}[%])");
                 }
             }
+
+            return true;
         }
     }
 }

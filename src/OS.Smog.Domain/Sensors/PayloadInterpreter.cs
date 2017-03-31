@@ -5,7 +5,9 @@ namespace OS.Smog.Domain.Sensors
 {
     public static class PayloadInterpreter
     {
-        private static readonly IExpression<PayloadInterpretationContext>[] _expressions = {
+        private static readonly IExpression<PayloadInterpretationContext>[] Expressions = {
+            new PayloadValidationExpression(),
+            new TimeStampValidationExpression(),
             new HumidityValidationExpression(),
             new TempCValidationExpression(),
             new PressureValidationExpression(),
@@ -20,9 +22,12 @@ namespace OS.Smog.Domain.Sensors
 
         public static void Interpret(PayloadInterpretationContext context)
         {
-            foreach (var expression in _expressions)
+            foreach (var expression in Expressions)
             {
-                expression.Interpret(context);
+                if (!expression.Interpret(context))
+                {
+                    break;
+                }
             }
         }
     }

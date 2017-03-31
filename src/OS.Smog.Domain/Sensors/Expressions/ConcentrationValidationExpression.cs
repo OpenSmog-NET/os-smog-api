@@ -12,7 +12,7 @@ namespace OS.Smog.Domain.Sensors.Expressions
 
         public abstract string SIUnit { get; }
 
-        public void Interpret(PayloadInterpretationContext context)
+        public bool Interpret(PayloadInterpretationContext context)
         {
             for (var i = 0; i < context.Input.Count; i++)
             {
@@ -26,6 +26,8 @@ namespace OS.Smog.Domain.Sensors.Expressions
                     context.Errors.Add($"{item.Timestamp} : {Name} {ConcentrationError} ({value.Value}[{SIUnit}])");
                 }
             }
+
+            return true;
         }
     }
 }

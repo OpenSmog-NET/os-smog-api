@@ -8,7 +8,7 @@ namespace OS.Smog.Domain.Sensors.Expressions
         private const float TempMin = -100.0f;
         private const float TempMax = 100.0f;
 
-        public void Interpret(PayloadInterpretationContext context)
+        public bool Interpret(PayloadInterpretationContext context)
         {
             for (var i = 0; i < context.Input.Count; i++)
             {
@@ -20,6 +20,8 @@ namespace OS.Smog.Domain.Sensors.Expressions
                     context.Errors.Add($"{item.Timestamp} : {TempError} ({item.Data.Temp.Value}[C])");
                 }
             }
+
+            return true;
         }
     }
 }
