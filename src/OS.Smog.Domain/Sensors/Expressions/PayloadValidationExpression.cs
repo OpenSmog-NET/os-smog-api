@@ -8,12 +8,16 @@ namespace OS.Smog.Domain.Sensors.Expressions
         {
             if (context.Input == null)
             {
-                context.Errors.Add("Empty request body");
-
+                context.Errors.Add("Failed to deserialize request body");
                 return false;
             }
 
-            return true;
+            if (context.Input.Count == 0)
+            {
+                context.Errors.Add("Request body is empty");
+            }
+
+            return !context.HasError;
         }
     }
 }
