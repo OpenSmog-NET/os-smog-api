@@ -11,11 +11,11 @@ namespace OS.Smog.Domain.Sensors.Expressions
             for (var i = 0; i < context.Input.Count; i++)
             {
                 var item = context.Input[i];
-                if (!item.Readings.Hum.HasValue) continue;
+                if (!item.Data.Hum.HasValue) continue;
 
-                if (!ValueIsInRange(item.Readings.Hum.Value, 0.0f, 100.0f))
+                if (!ValueIsInRange(item.Data.Hum.Value, 0.0f, 100.0f))
                 {
-                    context.Errors.Add($"{item.Timestamp} : {HumidityError} ({item.Readings.Hum.Value}[%])");
+                    context.Errors.Add($"{item.Timestamp} : {HumidityError} ({item.Data.Hum.Value}[%])");
                 }
             }
         }

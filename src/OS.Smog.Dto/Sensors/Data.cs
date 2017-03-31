@@ -2,7 +2,7 @@
 
 namespace OS.Smog.Dto.Sensors
 {
-    public class Readings
+    public class Data
     {
         /// <summary>
         /// Particulate Matter PM2.5 [ug/m3] >= 0.0f

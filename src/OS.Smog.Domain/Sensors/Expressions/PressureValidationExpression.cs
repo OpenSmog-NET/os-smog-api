@@ -13,11 +13,11 @@ namespace OS.Smog.Domain.Sensors.Expressions
             for (var i = 0; i < context.Input.Count; i++)
             {
                 var item = context.Input[i];
-                if (!item.Readings.Press.HasValue) continue;
+                if (!item.Data.Press.HasValue) continue;
 
-                if (!ValueIsInRange(item.Readings.Press.Value, PressMin, PressMax))
+                if (!ValueIsInRange(item.Data.Press.Value, PressMin, PressMax))
                 {
-                    context.Errors.Add($"{item.Timestamp} : {PressError} ({item.Readings.Press.Value}[hPa])");
+                    context.Errors.Add($"{item.Timestamp} : {PressError} ({item.Data.Press.Value}[hPa])");
                 }
             }
         }

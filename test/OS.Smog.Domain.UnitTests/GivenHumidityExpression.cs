@@ -14,7 +14,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new HumidityValidationExpression();
             Payload.Add(new Measurement()
             {
-                Readings = new Readings() { Hum = -1.0f }
+                Data = new Data() { Hum = -1.0f }
             });
 
             // Act
@@ -31,7 +31,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new HumidityValidationExpression();
             Payload.Add(new Measurement()
             {
-                Readings = new Readings() { Hum = 101.0f }
+                Data = new Data() { Hum = 101.0f }
             });
 
             // Act
@@ -48,7 +48,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new HumidityValidationExpression();
             Payload.Add(new Measurement()
             {
-                Readings = new Readings() { Hum = 45.0f }
+                Data = new Data() { Hum = 45.0f }
             });
 
             // Act
