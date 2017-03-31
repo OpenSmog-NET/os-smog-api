@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.Swagger.Model;
+using System;
+using System.Reflection;
 
 namespace OS.Smog.Api
 {
@@ -28,15 +25,16 @@ namespace OS.Smog.Api
                 Version = "v1",
                 Title = "OpenSmog API (0.0.1)",
                 Description =
-                    "WebApi for uploading IoT measurements of air quality," +
-                    "according to OpenSmog specification" +
+                    "OpenSmog API data ingress API" +
+                    "\nBased on the OpenSmog specification:" +
+                    "https://github.com/OpenSmog/AcquisitionAPI/blob/master/api/data-ingress/REST/readme.md" +
                     $"\n\nTime deployed: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ssK}",
                 Contact =
                     new Contact
                     {
-                        Name = "OpenSmog",
+                        Name = "OpenSmog.NET",
                         Email = "maciej.misztal@opensmog.org",
-                        Url = "https://github.com/OpenSmog/SmogAPI.NET"
+                        Url = "https://github.com/OpenSmog-NET/os-smog-api"
                     }
             };
 
