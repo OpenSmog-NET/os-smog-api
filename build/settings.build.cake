@@ -67,4 +67,18 @@ var forEachPath = new Action<IEnumerable<string>, Func<string, string>, Action<s
     }
 });
 
+var publishFiles = new Action<string, Dictionary<string, string[]>>((app, includeFiles) => {
+    if(includeFiles.ContainsKey(app)) {
+        Information($"\nPublishing additional files for {app}:");
+
+        foreach(var file in includeFiles[app]) {
+            var from = $"./src/{app}/bin/{@configuration}/netcoreapp1.1/{file}";
+            var to = $"{ArtifactsDir}/apps/{app}";
+
+            Information($"\t{file} -> {to}");
+            CopyFileToDirectory(from, to);
+        }
+    }
+});
+
 #load settings.netcore.cake
