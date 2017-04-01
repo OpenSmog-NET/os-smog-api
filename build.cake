@@ -15,6 +15,14 @@ var apps = getProjectsDirs(new string [] {
     "OS.Smog.Api"
 });
 
+var includeFiles = new Dictionary<string, string[]>(){
+    {
+        "OS.Smog.Api", new[] {
+            "OS.Smog.Api.xml"
+        }
+    }
+};
+
 Task(Clean)
     .WithCriteria(DirectoryExists(ArtifactsDir))
     .Does(() => {
@@ -63,6 +71,10 @@ Task(Publish)
     .Does(() => {
     forEachPath(apps, null, (app) => {
         DotNetCorePublish(app, getDotNetCorePublishSettings(app));
+    });
+
+    forEachPath(apps, getProjectName, (app) => {
+        publishFiles(app, includeFiles);
     });
 }); // Publish
 

@@ -11,6 +11,10 @@
     <TreatSpecificWarningsAsErrors />
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp1.1\OS.Smog.Api.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
@@ -34,5 +38,4 @@
     <ProjectReference Include="..\OS.Smog.Domain\OS.Smog.Domain.csproj" />
     <ProjectReference Include="..\OS.Smog.Dto\OS.Smog.Dto.csproj" />
   </ItemGroup>
-
 </Project>
