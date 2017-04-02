@@ -1,20 +1,24 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Net;
+using OS.Core;
 
 namespace OS.Smog.Domain.Sensors
 {
-    public class UploadMeasurementsCommandHandler : IRequestHandler<UploadMeasurementsCommand, HttpStatusCode>
+    public class UploadMeasurementsCommandHandler : IRequestHandler<UploadMeasurementsCommand, ApiResult>
     {
         private readonly ILogger<UploadMeasurementsCommandHandler> logger;
-        //private readonly IRequestHandler<UploadMeasurementsCommand, HttpStatusCode> inner;
+        private readonly IHttpContextAccessor contextAccessor;
 
-        public UploadMeasurementsCommandHandler(ILogger<UploadMeasurementsCommandHandler> logger)
+        public UploadMeasurementsCommandHandler(
+            ILogger<UploadMeasurementsCommandHandler> logger,
+            IHttpContextAccessor contextAccessor)
         {
             this.logger = logger;
+            this.contextAccessor = contextAccessor;
         }
 
-        public HttpStatusCode Handle(UploadMeasurementsCommand message)
+        public ApiResult Handle(UploadMeasurementsCommand message)
         {
             logger.LogInformation("Processing: {@message}", message);
 
@@ -22,12 +26,15 @@ namespace OS.Smog.Domain.Sensors
 
             PayloadInterpreter.Interpret(ctx);
 
+            var result = new ApiResult(contextAccessor.HttpContext);
+
             foreach (var error in ctx.Errors)
             {
+                result.Errors.Add(new ApiError() { Type = ApiErrorType.Validation, Message = error });
                 logger.LogWarning(error);
             }
 
-            return ctx.HasError ? HttpStatusCode.BadRequest : HttpStatusCode.OK;
+            return result;
         }
     }
 }
