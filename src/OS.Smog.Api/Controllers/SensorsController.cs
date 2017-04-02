@@ -39,6 +39,9 @@ namespace OS.Smog.Api.Controllers
         /// <response code="500">Failed to persist the data</response>
         /// <returns>Empty response</returns>
         [HttpPost("{id}/data")]
+        [ProducesResponseType(typeof(ApiResult), 200)]
+        [ProducesResponseType(typeof(ApiResult), 400)]
+        [ProducesResponseType(typeof(ApiResult), 500)]
         public async Task<IActionResult> Data(Guid id, [FromBody]Payload payload)
         {
             var response = await mediator.Send(new UploadMeasurementsCommand(payload));
