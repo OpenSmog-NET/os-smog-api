@@ -1,8 +1,8 @@
-﻿using OS.Core.Interpreter;
+﻿using System;
+using OS.Core.Interpreter;
 using OS.Smog.Dto.Sensors;
-using System;
 
-namespace OS.Smog.Domain.Sensors.Expressions
+namespace OS.Smog.Domain.Sensors.Interpreter.Expressions
 {
     public abstract class ConcentrationValidationExpression : ValueRangeValidationExpression<float>, IExpression<PayloadInterpretationContext>
     {

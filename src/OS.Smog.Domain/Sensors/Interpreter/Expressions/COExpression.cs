@@ -1,7 +1,8 @@
-﻿using OS.Smog.Dto.Sensors;
-using System;
+﻿using System;
+using OS.Smog.Domain.Sensors.Expressions;
+using OS.Smog.Dto.Sensors;
 
-namespace OS.Smog.Domain.Sensors.Expressions
+namespace OS.Smog.Domain.Sensors.Interpreter.Expressions
 {
     public class COExpression : ConcentrationValidationExpression
     {

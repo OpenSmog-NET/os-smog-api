@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using OS.Core;
+using OS.Smog.Domain.Sensors.Interpreter;
 
 namespace OS.Smog.Domain.Sensors
 {

@@ -1,7 +1,7 @@
 ﻿using OS.Core.Interpreter;
-using OS.Smog.Domain.Sensors.Expressions;
+using OS.Smog.Domain.Sensors.Interpreter.Expressions;
 
-namespace OS.Smog.Domain.Sensors
+namespace OS.Smog.Domain.Sensors.Interpreter
 {
     public static class PayloadInterpreter
     {

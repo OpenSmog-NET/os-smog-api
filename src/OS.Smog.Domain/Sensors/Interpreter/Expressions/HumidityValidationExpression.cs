@@ -1,6 +1,6 @@
 ﻿using OS.Core.Interpreter;
 
-namespace OS.Smog.Domain.Sensors.Expressions
+namespace OS.Smog.Domain.Sensors.Interpreter.Expressions
 {
     public sealed class HumidityValidationExpression : ValueRangeValidationExpression<float>, IExpression<PayloadInterpretationContext>
     {

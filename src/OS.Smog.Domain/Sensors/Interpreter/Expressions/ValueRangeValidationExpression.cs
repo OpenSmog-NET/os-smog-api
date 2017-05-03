@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OS.Smog.Domain.Sensors.Expressions
+namespace OS.Smog.Domain.Sensors.Interpreter.Expressions
 {
     public class ValueRangeValidationExpression<T>
         where T : struct, IComparable

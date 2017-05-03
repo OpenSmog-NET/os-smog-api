@@ -1,9 +1,9 @@
-﻿using OS.Core.Interpreter;
-using OS.Smog.Dto.Sensors;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using OS.Core.Interpreter;
+using OS.Smog.Dto.Sensors;
 
-namespace OS.Smog.Domain.Sensors
+namespace OS.Smog.Domain.Sensors.Interpreter
 {
     public class PayloadInterpretationContext : IInterpretationContext<Payload>
     {
