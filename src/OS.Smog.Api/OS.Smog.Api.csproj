@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
+    <OutputType>exe</OutputType>
     <TargetFramework>net462</TargetFramework>
     <DocumentationFile>bin\$(Configuration)\net462\OS.Smog.Api.xml</DocumentationFile>
     <!--<RuntimeIdentifier>win10-x64</RuntimeIdentifier>-->
