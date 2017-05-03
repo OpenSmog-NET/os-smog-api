@@ -1,4 +1,4 @@
-﻿namespace OS.Smog.Interpreter
+﻿namespace OS.Smog.Domain.Sensors
 {
     public interface IExpression<in TContext>
         where TContext : IInterpretationContext

@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Smog.Api", "src\OS.Smog.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Smog.Dto", "src\OS.Smog.Dto\OS.Smog.Dto.csproj", "{60D5CC9A-9178-405C-9E97-C88C32495F6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Smog.Interpreter", "src\OS.Smog.Interpreter\OS.Smog.Interpreter.csproj", "{D59C2B9B-4959-4E5F-9E04-60B1CBA6CF41}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OS.Smog.Domain", "src\OS.Smog.Domain\OS.Smog.Domain.csproj", "{3CF237AC-1EF4-4ED8-81CD-F267587E0615}"
 EndProject
 Global
@@ -31,10 +29,6 @@ Global
 		{60D5CC9A-9178-405C-9E97-C88C32495F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60D5CC9A-9178-405C-9E97-C88C32495F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60D5CC9A-9178-405C-9E97-C88C32495F6C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D59C2B9B-4959-4E5F-9E04-60B1CBA6CF41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D59C2B9B-4959-4E5F-9E04-60B1CBA6CF41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D59C2B9B-4959-4E5F-9E04-60B1CBA6CF41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D59C2B9B-4959-4E5F-9E04-60B1CBA6CF41}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3CF237AC-1EF4-4ED8-81CD-F267587E0615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3CF237AC-1EF4-4ED8-81CD-F267587E0615}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CF237AC-1EF4-4ED8-81CD-F267587E0615}.Release|Any CPU.ActiveCfg = Release|Any CPU

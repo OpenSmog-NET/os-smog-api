@@ -1,5 +1,4 @@
-﻿using OS.Smog.Interpreter;
-using OS.Smog.Domain.Sensors.Expressions;
+﻿using OS.Smog.Domain.Sensors.Expressions;
 
 namespace OS.Smog.Domain.Sensors
 {

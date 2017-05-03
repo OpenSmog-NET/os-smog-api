@@ -17,9 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OS.Smog.Interpreter\OS.Smog.Interpreter.csproj" />
     <ProjectReference Include="..\OS.Smog.Dto\OS.Smog.Dto.csproj" />
-    <ProjectReference Include="..\OS.Smog.Interpreter\OS.Smog.Interpreter.csproj" />
   </ItemGroup>
 
 </Project>
