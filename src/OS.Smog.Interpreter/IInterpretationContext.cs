@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OS.Core.Interpreter
+namespace OS.Smog.Interpreter
 {
     public interface IInterpretationContext
     {

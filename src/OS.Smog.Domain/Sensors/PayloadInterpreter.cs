@@ -1,4 +1,4 @@
-﻿using OS.Core.Interpreter;
+﻿using OS.Smog.Interpreter;
 using OS.Smog.Domain.Sensors.Expressions;
 
 namespace OS.Smog.Domain.Sensors

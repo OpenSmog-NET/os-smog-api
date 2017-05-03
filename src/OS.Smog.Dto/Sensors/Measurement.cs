@@ -4,10 +4,10 @@ namespace OS.Smog.Dto.Sensors
 {
     public class Measurement
     {
-        [JsonProperty("timestamp")]
         /// <summary>
         /// Unix Epoch Time GMT+0000
         /// </summary>
+        [JsonProperty("timestamp")]
         public int Timestamp { get; set; }
 
         [JsonProperty("data")]

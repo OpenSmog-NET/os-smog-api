@@ -1,4 +1,4 @@
-﻿namespace OS.Core.Interpreter
+﻿namespace OS.Smog.Interpreter
 {
     public interface IExpression<in TContext>
         where TContext : IInterpretationContext
