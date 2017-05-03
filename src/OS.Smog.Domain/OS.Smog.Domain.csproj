@@ -1,13 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>net462</TargetFramework>
+    <OutputType>library</OutputType>
+    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="mediatr" Version="3.0.1" />
     <PackageReference Include="microsoft.extensions.logging" Version="1.1.1" />
-    <PackageReference Include="OS.Core.Api" Version="0.0.1-pre-201704011" />
+    <PackageReference Include="OS.Core.Api" Version="0.0.1-pre-201705037" />
   </ItemGroup>
 
   <ItemGroup>
