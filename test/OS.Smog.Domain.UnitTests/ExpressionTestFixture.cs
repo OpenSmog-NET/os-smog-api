@@ -1,4 +1,5 @@
 ﻿using OS.Smog.Domain.Sensors;
+using OS.Smog.Domain.Sensors.Interpreter;
 using OS.Smog.Dto.Sensors;
 
 namespace OS.Smog.Domain.UnitTests

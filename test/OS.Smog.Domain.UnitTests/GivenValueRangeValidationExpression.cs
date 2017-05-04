@@ -1,6 +1,6 @@
-using OS.Smog.Domain.Sensors.Expressions;
 using Shouldly;
 using System;
+using OS.Smog.Domain.Sensors.Interpreter.Expressions;
 using Xunit;
 
 namespace OS.Smog.Domain.UnitTests

@@ -1,7 +1,7 @@
-﻿using OS.Smog.Domain.Sensors.Expressions;
-using OS.Smog.Dto.Sensors;
+﻿using OS.Smog.Dto.Sensors;
 using Shouldly;
 using System.Linq;
+using OS.Smog.Domain.Sensors.Interpreter.Expressions;
 using Xunit;
 
 namespace OS.Smog.Domain.UnitTests

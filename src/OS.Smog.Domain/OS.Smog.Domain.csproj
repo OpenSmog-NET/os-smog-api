@@ -14,6 +14,7 @@
     <PackageReference Include="mediatr" Version="3.0.1" />
     <PackageReference Include="microsoft.extensions.logging" Version="1.1.1" />
     <PackageReference Include="OS.Core.Api" Version="0.0.1-pre-201705037" />
+    <PackageReference Include="Streamstone" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>
