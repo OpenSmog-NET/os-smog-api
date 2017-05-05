@@ -14,10 +14,12 @@
     <PackageReference Include="mediatr" Version="3.0.1" />
     <PackageReference Include="microsoft.extensions.logging" Version="1.1.1" />
     <PackageReference Include="OS.Core.Api" Version="0.0.1-pre-201705037" />
+    <PackageReference Include="protobuf-net" Version="2.1.0" />
     <PackageReference Include="Streamstone" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OS.Core.Events\OS.Core.Events.csproj" />
     <ProjectReference Include="..\OS.Core.Interpreter\OS.Core.Interpreter.csproj" />
     <ProjectReference Include="..\OS.Smog.Dto\OS.Smog.Dto.csproj" />
   </ItemGroup>

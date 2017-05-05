@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OS.Core.Events;
 using OS.Smog.Dto.Sensors;
+using System.Collections.Generic;
 
 namespace OS.Smog.Domain.Sensors
 {
@@ -20,23 +16,21 @@ namespace OS.Smog.Domain.Sensors
             yield return new MeasurementRegistered(measurement);
         }
 
-        public class State
+        public class State : BaseState
         {
             public void Apply(MeasurementRegistered @event)
-            {
-                var data = @event.Measurement.Data;
-
-                TimeStamp = @event.Measurement.Timestamp;
-                Pm10 = data.Pm10.ToNullableDouble();
-                Pm25 = data.Pm25.ToNullableDouble();
-                CO = data.CO.ToNullableDouble();
-                Hum = data.Hum.ToNullableDouble();
-                NO2 = data.NO2.ToNullableDouble();
-                O3 = data.O3.ToNullableDouble();
-                Pb = data.Pb.ToNullableDouble();
-                Press = data.Press.ToNullableDouble();
-                SO2 = data.SO2.ToNullableDouble();
-                Temp = data.Temp.ToNullableDouble();
+            {              
+                TimeStamp = @event.Timestamp;
+                Pm10 = @event.Pm10;
+                Pm25 = @event.Pm25;
+                CO = @event.CO;
+                Hum = @event.Hum;
+                NO2 = @event.NO2;
+                O3 = @event.O3;
+                Pb = @event.Pb;
+                Press = @event.Press;
+                SO2 = @event.SO2;
+                Temp = @event.Temp;
             }
 
             public int TimeStamp { get; set; }

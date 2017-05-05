@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\OS.Core.Events\OS.Core.Events.csproj" />
     <ProjectReference Include="..\..\src\OS.Smog.Domain\OS.Smog.Domain.csproj" />
   </ItemGroup>
 
