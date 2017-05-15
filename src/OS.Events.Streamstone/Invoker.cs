@@ -40,7 +40,7 @@ namespace OS.Events.Streamstone
         public static async Task<TState> ReadLatestAsync<TState>(this Stream stream)
             where TState : BaseState, new()
         {
-            var idx = 1;                        
+            var idx = 1;
             var state = new TState();
 
             if (!(await Stream.TryOpenAsync(stream.Partition)).Found)
@@ -52,23 +52,22 @@ namespace OS.Events.Streamstone
 
             do
             {
-                slice = await Stream.ReadAsync<EventTableData>(stream.Partition, idx , SliceSize);
+                slice = await Stream.ReadAsync<EventTableData>(stream.Partition, idx, SliceSize);
 
                 if (slice.HasEvents)
                 {
-                    foreach (var ev in slice.Events)
-                    {
-                        StateApplier.Apply(state, EventSerializer.Deserialize(ev.Data, ev.EventType));
-                    }
+                    StateApplier.Apply(state, slice.Events
+                        .Select((ev) => EventSerializer.Deserialize(ev.Data, ev.EventType))
+                        .ToArray());
 
                     idx = slice.Events.Last().Version + 1;
                 }
                 else
                 {
                     idx = -1;
-                }                
+                }
             }
-            while(!slice.IsEndOfStream);
+            while (!slice.IsEndOfStream);
 
             return state;
         }
@@ -82,6 +81,6 @@ namespace OS.Events.Streamstone
             };
 
             return new EventData(EventId.From(@event.EventId), EventProperties.From(ev));
-        }       
+        }
     }
 }
