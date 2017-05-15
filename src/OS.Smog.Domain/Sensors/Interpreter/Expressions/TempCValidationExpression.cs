@@ -2,7 +2,8 @@
 
 namespace OS.Smog.Domain.Sensors.Interpreter.Expressions
 {
-    public sealed class TempCValidationExpression : ValueRangeValidationExpression<float>, IExpression<PayloadInterpretationContext>
+    public sealed class TempCValidationExpression : ValueRangeValidationExpression<double>,
+        IExpression<PayloadInterpretationContext>
     {
         private const string TempError = "Temperature must be greater or equal to -100.0 and less or equal than 100.0";
         private const float TempMin = -100.0f;

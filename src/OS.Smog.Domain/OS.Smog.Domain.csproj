@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OS.Core.Events\OS.Core.Events.csproj" />
     <ProjectReference Include="..\OS.Core.Interpreter\OS.Core.Interpreter.csproj" />
+    <ProjectReference Include="..\OS.Events\OS.Events.csproj" />
     <ProjectReference Include="..\OS.Smog.Dto\OS.Smog.Dto.csproj" />
   </ItemGroup>
 

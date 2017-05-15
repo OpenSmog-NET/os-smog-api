@@ -47,7 +47,8 @@ namespace OS.Smog.Api
             return services;
         }
 
-        private static void ConfigureSwagger(this IServiceCollection serviceCollection, Info swaggerInfo, string swaggerUiPath)
+        private static void ConfigureSwagger(this IServiceCollection serviceCollection, Info swaggerInfo,
+            string swaggerUiPath)
         {
             serviceCollection.AddSwaggerGen();
 

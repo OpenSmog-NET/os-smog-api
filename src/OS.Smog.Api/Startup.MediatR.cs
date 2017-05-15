@@ -32,12 +32,18 @@ namespace OS.Smog.Api
             {
                 var interfaces = type.ImplementedInterfaces.Select(i => i.GetTypeInfo());
 
-                foreach (var handlerType in interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequestHandler<,>)))
+                foreach (
+                    var handlerType in
+                    interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequestHandler<,>))
+                )
                 {
                     services.AddTransient(handlerType.AsType(), type.AsType());
                 }
 
-                foreach (var handlerType in interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IAsyncRequestHandler<,>)))
+                foreach (
+                    var handlerType in
+                    interfaces.Where(
+                        i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IAsyncRequestHandler<,>)))
                 {
                     services.AddTransient(handlerType.AsType(), type.AsType());
                 }

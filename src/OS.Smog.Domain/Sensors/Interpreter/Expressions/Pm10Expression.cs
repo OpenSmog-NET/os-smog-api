@@ -7,6 +7,6 @@ namespace OS.Smog.Domain.Sensors.Interpreter.Expressions
     {
         public override string Name => "PM10";
         public override string SIUnit => "µg/m³";
-        public override Func<Data, float?> ValueProvider => ((x) => x.Pm10);
+        public override Func<Data, double?> ValueProvider => ((x) => x.Pm10);
     }
 }

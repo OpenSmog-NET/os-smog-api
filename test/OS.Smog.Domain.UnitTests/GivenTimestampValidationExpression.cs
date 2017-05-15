@@ -15,9 +15,9 @@ namespace OS.Smog.Domain.UnitTests
 
             var measurements = new[]
             {
-                new Measurement() { Timestamp = 1 },
-                new Measurement() { Timestamp = 2 },
-                new Measurement() { Timestamp = 3 }
+                new Measurement() {Timestamp = 1},
+                new Measurement() {Timestamp = 2},
+                new Measurement() {Timestamp = 3}
             };
 
             Payload.AddRange(measurements);
@@ -37,7 +37,7 @@ namespace OS.Smog.Domain.UnitTests
 
             var measurements = new[]
             {
-                new Measurement() { Timestamp = 1 }
+                new Measurement() {Timestamp = 1}
             };
 
             Payload.AddRange(measurements);
@@ -57,9 +57,9 @@ namespace OS.Smog.Domain.UnitTests
 
             var measurements = new[]
             {
-                new Measurement() { Timestamp = 1 },
-                new Measurement() { Timestamp = 1 },
-                new Measurement() { Timestamp = 3 }
+                new Measurement() {Timestamp = 1},
+                new Measurement() {Timestamp = 1},
+                new Measurement() {Timestamp = 3}
             };
 
             Payload.AddRange(measurements);
@@ -79,9 +79,9 @@ namespace OS.Smog.Domain.UnitTests
 
             var measurements = new[]
             {
-                new Measurement() { Timestamp = 1 },
-                new Measurement() { Timestamp = 2 },
-                new Measurement() { Timestamp = 1 }
+                new Measurement() {Timestamp = 1},
+                new Measurement() {Timestamp = 2},
+                new Measurement() {Timestamp = 1}
             };
 
             Payload.AddRange(measurements);

@@ -18,7 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OS.Core.Events\OS.Core.Events.csproj" />
+    <ProjectReference Include="..\..\src\OS.Events.Streamstone\OS.Events.Streamstone.csproj" />
+    <ProjectReference Include="..\..\src\OS.Events\OS.Events.csproj" />
     <ProjectReference Include="..\..\src\OS.Smog.Domain\OS.Smog.Domain.csproj" />
   </ItemGroup>
 

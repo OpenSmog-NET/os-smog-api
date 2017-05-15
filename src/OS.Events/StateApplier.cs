@@ -1,4 +1,4 @@
-﻿namespace OS.Core.Events
+﻿namespace OS.Events
 {
     public class StateApplier
     {
@@ -7,9 +7,9 @@
         /// One could IL Emit proper applier ;-)
         /// </summary>
         public static void Apply<TState>(TState state, IEvent @event)
-            where TState : BaseState
+            where TState : BaseState, new()
         {
-            ((dynamic)state).Apply((dynamic)@event);
+            ((dynamic) state).Apply((dynamic) @event);
         }
     }
 }

@@ -43,7 +43,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new PayloadValidationExpression();
             Payload.Add(new Measurement()
             {
-                Data = new Data() { Hum = 45.0f }
+                Data = new Data() {Hum = 45.0f}
             });
 
             // Act

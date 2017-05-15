@@ -2,7 +2,8 @@
 
 namespace OS.Smog.Domain.Sensors.Interpreter.Expressions
 {
-    public sealed class HumidityValidationExpression : ValueRangeValidationExpression<float>, IExpression<PayloadInterpretationContext>
+    public sealed class HumidityValidationExpression : ValueRangeValidationExpression<double>,
+        IExpression<PayloadInterpretationContext>
     {
         private const string HumidityError = "Humidity must be greater or equal to 0.0 and less or equal than 100.0";
 

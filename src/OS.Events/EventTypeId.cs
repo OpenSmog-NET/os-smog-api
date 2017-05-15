@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OS.Core.Events
+namespace OS.Events
 {
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class EventTypeIdAttribute : Attribute

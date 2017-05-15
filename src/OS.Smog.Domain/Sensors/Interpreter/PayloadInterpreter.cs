@@ -5,7 +5,8 @@ namespace OS.Smog.Domain.Sensors.Interpreter
 {
     public static class PayloadInterpreter
     {
-        private static readonly IExpression<PayloadInterpretationContext>[] Expressions = {
+        private static readonly IExpression<PayloadInterpretationContext>[] Expressions =
+        {
             new PayloadValidationExpression(),
             new TimeStampValidationExpression(),
             new HumidityValidationExpression(),

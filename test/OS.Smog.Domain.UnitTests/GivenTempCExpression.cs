@@ -15,7 +15,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new TempCValidationExpression();
             Payload.Add(new Measurement()
             {
-                Data = new Data() { Temp = -101.0f }
+                Data = new Data() {Temp = -101.0f}
             });
 
             // Act
@@ -32,7 +32,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new TempCValidationExpression();
             Payload.Add(new Measurement()
             {
-                Data = new Data() { Temp = 101.0f }
+                Data = new Data() {Temp = 101.0f}
             });
 
             // Act
@@ -49,7 +49,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new TempCValidationExpression();
             Payload.Add(new Measurement()
             {
-                Data = new Data() { Temp = 45.0f }
+                Data = new Data() {Temp = 45.0f}
             });
 
             // Act

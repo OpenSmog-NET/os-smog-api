@@ -4,14 +4,14 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using OS.Core.Events;
+using OS.Events;
 using OS.Smog.Dto.Sensors;
 
 namespace OS.Smog.Domain.Sensors
 {
     [EventTypeId("5D8DAF27-51FB-4E7A-81EA-DCE8E9E9AC41")]
     [DataContract]
-    public class MeasurementRegistered : IEvent
+    public class MeasurementRegistered : Event
     {
         [DataMember(Order = 1)]
         public int Timestamp { get; set; }
@@ -62,6 +62,11 @@ namespace OS.Smog.Domain.Sensors
             Pb = data.Pb;
             CO = data.CO;
             Press = data.Press;
+        }
+
+        public MeasurementRegistered()
+        {
+            
         }
     }
 }

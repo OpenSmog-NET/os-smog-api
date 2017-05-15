@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using OS.Core.Events;
+using OS.Events;
 using OS.Smog.Domain.Sensors;
 using OS.Smog.Domain.UnitTests.Utils;
 using ProtoBuf;
@@ -19,7 +19,7 @@ namespace OS.Smog.Domain.UnitTests
     ///     <see cref="Then(System.Action{TState})" />.
     /// </summary>
     /// <typeparam name="TState"></typeparam>
-    public abstract class AggregateTestFixture<TState>: IDisposable, IClassFixture<EventSourcingFixture>
+    public abstract class AggregateTestFixture<TState> : IDisposable, IClassFixture<EventSourcingFixture>
         where TState : BaseState, new()
     {
         private readonly List<IEvent> given = new List<IEvent>();
@@ -29,12 +29,13 @@ namespace OS.Smog.Domain.UnitTests
         private Action<TState> assert;
         private bool expectFailure;
         private readonly EventSourcingFixture fixture;
+
         protected AggregateTestFixture(EventSourcingFixture fixture)
         {
             this.fixture = fixture;
             assert = a => { };
             expectFailure = false;
-        }        
+        }
 
         /// <summary>
         ///     Registers a set of events that is applied to the aggregate before the call.
@@ -91,7 +92,7 @@ namespace OS.Smog.Domain.UnitTests
             expectFailure = true;
         }
 
-       
+
         public void Dispose()
         {
             var result = when.ToArray();
@@ -137,7 +138,7 @@ namespace OS.Smog.Domain.UnitTests
             {
                 if (expectFailure == false)
                     throw;
-            }           
+            }
         }
 
         static void Write(IEnumerable<IEvent> events)

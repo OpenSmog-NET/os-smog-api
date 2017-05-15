@@ -42,7 +42,7 @@ namespace OS.Smog.Api.Controllers
         [ProducesResponseType(typeof(ApiResult), 200)]
         [ProducesResponseType(typeof(ApiResult), 400)]
         [ProducesResponseType(typeof(ApiResult), 500)]
-        public async Task<IActionResult> Data(Guid id, [FromBody]Payload payload)
+        public async Task<IActionResult> Data(Guid id, [FromBody] Payload payload)
         {
             var response = await mediator.Send(new UploadMeasurementsCommand(payload));
 

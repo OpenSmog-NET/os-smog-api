@@ -15,7 +15,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new COExpression();
             Payload.Add(new Measurement()
             {
-                Data = new Data() { CO = 10.0f }
+                Data = new Data() {CO = 10.0f}
             });
 
             // Act
@@ -32,7 +32,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new COExpression();
             Payload.Add(new Measurement()
             {
-                Data = new Data() { CO = -10.0f }
+                Data = new Data() {CO = -10.0f}
             });
 
             // Act

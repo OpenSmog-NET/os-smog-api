@@ -2,7 +2,8 @@
 
 namespace OS.Smog.Domain.Sensors.Interpreter.Expressions
 {
-    public sealed class PressureValidationExpression : ValueRangeValidationExpression<float>, IExpression<PayloadInterpretationContext>
+    public sealed class PressureValidationExpression : ValueRangeValidationExpression<double>,
+        IExpression<PayloadInterpretationContext>
     {
         private const string PressError = "Pressure must be greater or equal to 800.0 and less or equal than 1200.0";
         private const float PressMin = 800.0f;

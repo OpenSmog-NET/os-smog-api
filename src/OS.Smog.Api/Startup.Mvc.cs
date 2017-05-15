@@ -17,7 +17,7 @@ namespace OS.Smog.Api
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     options.SerializerSettings.Converters = new List<JsonConverter>
                     {
-                        new StringEnumConverter { CamelCaseText = true }
+                        new StringEnumConverter {CamelCaseText = true}
                     };
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     options.SerializerSettings.Converters.Add(new StringEnumConverter());
