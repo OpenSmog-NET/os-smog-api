@@ -19,6 +19,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OS.Core.WebJobs\OS.Core.WebJobs.csproj" />
+    <ProjectReference Include="..\OS.Events.Streamstone\OS.Events.Streamstone.csproj" />
+    <ProjectReference Include="..\OS.Events\OS.Events.csproj" />
+    <ProjectReference Include="..\OS.Smog.Domain\OS.Smog.Domain.csproj" />
     <ProjectReference Include="..\OS.Smog.Dto\OS.Smog.Dto.csproj" />
   </ItemGroup>
 

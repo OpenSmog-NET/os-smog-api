@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OS.Events.Streamstone
 {
@@ -14,9 +10,8 @@ namespace OS.Events.Streamstone
             var result = type.GetCustomAttribute(typeof(EventTypeIdAttribute)) as EventTypeIdAttribute;
 
             if (result == null)
-            {
-                throw new InvalidOperationException($"The event of type {type.Name} must be decorated with [EventTypeId] attribute.");
-            }
+                throw new InvalidOperationException(
+                    $"The event of type {type.Name} must be decorated with [EventTypeId] attribute.");
 
             return result;
         }
