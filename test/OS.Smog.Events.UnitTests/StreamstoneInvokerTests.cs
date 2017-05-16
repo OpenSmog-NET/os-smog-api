@@ -2,12 +2,12 @@
 using Microsoft.WindowsAzure.Storage;
 using OS.Events;
 using OS.Events.Streamstone;
-using OS.Smog.Domain.Sensors;
 using OS.Smog.Dto.Sensors;
+using OS.Smog.Events.Sensor;
 using Shouldly;
 using Xunit;
 
-namespace OS.Smog.Domain.UnitTests
+namespace OS.Smog.Events.UnitTests
 {
     public class StreamstoneInvokerTests
     {
@@ -24,14 +24,14 @@ namespace OS.Smog.Domain.UnitTests
 
             var events = new IEvent[]
             {
-                new MeasurementRegistered(new Measurement {Timestamp = 1494848616, Data = new Data {Pm10 = 0.05}}),
+                new MeasurementRegistered(new Measurement { Timestamp = 1494848616, Data = new Data { Pm10 = 0.05 }}),
                 new MeasurementRegistered(new Measurement
                 {
                     Timestamp = 1494848616,
-                    Data = new Data {Pm10 = 0.06f, Pm25 = 10.0f}
+                    Data = new Data { Pm10 = 0.06f, Pm25 = 10.0f }
                 }),
-                new MeasurementRegistered(new Measurement {Timestamp = 1494848617, Data = new Data {Pm10 = 0.07}}),
-                new MeasurementRegistered(new Measurement {Timestamp = 1494848618, Data = new Data {Pm10 = 0.08}})
+                new MeasurementRegistered(new Measurement { Timestamp = 1494848617, Data = new Data { Pm10 = 0.07 }}),
+                new MeasurementRegistered(new Measurement { Timestamp = 1494848618, Data = new Data { Pm10 = 0.08 }})
             };
 
             // Act

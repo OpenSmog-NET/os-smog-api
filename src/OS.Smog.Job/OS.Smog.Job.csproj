@@ -23,6 +23,7 @@
     <ProjectReference Include="..\OS.Events\OS.Events.csproj" />
     <ProjectReference Include="..\OS.Smog.Domain\OS.Smog.Domain.csproj" />
     <ProjectReference Include="..\OS.Smog.Dto\OS.Smog.Dto.csproj" />
+    <ProjectReference Include="..\OS.Smog.Events\OS.Smog.Events.csproj" />
   </ItemGroup>
 
 </Project>

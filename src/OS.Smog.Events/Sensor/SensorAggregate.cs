@@ -2,7 +2,7 @@
 using OS.Events;
 using OS.Smog.Dto.Sensors;
 
-namespace OS.Smog.Domain.Sensors
+namespace OS.Smog.Events.Sensor
 {
     public static class SensorAggregate
     {

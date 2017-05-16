@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Smog.Job", "src\OS.Smog.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Core.WebJobs", "src\OS.Core.WebJobs\OS.Core.WebJobs.csproj", "{DA88E75B-58C4-4352-BF22-7502066A5AE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Smog.Events", "src\OS.Smog.Events\OS.Smog.Events.csproj", "{4876E9FF-BE71-421D-87A5-0C85A54B1F72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Smog.Events.UnitTests", "test\OS.Smog.Events.UnitTests\OS.Smog.Events.UnitTests.csproj", "{2637836A-A9B1-4A63-B1F6-B84F1F216AA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{DA88E75B-58C4-4352-BF22-7502066A5AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA88E75B-58C4-4352-BF22-7502066A5AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA88E75B-58C4-4352-BF22-7502066A5AE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4876E9FF-BE71-421D-87A5-0C85A54B1F72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4876E9FF-BE71-421D-87A5-0C85A54B1F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4876E9FF-BE71-421D-87A5-0C85A54B1F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4876E9FF-BE71-421D-87A5-0C85A54B1F72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2637836A-A9B1-4A63-B1F6-B84F1F216AA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2637836A-A9B1-4A63-B1F6-B84F1F216AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2637836A-A9B1-4A63-B1F6-B84F1F216AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2637836A-A9B1-4A63-B1F6-B84F1F216AA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

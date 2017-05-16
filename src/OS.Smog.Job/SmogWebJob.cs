@@ -1,14 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
+﻿using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.ServiceBus;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using OS.Core.WebJobs;
 using OS.Events.Streamstone;
-using OS.Smog.Domain.Sensors;
 using OS.Smog.Dto.Sensors;
+using OS.Smog.Events.Sensor;
+using System;
+using System.Threading.Tasks;
 
 namespace OS.Smog.Job
 {

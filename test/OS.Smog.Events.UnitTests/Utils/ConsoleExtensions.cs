@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OS.Smog.Domain.UnitTests.Utils
+namespace OS.Smog.Events.UnitTests.Utils
 {
     public static class ConsoleExtensions
     {

@@ -2,7 +2,7 @@
 using OS.Events;
 using OS.Smog.Dto.Sensors;
 
-namespace OS.Smog.Domain.Sensors
+namespace OS.Smog.Events.Sensor
 {
     [EventTypeId("5D8DAF27-51FB-4E7A-81EA-DCE8E9E9AC41")]
     [DataContract]

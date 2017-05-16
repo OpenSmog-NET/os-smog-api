@@ -5,11 +5,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using OS.Events;
-using OS.Smog.Domain.UnitTests.Utils;
 using ProtoBuf;
 using Xunit;
 
-namespace OS.Smog.Domain.UnitTests
+namespace OS.Smog.Events.UnitTests.Utils
 {
     /// <summary>
     ///     The base aggregate test class that enables BDD-like <see cref="Given" />,

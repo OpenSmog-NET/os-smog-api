@@ -1,8 +1,9 @@
-﻿using OS.Smog.Domain.Sensors;
-using OS.Smog.Dto.Sensors;
+﻿using OS.Smog.Dto.Sensors;
+using OS.Smog.Events.Sensor;
+using OS.Smog.Events.UnitTests.Utils;
 using Xunit;
 
-namespace OS.Smog.Domain.UnitTests
+namespace OS.Smog.Events.UnitTests
 {
     public class SensorAggregateTests : AggregateTestFixture<SensorAggregate.State>
     {
@@ -30,12 +31,11 @@ namespace OS.Smog.Domain.UnitTests
         public void GivenPreviousEvents_WhenMeasurementWithDecrementingTimestamp_ThenNoEvent()
         {
             // Arrange
-            var m1 = new Measurement {Timestamp = 1493936250, Data = new Data()};
-            var m2 = new Measurement {Timestamp = 1493936251, Data = new Data()};
-            ;
-            var m3 = new Measurement {Timestamp = 1493936252, Data = new Data()};
-            var m4 = new Measurement {Timestamp = 1493936249, Data = new Data()};
-            ;
+            var m1 = new Measurement { Timestamp = 1493936250, Data = new Data() };
+            var m2 = new Measurement { Timestamp = 1493936251, Data = new Data() };
+            
+            var m3 = new Measurement { Timestamp = 1493936252, Data = new Data() };
+            var m4 = new Measurement { Timestamp = 1493936249, Data = new Data() };
 
             Given(new MeasurementRegistered(m1));
             Given(new MeasurementRegistered(m2));
@@ -54,10 +54,9 @@ namespace OS.Smog.Domain.UnitTests
             // Arrange
             var m1 = new Measurement {Timestamp = 1493936250, Data = new Data()};
             var m2 = new Measurement {Timestamp = 1493936251, Data = new Data()};
-            ;
+            
             var m3 = new Measurement {Timestamp = 1493936252, Data = new Data()};
-            var m4 = new Measurement {Timestamp = 1493936253, Data = new Data()};
-            ;
+            var m4 = new Measurement {Timestamp = 1493936253, Data = new Data()};            
 
             Given(new MeasurementRegistered(m1));
             Given(new MeasurementRegistered(m2));

@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace OS.Smog.Domain.UnitTests.Utils
+namespace OS.Smog.Events.UnitTests.Utils
 {
     internal sealed class TypeMethodCallExpressionVisitor : ExpressionVisitor
     {

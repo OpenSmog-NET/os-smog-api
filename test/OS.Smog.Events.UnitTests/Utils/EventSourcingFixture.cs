@@ -2,7 +2,7 @@
 using System.CodeDom.Compiler;
 using System.IO;
 
-namespace OS.Smog.Domain.UnitTests
+namespace OS.Smog.Events.UnitTests.Utils
 {
     public class EventSourcingFixture : IDisposable
     {
