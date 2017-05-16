@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OS.Smog.Domain.UnitTests.Utils
 {
     internal sealed class TypeMethodCallExpressionVisitor : ExpressionVisitor
     {
-        readonly Type toFindCall;
+        private readonly Type toFindCall;
         public MethodInfo Method;
 
         public TypeMethodCallExpressionVisitor(Type toFindCall)

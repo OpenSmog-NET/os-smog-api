@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using OS.Events;
 using OS.Events.Streamstone;
@@ -22,19 +18,20 @@ namespace OS.Smog.Domain.UnitTests
             var client = CloudStorageAccount.DevelopmentStorageAccount.CreateCloudTableClient();
             var table = client.GetTableReference("test");
 
-            await table.CreateIfNotExistsAsync();
+            await table.CreateIfNotExistsAsync()
+                .ConfigureAwait(false);
 
 
             var events = new IEvent[]
             {
-                new MeasurementRegistered(new Measurement() { Timestamp = 1494848616, Data = new Data() { Pm10 = 0.05 }}),
-                new MeasurementRegistered(new Measurement()
+                new MeasurementRegistered(new Measurement {Timestamp = 1494848616, Data = new Data {Pm10 = 0.05}}),
+                new MeasurementRegistered(new Measurement
                 {
                     Timestamp = 1494848616,
-                    Data = new Data() { Pm10 = 0.06f, Pm25 = 10.0f }
+                    Data = new Data {Pm10 = 0.06f, Pm25 = 10.0f}
                 }),
-                new MeasurementRegistered(new Measurement() { Timestamp = 1494848617, Data = new Data() { Pm10 = 0.07 }}),
-                new MeasurementRegistered(new Measurement() { Timestamp = 1494848618, Data = new Data() { Pm10 = 0.08 }}),
+                new MeasurementRegistered(new Measurement {Timestamp = 1494848617, Data = new Data {Pm10 = 0.07}}),
+                new MeasurementRegistered(new Measurement {Timestamp = 1494848618, Data = new Data {Pm10 = 0.08}})
             };
 
             // Act
@@ -43,9 +40,11 @@ namespace OS.Smog.Domain.UnitTests
                 .GetStream();
 
             await stream
-                .Invoke<SensorAggregate.State>(s => events);
+                .Invoke<SensorAggregate.State>(s => events)
+                .ConfigureAwait(false);
 
-            var state = await stream.ReadLatestAsync<SensorAggregate.State>();
+            var state = await stream.ReadLatestAsync<SensorAggregate.State>()
+                .ConfigureAwait(false);
 
             // Assert
             state.TimeStamp.ShouldBe(1494848618);

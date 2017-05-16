@@ -6,6 +6,7 @@
 [Rr]esults
 .dotnet
 *.*ncrunchsolution
+*.*ncrunchproject
 
 # User-specific files
 *.suo

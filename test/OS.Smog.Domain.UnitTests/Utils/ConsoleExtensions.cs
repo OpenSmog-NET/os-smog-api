@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OS.Smog.Domain.UnitTests.Utils
 {
@@ -19,7 +15,7 @@ namespace OS.Smog.Domain.UnitTests.Utils
 
         public class Disposable : IDisposable
         {
-            readonly Action a;
+            private readonly Action a;
 
             public Disposable(Action a)
             {

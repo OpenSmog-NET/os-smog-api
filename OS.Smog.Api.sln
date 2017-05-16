@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Events.Streamstone", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Events", "src\OS.Events\OS.Events.csproj", "{DA6E50A7-A575-4F46-8116-0706FE719492}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Smog.Job", "src\OS.Smog.Job\OS.Smog.Job.csproj", "{1360072E-96B6-4B80-BFB2-395AF74FF6B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OS.Core.WebJobs", "src\OS.Core.WebJobs\OS.Core.WebJobs.csproj", "{DA88E75B-58C4-4352-BF22-7502066A5AE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{DA6E50A7-A575-4F46-8116-0706FE719492}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA6E50A7-A575-4F46-8116-0706FE719492}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA6E50A7-A575-4F46-8116-0706FE719492}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1360072E-96B6-4B80-BFB2-395AF74FF6B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1360072E-96B6-4B80-BFB2-395AF74FF6B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1360072E-96B6-4B80-BFB2-395AF74FF6B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1360072E-96B6-4B80-BFB2-395AF74FF6B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA88E75B-58C4-4352-BF22-7502066A5AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA88E75B-58C4-4352-BF22-7502066A5AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA88E75B-58C4-4352-BF22-7502066A5AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA88E75B-58C4-4352-BF22-7502066A5AE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

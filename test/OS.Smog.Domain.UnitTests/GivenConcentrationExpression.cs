@@ -1,7 +1,7 @@
-﻿using OS.Smog.Dto.Sensors;
-using Shouldly;
-using System.Linq;
+﻿using System.Linq;
 using OS.Smog.Domain.Sensors.Interpreter.Expressions;
+using OS.Smog.Dto.Sensors;
+using Shouldly;
 using Xunit;
 
 namespace OS.Smog.Domain.UnitTests
@@ -13,9 +13,9 @@ namespace OS.Smog.Domain.UnitTests
         {
             // Arrange
             var expression = new COExpression();
-            Payload.Add(new Measurement()
+            Payload.Add(new Measurement
             {
-                Data = new Data() {CO = 10.0f}
+                Data = new Data {CO = 10.0f}
             });
 
             // Act
@@ -30,9 +30,9 @@ namespace OS.Smog.Domain.UnitTests
         {
             // Arrange
             var expression = new COExpression();
-            Payload.Add(new Measurement()
+            Payload.Add(new Measurement
             {
-                Data = new Data() {CO = -10.0f}
+                Data = new Data {CO = -10.0f}
             });
 
             // Act
