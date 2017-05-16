@@ -16,7 +16,7 @@ namespace OS.Smog.Events.UnitTests
         public void GivenNoPreviousEvents_WhenMeasurement_ThenMeasurementRegistered()
         {
             // Arrange
-            var measurement = new Measurement {Timestamp = 1493936250, Data = new Data()};
+            var measurement = new Measurement { Timestamp = 1493936250, Data = new Data() };
 
             Given();
 
@@ -52,11 +52,11 @@ namespace OS.Smog.Events.UnitTests
         public void GivenPreviousEvents_WhenMeasurementWithIncrementingTimestamp_ThenMeasurementReceived()
         {
             // Arrange
-            var m1 = new Measurement {Timestamp = 1493936250, Data = new Data()};
-            var m2 = new Measurement {Timestamp = 1493936251, Data = new Data()};
+            var m1 = new Measurement { Timestamp = 1493936250, Data = new Data() };
+            var m2 = new Measurement { Timestamp = 1493936251, Data = new Data() };
             
-            var m3 = new Measurement {Timestamp = 1493936252, Data = new Data()};
-            var m4 = new Measurement {Timestamp = 1493936253, Data = new Data()};            
+            var m3 = new Measurement { Timestamp = 1493936252, Data = new Data() };
+            var m4 = new Measurement { Timestamp = 1493936253, Data = new Data() };            
 
             Given(new MeasurementRegistered(m1));
             Given(new MeasurementRegistered(m2));
