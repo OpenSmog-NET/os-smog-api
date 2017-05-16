@@ -17,9 +17,7 @@ namespace OS.Smog.Domain.Sensors.Interpreter.Expressions
                 if (!item.Data.Press.HasValue) continue;
 
                 if (!ValueIsInRange(item.Data.Press.Value, PressMin, PressMax))
-                {
                     context.Errors.Add($"{item.Timestamp} : {PressError} ({item.Data.Press.Value}[hPa])");
-                }
             }
 
             return true;

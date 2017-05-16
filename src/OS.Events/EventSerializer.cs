@@ -10,7 +10,7 @@ namespace OS.Events
     public static class EventSerializer
     {
         private static readonly IReadOnlyDictionary<Guid, Type> EventTypeLookup;
-        
+
         static EventSerializer()
         {
             EventTypeLookup = AppDomain.CurrentDomain.GetAssemblies()
@@ -21,7 +21,7 @@ namespace OS.Events
                 .ToDictionary(t => t.GetCustomAttribute<EventTypeIdAttribute>().Id, t => t);
         }
 
-        public static Type[] TryGetTypes(this Assembly assembly)
+        private static Type[] TryGetTypes(this Assembly assembly)
         {
             try
             {

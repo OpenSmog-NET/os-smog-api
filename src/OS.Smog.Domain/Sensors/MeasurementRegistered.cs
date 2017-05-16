@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 using OS.Events;
 using OS.Smog.Dto.Sensors;
 
@@ -13,6 +8,28 @@ namespace OS.Smog.Domain.Sensors
     [DataContract]
     public class MeasurementRegistered : Event
     {
+        public MeasurementRegistered(Measurement measurement)
+        {
+            Timestamp = measurement.Timestamp;
+
+            var data = measurement.Data;
+
+            Pm10 = data.Pm10;
+            Pm25 = data.Pm25;
+            Temp = data.Temp;
+            NO2 = data.NO2;
+            O3 = data.O3;
+            SO2 = data.SO2;
+            Hum = data.Hum;
+            Pb = data.Pb;
+            CO = data.CO;
+            Press = data.Press;
+        }
+
+        public MeasurementRegistered()
+        {
+        }
+
         [DataMember(Order = 1)]
         public int Timestamp { get; set; }
 
@@ -45,28 +62,5 @@ namespace OS.Smog.Domain.Sensors
 
         [DataMember(Order = 11)]
         public double? Press { get; set; }
-
-        public MeasurementRegistered(Measurement measurement)
-        {
-            Timestamp = measurement.Timestamp;
-
-            var data = measurement.Data;
-
-            Pm10 = data.Pm10;
-            Pm25 = data.Pm25;
-            Temp = data.Temp;
-            NO2 = data.NO2;
-            O3 = data.O3;
-            SO2 = data.SO2;
-            Hum = data.Hum;
-            Pb = data.Pb;
-            CO = data.CO;
-            Press = data.Press;
-        }
-
-        public MeasurementRegistered()
-        {
-            
-        }
     }
 }

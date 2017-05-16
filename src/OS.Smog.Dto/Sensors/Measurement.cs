@@ -14,7 +14,7 @@ namespace OS.Smog.Dto.Sensors
         public Data Data { get; set; } = new Data();
 
         /// <summary>
-        /// At least a single measurement has a value?
+        ///     At least a single measurement has a value?
         /// </summary>
         public bool IsNotNull() => Data.Temp.HasValue
                                    || Data.CO.HasValue

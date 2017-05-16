@@ -24,12 +24,8 @@ namespace OS.Smog.Domain.Sensors.Interpreter
         public static void Interpret(PayloadInterpretationContext context)
         {
             foreach (var expression in Expressions)
-            {
                 if (!expression.Interpret(context))
-                {
                     break;
-                }
-            }
         }
     }
 }

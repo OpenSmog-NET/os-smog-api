@@ -13,9 +13,7 @@ namespace OS.Smog.Domain.Sensors.Interpreter.Expressions
             }
 
             if (context.Input.Count == 0)
-            {
                 context.Errors.Add("Request body is empty");
-            }
 
             return !context.HasError;
         }

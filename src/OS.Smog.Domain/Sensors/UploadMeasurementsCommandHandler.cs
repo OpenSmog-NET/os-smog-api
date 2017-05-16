@@ -8,8 +8,8 @@ namespace OS.Smog.Domain.Sensors
 {
     public class UploadMeasurementsCommandHandler : IRequestHandler<UploadMeasurementsCommand, ApiResult>
     {
-        private readonly ILogger<UploadMeasurementsCommandHandler> logger;
         private readonly IHttpContextAccessor contextAccessor;
+        private readonly ILogger<UploadMeasurementsCommandHandler> logger;
 
         public UploadMeasurementsCommandHandler(
             ILogger<UploadMeasurementsCommandHandler> logger,
@@ -31,7 +31,7 @@ namespace OS.Smog.Domain.Sensors
 
             foreach (var error in ctx.Errors)
             {
-                result.Errors.Add(new ApiError() {Type = ApiErrorType.Validation, Message = error});
+                result.Errors.Add(new ApiError {Type = ApiErrorType.Validation, Message = error});
                 logger.LogWarning(error);
             }
 

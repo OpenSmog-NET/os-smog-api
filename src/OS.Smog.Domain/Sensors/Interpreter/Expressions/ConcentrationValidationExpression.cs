@@ -25,9 +25,7 @@ namespace OS.Smog.Domain.Sensors.Interpreter.Expressions
                 if (!value.HasValue) continue;
 
                 if (!ValueIsInRange(value.Value, 0.00, double.MaxValue))
-                {
                     context.Errors.Add($"{item.Timestamp} : {Name} {ConcentrationError} ({value.Value}[{SIUnit}])");
-                }
             }
 
             return true;

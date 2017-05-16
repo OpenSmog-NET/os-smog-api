@@ -17,9 +17,7 @@ namespace OS.Smog.Domain.Sensors.Interpreter.Expressions
                 if (!item.Data.Temp.HasValue) continue;
 
                 if (!ValueIsInRange(item.Data.Temp.Value, TempMin, TempMax))
-                {
                     context.Errors.Add($"{item.Timestamp} : {TempError} ({item.Data.Temp.Value}[C])");
-                }
             }
 
             return true;

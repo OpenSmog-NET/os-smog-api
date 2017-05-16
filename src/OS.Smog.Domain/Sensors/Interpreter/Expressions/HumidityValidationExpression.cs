@@ -15,9 +15,7 @@ namespace OS.Smog.Domain.Sensors.Interpreter.Expressions
                 if (!item.Data.Hum.HasValue) continue;
 
                 if (!ValueIsInRange(item.Data.Hum.Value, 0.0f, 100.0f))
-                {
                     context.Errors.Add($"{item.Timestamp} : {HumidityError} ({item.Data.Hum.Value}[%])");
-                }
             }
 
             return true;

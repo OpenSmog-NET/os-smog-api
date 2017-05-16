@@ -1,18 +1,18 @@
-﻿using MediatR;
+﻿using System.Linq;
+using System.Reflection;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using OS.Smog.Domain;
-using System.Linq;
-using System.Reflection;
 
 namespace OS.Smog.Api
 {
     /// <summary>
-    /// Startup Extensions for setting up the MediatR
+    ///     Startup Extensions for setting up the MediatR
     /// </summary>
     public static class StartupMediatrExtensions
     {
         /// <summary>
-        /// Configures the Mediator. Automatically registers the IRequestHandlers&lt;,&gt;
+        ///     Configures the Mediator. Automatically registers the IRequestHandlers&lt;,&gt;
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
@@ -36,17 +36,13 @@ namespace OS.Smog.Api
                     var handlerType in
                     interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequestHandler<,>))
                 )
-                {
                     services.AddTransient(handlerType.AsType(), type.AsType());
-                }
 
                 foreach (
                     var handlerType in
                     interfaces.Where(
                         i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IAsyncRequestHandler<,>)))
-                {
                     services.AddTransient(handlerType.AsType(), type.AsType());
-                }
             }
 
             return services;
