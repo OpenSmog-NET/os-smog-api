@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
 using Streamstone;
@@ -13,7 +12,7 @@ namespace OS.Events.Streamstone
         private const int SliceSize = 1000;
 
         /// <summary>
-        /// Retrieves the partition
+        ///     Retrieves the partition
         /// </summary>
         /// <param name="table">The Azure Table Storage</param>
         /// <param name="key">Partitioning key (aggregateId)</param>
@@ -24,7 +23,7 @@ namespace OS.Events.Streamstone
         }
 
         /// <summary>
-        /// Retrieves the partition
+        ///     Retrieves the partition
         /// </summary>
         /// <param name="table">The Azure Table Storage</param>
         /// <param name="key">Partitioning key (aggregateId)</param>
@@ -43,7 +42,7 @@ namespace OS.Events.Streamstone
         }
 
         /// <summary>
-        /// Persists a batch of events to storage
+        ///     Persists a batch of events to storage
         /// </summary>
         /// <typeparam name="TState"></typeparam>
         /// <param name="stream"></param>
@@ -58,7 +57,7 @@ namespace OS.Events.Streamstone
         }
 
         /// <summary>
-        /// Read all events from the stream in a batched manner. Apply them to a state and return the recreated latest state.
+        ///     Read all events from the stream in a batched manner. Apply them to a state and return the recreated latest state.
         /// </summary>
         /// <typeparam name="TState">The state</typeparam>
         /// <param name="stream">The event stream from a partition</param>
@@ -70,9 +69,7 @@ namespace OS.Events.Streamstone
             var state = new TState();
 
             if (!(await Stream.TryOpenAsync(stream.Partition)).Found)
-            {
                 return state;
-            }
 
             StreamSlice<EventTableData> slice;
 
@@ -83,7 +80,7 @@ namespace OS.Events.Streamstone
                 if (slice.HasEvents)
                 {
                     StateApplier.Apply(state, slice.Events
-                        .Select((ev) => EventSerializer.Deserialize(ev.Data, ev.EventType))
+                        .Select(ev => EventSerializer.Deserialize(ev.Data, ev.EventType))
                         .ToArray());
 
                     idx = slice.Events.Last().Version + 1;
@@ -92,15 +89,14 @@ namespace OS.Events.Streamstone
                 {
                     idx = -1;
                 }
-            }
-            while (!slice.IsEndOfStream);
+            } while (!slice.IsEndOfStream);
 
             return state;
         }
 
         private static EventData Event(IEvent @event)
         {
-            var ev = new EventTableData()
+            var ev = new EventTableData
             {
                 EventType = @event.GetType().GetEventTypeId().Id,
                 Data = EventSerializer.Serialize(@event)
