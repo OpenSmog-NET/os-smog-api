@@ -67,14 +67,24 @@ namespace OS.Events.Streamstone
         {
             var idx = 1;
             var state = new TState();
+            var rebuildStrategy = state.GetRebuildStrategy();
 
             if (!(await Stream.TryOpenAsync(stream.Partition)).Found)
                 return state;
 
+            switch (rebuildStrategy)
+            {
+                case RebuildStrategy.Latest:
+                    idx = stream.Version;
+                    break;
+                default:
+                    break;
+            }
+
             StreamSlice<EventTableData> slice;
 
             do
-            {
+            {                
                 slice = await Stream.ReadAsync<EventTableData>(stream.Partition, idx, SliceSize);
 
                 if (slice.HasEvents)

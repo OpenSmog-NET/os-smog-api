@@ -14,6 +14,7 @@ namespace OS.Smog.Events.Sensor
             yield return new MeasurementRegistered(measurement);
         }
 
+        [RebuildStrategy(RebuildStrategy.Latest)]
         public class State : BaseState
         {
             public int TimeStamp { get; set; }
