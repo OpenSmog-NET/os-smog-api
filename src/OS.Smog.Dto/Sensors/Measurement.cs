@@ -1,15 +1,19 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace OS.Smog.Dto.Sensors
 {
+    [DataContract]
     public class Measurement
     {
+        [DataMember(Order = 0)]
         [JsonProperty("timestamp")]
         /// <summary>
         /// Unix Epoch Time GMT+0000
         /// </summary>
         public int Timestamp { get; set; }
 
+        [DataMember(Order = 1)]
         [JsonProperty("data")]
         public Data Data { get; set; } = new Data();
 

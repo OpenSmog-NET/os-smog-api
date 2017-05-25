@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="mediatr" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Azure.EventHubs" Version="1.0.1" />
     <PackageReference Include="microsoft.extensions.logging" Version="1.1.1" />
     <PackageReference Include="OS.Core.Api" Version="0.0.1-pre-201705037" />
     <PackageReference Include="protobuf-net" Version="2.1.0" />

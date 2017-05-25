@@ -9,10 +9,10 @@ namespace OS.Smog.Job
             var configuration = Startup.ReadConfiguration();
             var container = Startup.ConfigureServices(configuration);
 
-            var host = WebJobHostConfiguration.Configure(configuration, container,
-                useTimers: false,
-                useServiceBus: false,
-                useEventHubs: true);
+            var webJobSettings = WebJobHostConfiguration.GetSettings(configuration);
+            var host = WebJobHostConfiguration.Configure(configuration, container)
+                .UseEventHubs((c) => c.AddReceiver("os-smog-api-measurements", webJobSettings.GetEventHubConnectionString()))
+                .Build();
 
             host.CallAsync(typeof(SmogWebJob).GetMethod("RunAsync"));
             host.RunAndBlock();

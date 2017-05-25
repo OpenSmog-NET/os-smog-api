@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "OS.Smog.Job": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

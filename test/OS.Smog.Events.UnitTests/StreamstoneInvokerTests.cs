@@ -11,7 +11,7 @@ namespace OS.Smog.Events.UnitTests
 {
     public class StreamstoneInvokerTests
     {
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task GivenEventsWereWrittenToStream_WhenReadingLatestState_ComputedStateShouldBeLatest()
         {
             // Arrange

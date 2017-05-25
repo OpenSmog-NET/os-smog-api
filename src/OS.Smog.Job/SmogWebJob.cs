@@ -5,7 +5,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using OS.Core.WebJobs;
 using OS.Events.Streamstone;
-using OS.Smog.Dto.Sensors;
+using OS.Smog.Dto.Events;
 using OS.Smog.Events.Sensor;
 using System;
 using System.Threading.Tasks;
@@ -24,14 +24,16 @@ namespace OS.Smog.Job
             this.tableClient = CloudStorageAccount.Parse(settings.GetStorageConnectionString()).CreateCloudTableClient();
         }
 
-        public async Task ProcessMeasurement([EventHubTrigger("os-smog-api-measurements")] Measurement measurement)
+        public async Task PersistMeasurement(
+            [EventHubTrigger("os-smog-api-measurements", Connection = "OS.Smog.Job", ConsumerGroup = "$Default")] PersistMeasurementCommand command)
         {
+            // todo: storage account & table reference, can be retrieved based on device's registration data
             var table = tableClient.GetTableReference("measurements");
             await table.CreateIfNotExistsAsync();
 
-            await table.GetPartition("")
+            await table.GetPartition($"{command.DeviceId.ToString()}-{DateTime.UtcNow.Date}")
                 .GetStream()
-                .Invoke<SensorAggregate.State>(s => SensorAggregate.Register(s, measurement));
+                .Invoke<SensorAggregate.State>(s => SensorAggregate.Register(s, command.Measurement));
         }
 
         [NoAutomaticTrigger]

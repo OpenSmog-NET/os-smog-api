@@ -11,9 +11,8 @@ namespace OS.Smog.Job
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json", true, true)
-                .AddJsonFile($"appsettings.{WebJobEnvironment.EnvironmentName}.json", true,
-                    true)
+                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile($"appsettings.{WebJobEnvironment.EnvironmentName}.json", true, true)
                 .AddEnvironmentVariables();
 
             return builder.Build();

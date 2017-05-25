@@ -7,37 +7,53 @@ namespace OS.Core.WebJobs
 {
     public static class WebJobHostConfiguration
     {
-        public static JobHost Configure(IConfiguration configuration, IServiceProvider container,
-            bool useServiceBus = false, bool useEventHubs = false, bool useTimers = false)
+        public static JobHostConfiguration Configure(IConfiguration configuration, IServiceProvider container,
+            bool useTimers = false)
         {
             var settings = GetSettings(configuration);
             var jobHostConfiguration = CreateJobHostConfiguration(container, settings);
-
-            if (useServiceBus)
-            {
-                var svcBusConfig = new ServiceBusConfiguration
-                {
-                    ConnectionString = settings.GetServiceBusConectionString()
-                    // MessageOptions = new OnMessageOptions() { MaxConcurrentCalls = 1 }
-                };
-
-                jobHostConfiguration.UseServiceBus(svcBusConfig);
-            }
-
-            if (useEventHubs)
-            {
-                var evHubConfig = new EventHubConfiguration();
-
-                jobHostConfiguration.UseEventHub(evHubConfig);
-            }
-
+           
             if (useTimers)
                 jobHostConfiguration.UseTimers();
 
-            return new JobHost(jobHostConfiguration);
+            return jobHostConfiguration;
         }
 
-        private static WebJobSettings GetSettings(IConfiguration configuration)
+        public static JobHostConfiguration UseServiceBus(this JobHostConfiguration jobHostConfiguration, IConfiguration configuration)
+        {
+            var settings = GetSettings(configuration);
+
+            var svcBusConfig = new ServiceBusConfiguration
+            {
+                ConnectionString = settings.GetServiceBusConectionString()
+            };
+
+            jobHostConfiguration.UseServiceBus(svcBusConfig);
+
+            return jobHostConfiguration;            
+        }
+
+        public static JobHostConfiguration UseEventHubs(this JobHostConfiguration jobHostConfiguration, 
+            params Action<EventHubConfiguration>[] addReceiverActions)
+        {
+            var evHubConfig = new EventHubConfiguration();
+
+            foreach (var action in addReceiverActions)
+            {
+                action(evHubConfig);
+            }
+
+            jobHostConfiguration.UseEventHub(evHubConfig);
+
+            return jobHostConfiguration;            
+        }
+
+        public static JobHost Build(this JobHostConfiguration configuration)
+        {
+            return new JobHost(configuration);
+        }
+
+        public static WebJobSettings GetSettings(IConfiguration configuration)
         {
             var settings = new WebJobSettings(configuration);
             configuration.GetSection("OpenSmog:WebJob").Bind(settings);
