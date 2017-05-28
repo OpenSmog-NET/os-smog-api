@@ -14,6 +14,8 @@ namespace OS.Smog.Job
 {
     public class SmogWebJob
     {
+        public const string EventHubName = "os-smog-api-measurements";
+
         private const int CancellationInterval = 10;
         private readonly ILogger<SmogWebJob> logger;
         private readonly CloudTableClient tableClient;
@@ -25,7 +27,7 @@ namespace OS.Smog.Job
         }
 
         public async Task PersistMeasurement(
-            [EventHubTrigger("os-smog-api-measurements", Connection = "OS.Smog.Job", ConsumerGroup = "$Default")] PersistMeasurementCommand command)
+            [EventHubTrigger(EventHubName)] PersistMeasurementCommand command)
         {
             // todo: storage account & table reference, can be retrieved based on device's registration data
             var table = tableClient.GetTableReference("measurements");

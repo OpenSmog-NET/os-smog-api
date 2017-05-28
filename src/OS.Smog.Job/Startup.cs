@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using OS.Core.WebJobs;
 
 namespace OS.Smog.Job
@@ -18,11 +19,26 @@ namespace OS.Smog.Job
             return builder.Build();
         }
 
-        public static IServiceProvider ConfigureServices(IConfigurationRoot configuration)
+        public static IServiceProvider ConfigureServices(IConfigurationRoot configuration, WebJobSettings settings)
         {
             var services = new ServiceCollection();
 
+            services
+                .AddSingleton(configuration)
+                .AddSingleton(settings)
+                .AddSingleton<SmogWebJob>();
+
+            ConfigureLogging(services, configuration);
+
             return services.BuildServiceProvider();
+        }
+
+        private static void ConfigureLogging(IServiceCollection services, IConfiguration configuration)
+        {
+            var loggerFactory = new LoggerFactory();
+
+            services.AddSingleton<ILoggerFactory>(loggerFactory);
+            services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
         }
     }
 }
