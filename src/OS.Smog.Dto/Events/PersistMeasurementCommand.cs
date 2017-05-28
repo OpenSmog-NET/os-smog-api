@@ -4,11 +4,12 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using OS.Smog.Dto.Sensors;
 
 namespace OS.Smog.Dto.Events
 {
-    [DataContract]
     public class PersistMeasurementCommand : IntegrationEvent
     {
         public PersistMeasurementCommand(Guid correlationId, Guid deviceId, Measurement measurement)
@@ -25,10 +26,10 @@ namespace OS.Smog.Dto.Events
         {
         }
 
-        [DataMember(Order = 2)]
+        [JsonProperty("deviceId")]
         public Guid DeviceId { get; }
 
-        [DataMember(Order = 3)]
+        [JsonProperty("measurement")]
         public Measurement Measurement { get; }
     }
 }

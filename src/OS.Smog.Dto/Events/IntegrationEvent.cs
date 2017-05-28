@@ -4,6 +4,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace OS.Smog.Dto.Events
 {
@@ -12,10 +14,10 @@ namespace OS.Smog.Dto.Events
     /// </summary>
     public abstract class IntegrationEvent
     {
-        [DataMember(Order = 0)]
+        [JsonProperty("correlationId")]
         public Guid CorrelationId { get; }
 
-        [DataMember(Order = 1)]
+        [JsonProperty("dispatchedAt")]
         public DateTime DispatchedAt { get; }
 
         protected IntegrationEvent(Guid correlationId)

@@ -8,7 +8,12 @@ using OS.Events.Streamstone;
 using OS.Smog.Dto.Events;
 using OS.Smog.Events.Sensor;
 using System;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Azure.EventHubs;
+using Newtonsoft.Json;
+using ProtoBuf;
 
 namespace OS.Smog.Job
 {
@@ -26,10 +31,12 @@ namespace OS.Smog.Job
             this.tableClient = CloudStorageAccount.Parse(settings.GetStorageConnectionString()).CreateCloudTableClient();
         }
 
-        public async Task PersistMeasurement(
-            [EventHubTrigger(EventHubName)] PersistMeasurementCommand command)
+        public async Task PersistMeasurement([EventHubTrigger(EventHubName)] string json)
         {
-            // todo: storage account & table reference, can be retrieved based on device's registration data
+            var command = JsonConvert.DeserializeObject<PersistMeasurementCommand>(json);
+
+            logger.LogInformation($"Processing command: {command.CorrelationId} from device {command.DeviceId}"); 
+            
             var table = tableClient.GetTableReference("measurements");
             await table.CreateIfNotExistsAsync();
 
