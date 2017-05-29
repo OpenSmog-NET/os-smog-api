@@ -63,7 +63,7 @@ namespace OS.Smog.Domain.Sensors
                 
 
                 var cmd = new PersistMeasurementCommand(Guid.NewGuid(), Guid.NewGuid(), payload[i]);
-                var json = JsonConvert.SerializeObject(payload[i]);
+                var json = JsonConvert.SerializeObject(cmd);
 
                 yield return new EventData(Encoding.UTF8.GetBytes(json));
             }
