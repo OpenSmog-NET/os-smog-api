@@ -16,10 +16,17 @@ namespace OS.Smog.Api
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
-                .AddEnvironmentVariables();
+                .SetBasePath(env.ContentRootPath);
+
+            if (env.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
+            builder.AddJsonFile("appsettings.json", false, true)
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
+            .AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
@@ -32,13 +39,13 @@ namespace OS.Smog.Api
             services.AddSingleton<IConfiguration>(Configuration);
 
             // Add EventHub
-            var eventHubCsBuilder= new EventHubsConnectionStringBuilder(Configuration.GetConnectionString("EventHub"))
+            var eventHubCsBuilder = new EventHubsConnectionStringBuilder(Configuration.GetConnectionString("EventHub"))
             {
                 EntityPath = "os-smog-api-measurements"
             };
 
             services.AddSingleton(EventHubClient.CreateFromConnectionString(eventHubCsBuilder.ToString()));
-                                        
+
             // Add framework services.
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();

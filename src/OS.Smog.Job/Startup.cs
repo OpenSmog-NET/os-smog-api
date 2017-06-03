@@ -6,15 +6,21 @@ using OS.Core.WebJobs;
 
 namespace OS.Smog.Job
 {
-    public static class Startup
+    public class Startup
     {
         public static IConfigurationRoot ReadConfiguration()
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile($"appsettings.{WebJobEnvironment.EnvironmentName}.json", true, true)
-                .AddEnvironmentVariables();
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory);
+
+            if (WebJobEnvironment.IsDevelopment)
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
+            builder.AddJsonFile("appsettings.json", false, true)
+            .AddJsonFile($"appsettings.{WebJobEnvironment.EnvironmentName}.json", true, true)
+            .AddEnvironmentVariables();
 
             return builder.Build();
         }

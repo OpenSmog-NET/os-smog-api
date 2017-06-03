@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0-preview1-final" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.0-preview1-final" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0-preview1-final" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.0.0-preview1-final" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0-preview1-final" />
   </ItemGroup>
 
@@ -37,5 +38,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0-msbuild3-final" />
+  </ItemGroup>
+  <PropertyGroup>
+    <UserSecretsId>OpenSmog-c23d27a4-eb88</UserSecretsId>
+  </PropertyGroup>
 </Project>
