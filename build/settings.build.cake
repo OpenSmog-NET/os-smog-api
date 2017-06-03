@@ -72,7 +72,7 @@ var publishFiles = new Action<string, Dictionary<string, string[]>>((app, includ
         Information($"\nPublishing additional files for {app}:");
 
         foreach(var file in includeFiles[app]) {
-            var from = $"./src/{app}/bin/{@configuration}/netcoreapp1.1/{file}";
+            var from = $"./src/{app}/bin/{@configuration}/net462/win7-x86/{file}";
             var to = $"{ArtifactsDir}/apps/{app}";
 
             Information($"\t{file} -> {to}");
@@ -82,3 +82,4 @@ var publishFiles = new Action<string, Dictionary<string, string[]>>((app, includ
 });
 
 #load settings.netcore.cake
+#load settings.webjobs.cake

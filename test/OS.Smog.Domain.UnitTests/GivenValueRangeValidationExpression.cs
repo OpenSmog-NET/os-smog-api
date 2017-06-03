@@ -1,12 +1,25 @@
-using OS.Smog.Domain.Sensors.Expressions;
-using Shouldly;
 using System;
+using OS.Smog.Domain.Sensors.Interpreter.Expressions;
+using Shouldly;
 using Xunit;
 
 namespace OS.Smog.Domain.UnitTests
 {
     public class GivenValueRangeValidationExpression
     {
+        [Fact]
+        public void WhenMinIsGreaterThenMax_ArgumentException()
+        {
+            Should.Throw<ArgumentException>(() =>
+            {
+                // Arrange
+                var expression = new ValueRangeValidationExpression<float>();
+
+                // Act & Assert
+                expression.ValueIsInRange(0.0f, 100.0f, 10.0f);
+            });
+        }
+
         [Fact]
         public void WhenValueIsInRange_True()
         {
@@ -31,19 +44,6 @@ namespace OS.Smog.Domain.UnitTests
 
             // Assert
             result.ShouldBe(false);
-        }
-
-        [Fact]
-        public void WhenMinIsGreaterThenMax_ArgumentException()
-        {
-            Should.Throw<ArgumentException>(() =>
-            {
-                // Arrange
-                var expression = new ValueRangeValidationExpression<float>();
-
-                // Act & Assert
-                expression.ValueIsInRange(0.0f, 100.0f, 10.0f);
-            });
         }
     }
 }

@@ -1,16 +1,15 @@
-﻿using MediatR;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OS.Core;
 using OS.Smog.Domain.Sensors;
 using OS.Smog.Dto.Sensors;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OS.Smog.Api.Controllers
 {
     /// <summary>
-    ///
     /// </summary>
     [Route("v1/[controller]")]
     public class SensorsController : Controller
@@ -18,7 +17,7 @@ namespace OS.Smog.Api.Controllers
         private readonly IMediator mediator;
 
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="mediator">The mediator</param>
         public SensorsController(IMediator mediator)
@@ -27,10 +26,10 @@ namespace OS.Smog.Api.Controllers
         }
 
         /// <summary>
-        /// POST Measurements from a device
+        ///     POST Measurements from a device
         /// </summary>
         /// <remarks>
-        /// Requires Content-Type application/json request header
+        ///     Requires Content-Type application/json request header
         /// </remarks>
         /// <param name="id">Device Id (SUID)</param>
         /// <param name="payload">Body encoded list of device measurement objects</param>
@@ -42,7 +41,7 @@ namespace OS.Smog.Api.Controllers
         [ProducesResponseType(typeof(ApiResult), 200)]
         [ProducesResponseType(typeof(ApiResult), 400)]
         [ProducesResponseType(typeof(ApiResult), 500)]
-        public async Task<IActionResult> Data(Guid id, [FromBody]Payload payload)
+        public async Task<IActionResult> Data(Guid id, [FromBody] Payload payload)
         {
             var response = await mediator.Send(new UploadMeasurementsCommand(payload));
 

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Debugging;
 using Serilog.Events;
 
 namespace OS.Smog.Api
@@ -16,7 +11,7 @@ namespace OS.Smog.Api
     {
         public static ILoggerFactory ConfigureLogging(this ILoggerFactory loggerFactory, IConfiguration configuration)
         {
-            Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
+            SelfLog.Enable(msg => Debug.WriteLine(msg));
             loggerFactory.AddConsole(configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             Log.Logger = new LoggerConfiguration()

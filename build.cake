@@ -15,6 +15,14 @@ var apps = getProjectsDirs(new string [] {
     "OS.Smog.Api"
 });
 
+var webJobs = new Dictionary<string, string>() {
+    { "OS.Smog.Job", ContinuousWebJob }
+};
+
+var webJobHosts = new Dictionary<string, string>() {
+    { "OS.Smog.Job", "OS.Smog.Api" }
+};
+
 var includeFiles = new Dictionary<string, string[]>(){
     {
         "OS.Smog.Api", new[] {
@@ -70,11 +78,20 @@ Task(Publish)
     .WithCriteria(canEmitArtifacts(@branch))
     .Does(() => {
     forEachPath(apps, null, (app) => {
+        Information(app);
         DotNetCorePublish(app, getDotNetCorePublishSettings(app));
     });
 
     forEachPath(apps, getProjectName, (app) => {
         publishFiles(app, includeFiles);
+    });
+
+    forEachPath(webJobs.Keys, null, (job) => {
+        Information(job);
+        DotNetCorePublish($"./src/{job}", getDotNetCoreWebJobPublishSettings(
+            webJobHosts[job],
+            webJobs[job],
+            job));
     });
 }); // Publish
 

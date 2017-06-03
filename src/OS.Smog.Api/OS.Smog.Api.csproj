@@ -4,6 +4,7 @@
     <TargetFramework>net462</TargetFramework>
     <OutputType>exe</OutputType>
     <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+    <UserSecretsId>1a1d7c59-0596-43f4-9d29-976048115dc4</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,7 +19,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\$(Configuration)\netcoreapp1.1\OS.Smog.Api.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\win7-x86\OS.Smog.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +30,8 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Azure.EventHubs" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.0.0-preview1-final" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
     <PackageReference Include="OS.Core.Api" Version="0.0.1-pre-201705037" />
     <PackageReference Include="Serilog" Version="2.4.0" />
@@ -36,6 +39,7 @@
     <PackageReference Include="Serilog.Settings.Configuration" Version="2.2.0" />
     <PackageReference Include="Serilog.Sinks.Literate" Version="2.1.0" />
     <PackageReference Include="Swashbuckle" Version="6.0.0-beta902" />
+    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
@@ -44,4 +48,10 @@
     <ProjectReference Include="..\OS.Smog.Domain\OS.Smog.Domain.csproj" />
     <ProjectReference Include="..\OS.Smog.Dto\OS.Smog.Dto.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0-msbuild3-final" />
+  </ItemGroup>
+  <PropertyGroup>
+    <UserSecretsId>OpenSmog-c23d27a4-eb88</UserSecretsId>
+  </PropertyGroup>
 </Project>
