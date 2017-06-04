@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OS.Core.WebJobs;
+using Serilog;
+using Serilog.Events;
 
 namespace OS.Smog.Job
 {
@@ -42,6 +44,16 @@ namespace OS.Smog.Job
         private static void ConfigureLogging(IServiceCollection services, IConfiguration configuration)
         {
             var loggerFactory = new LoggerFactory();
+
+            loggerFactory.AddConsole(configuration.GetSection("Logging"));
+            
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .MinimumLevel.Override("System", LogEventLevel.Warning)
+                .CreateLogger();
+
+            loggerFactory.AddSerilog();
 
             services.AddSingleton<ILoggerFactory>(loggerFactory);
             services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));

@@ -15,7 +15,6 @@ namespace OS.Smog.Dto.Events
         public PersistMeasurementCommand(Guid correlationId, Guid deviceId, Measurement measurement)
             : this(correlationId)
         {
-            if (correlationId == null) throw new ArgumentNullException(nameof(correlationId));
             if (deviceId == null) throw new ArgumentNullException(nameof(deviceId));
 
             DeviceId = deviceId;
