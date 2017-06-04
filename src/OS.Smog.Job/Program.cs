@@ -1,4 +1,6 @@
-﻿using OS.Core.WebJobs;
+﻿using System;
+using System.Collections;
+using OS.Core.WebJobs;
 
 namespace OS.Smog.Job
 {
@@ -20,8 +22,20 @@ namespace OS.Smog.Job
                 })
                 .Build();
 
-            host.CallAsync(typeof(SmogWebJob).GetMethod("RunAsync"));
-            host.RunAndBlock();
+            try
+            {
+                host.CallAsync(typeof(SmogWebJob).GetMethod("RunAsync"));
+                host.RunAndBlock();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
+                {
+                    Console.WriteLine($"{de.Key} : {de.Value}");
+                }
+            }
         }
     }
 }
