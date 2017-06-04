@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -11,7 +12,7 @@ namespace OS.Smog.Api
     {
         public static ILoggerFactory ConfigureLogging(this ILoggerFactory loggerFactory, IConfiguration configuration)
         {
-            SelfLog.Enable(msg => Debug.WriteLine(msg));
+            Serilog.Debugging.SelfLog.Enable(msg => Debug.WriteLine(msg));
             loggerFactory.AddConsole(configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             Log.Logger = new LoggerConfiguration()

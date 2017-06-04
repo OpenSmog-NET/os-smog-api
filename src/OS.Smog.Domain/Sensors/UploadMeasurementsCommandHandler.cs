@@ -34,7 +34,7 @@ namespace OS.Smog.Domain.Sensors
 
         public async Task<ApiResult> Handle(UploadMeasurementsCommand message)
         {
-            logger.LogInformation("Processing: {@message}", message);
+            logger.LogInformation("Validating: {@message}", message);
 
             var ctx = new PayloadInterpretationContext(message.Payload);
 
@@ -50,7 +50,13 @@ namespace OS.Smog.Domain.Sensors
 
             if (!result.HasError)
             {
+                logger.LogInformation("Validated: {@message}", message);
                 await client.SendAsync(CreateEventData(message.Payload));
+            }
+            else
+            {
+                logger.LogInformation("Failed to validate: {@message}", message);
+
             }
 
             return result;
