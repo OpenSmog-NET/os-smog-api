@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +10,7 @@ using Microsoft.Azure.EventHubs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OS.Core;
+using OS.Core.Middleware;
 using OS.Smog.Domain.Sensors.Interpreter;
 using OS.Smog.Dto.Events;
 using OS.Smog.Dto.Sensors;
@@ -34,7 +36,7 @@ namespace OS.Smog.Domain.Sensors
 
         public async Task<ApiResult> Handle(UploadMeasurementsCommand message)
         {
-            logger.LogInformation("Processing: {@message}", message);
+            logger.LogInformation("Validating: {@message}", message);
 
             var ctx = new PayloadInterpretationContext(message.Payload);
 
@@ -50,7 +52,13 @@ namespace OS.Smog.Domain.Sensors
 
             if (!result.HasError)
             {
+                logger.LogInformation("Validated: {@message}", message);
                 await client.SendAsync(CreateEventData(message.Payload));
+            }
+            else
+            {
+                logger.LogInformation("Failed to validate: {@message}", message);
+
             }
 
             return result;
@@ -60,9 +68,11 @@ namespace OS.Smog.Domain.Sensors
         {
             for (var i = 0; i < payload.Count; i++)
             {
+                var correlationId = Guid.Parse(contextAccessor.HttpContext.Request.Headers[Constants.RequestCorrelation.RequestHeaderName]);
+                var deviceId = Guid.Parse(Regex.Match(contextAccessor.HttpContext.Request.Path.Value, @"([a-z0-9]{8}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{12})").Value);
                 
 
-                var cmd = new PersistMeasurementCommand(Guid.NewGuid(), Guid.NewGuid(), payload[i]);
+                var cmd = new PersistMeasurementCommand(correlationId, deviceId, payload[i]);
                 var json = JsonConvert.SerializeObject(cmd);
 
                 yield return new EventData(Encoding.UTF8.GetBytes(json));

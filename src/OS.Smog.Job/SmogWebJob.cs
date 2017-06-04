@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.EventHubs;
 using Newtonsoft.Json;
 using ProtoBuf;
+using Serilog.Context;
 
 namespace OS.Smog.Job
 {
@@ -35,14 +36,21 @@ namespace OS.Smog.Job
         {
             var command = JsonConvert.DeserializeObject<PersistMeasurementCommand>(json);
 
-            logger.LogInformation($"Processing command: {command.CorrelationId} from device {command.DeviceId}"); 
-            
-            var table = tableClient.GetTableReference("measurements");
-            await table.CreateIfNotExistsAsync();
+            using (LogContext.PushProperty("CorrelationId", command.CorrelationId))
+            {
+                logger.LogInformation($"Received measurements from device {command.DeviceId}");
 
-            await table.GetPartition($"{command.DeviceId.ToString()}-{DateTime.UtcNow.Date}")
-                .GetStream()
-                .Invoke<SensorAggregate.State>(s => SensorAggregate.Register(s, command.Measurement));
+                var table = tableClient.GetTableReference("measurements");
+                await table.CreateIfNotExistsAsync();
+
+                var partitionId = $"{command.DeviceId.ToString()}-{DateTime.UtcNow.Date}";
+
+                logger.LogDebug($"Persisting measurements to {@partitionId}");
+
+                await table.GetPartition(partitionId)
+                    .GetStream()
+                    .Invoke<SensorAggregate.State>(s => SensorAggregate.Register(s, command.Measurement));
+            }
         }
 
         [NoAutomaticTrigger]

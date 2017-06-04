@@ -53,7 +53,12 @@ namespace OS.Events.Streamstone
         {
             var latestState = await stream.ReadLatestAsync<TState>();
 
-            await Stream.WriteAsync(stream, aggregate(latestState).Select(Event).ToArray());
+            var eventData = aggregate(latestState).Select(ToEventData).ToArray();
+
+            if (eventData.Any())
+            {
+                await Stream.WriteAsync(stream, eventData);
+            }
         }
 
         /// <summary>
@@ -104,7 +109,7 @@ namespace OS.Events.Streamstone
             return state;
         }
 
-        private static EventData Event(IEvent @event)
+        private static EventData ToEventData(IEvent @event)
         {
             var ev = new EventTableData
             {

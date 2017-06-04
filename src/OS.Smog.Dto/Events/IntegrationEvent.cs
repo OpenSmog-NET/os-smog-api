@@ -22,6 +22,8 @@ namespace OS.Smog.Dto.Events
 
         protected IntegrationEvent(Guid correlationId)
         {
+            if (correlationId == default(Guid)) throw new ArgumentNullException(nameof(correlationId));
+
             DispatchedAt = DateTime.UtcNow;
             CorrelationId = correlationId;
         }
