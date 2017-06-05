@@ -8,7 +8,9 @@ namespace OS.Smog.Job
     {
         private static void Main(string[] args)
         {
-            var configuration = Startup.ReadConfiguration();
+            try
+            {
+                var configuration = Startup.ReadConfiguration();
             var webJobSettings = WebJobHostConfiguration.GetSettings(configuration);
 
             var container = Startup.ConfigureServices(configuration, webJobSettings);
@@ -22,8 +24,7 @@ namespace OS.Smog.Job
                 })
                 .Build();
 
-            try
-            {
+           
                 host.CallAsync(typeof(SmogWebJob).GetMethod("RunAsync"));
                 host.RunAndBlock();
             }
