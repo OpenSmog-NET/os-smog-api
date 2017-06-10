@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Text;
+using Microsoft.Extensions.Configuration;
 
 namespace OS.Core.WebJobs
 {
@@ -26,5 +27,17 @@ namespace OS.Core.WebJobs
             => configuration.GetConnectionString(ServiceBusConnectionStringName);
 
         public string GetEventHubConnectionString() => configuration.GetConnectionString(EventHubConnectionStringName);
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            sb
+                .AppendLine($"{DashboardConnectionStringName} : {GetDashboardConnectionString()}")
+                .AppendLine($"{StorageConnectionStringName} : {GetStorageConnectionString()}")
+                .AppendLine($"{EventHubConnectionStringName} : {GetEventHubConnectionString()}");
+
+            return sb.ToString();
+        }
     }
 }
