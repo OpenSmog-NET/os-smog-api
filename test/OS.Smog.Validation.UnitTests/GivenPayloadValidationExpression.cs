@@ -1,11 +1,11 @@
-﻿using OS.Smog.Domain.Sensors.Interpreter;
-using OS.Smog.Domain.Sensors.Interpreter.Expressions;
-using OS.Smog.Dto;
+﻿using OS.Smog.Dto;
 using OS.Smog.Dto.Sensors;
+using OS.Smog.Validation.Expressions;
+using OS.Smog.Validation.UnitTests.Utils;
 using Shouldly;
 using Xunit;
 
-namespace OS.Smog.Domain.UnitTests
+namespace OS.Smog.Validation.UnitTests
 {
     public class GivenPayloadValidationExpression : ExpressionTestFixture
     {
@@ -13,7 +13,7 @@ namespace OS.Smog.Domain.UnitTests
         public void WhenRequestBodyIsEmpty_Error()
         {
             // Arrange
-            var expression = new PayloadValidationExpression();
+            var expression = new MeasurementsValidationExpression();
 
             // Act
             expression.Interpret(Context);
@@ -26,7 +26,7 @@ namespace OS.Smog.Domain.UnitTests
         public void WhenRequestBodyIsNotEmpty_NoError()
         {
             // Arrange
-            var expression = new PayloadValidationExpression();
+            var expression = new MeasurementsValidationExpression();
             Payload.Add(new Measurement
             {
                 Data = new Data { Hum = 45.0f }
@@ -43,8 +43,8 @@ namespace OS.Smog.Domain.UnitTests
         public void WhenRequestBodyIsNull_Error()
         {
             // Arrange
-            var expression = new PayloadValidationExpression();
-            var context = new PayloadInterpretationContext(null);
+            var expression = new MeasurementsValidationExpression();
+            var context = new MeasurementsInterpretationContext(null);
 
             // Act
             expression.Interpret(context);

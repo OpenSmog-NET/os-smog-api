@@ -1,10 +1,11 @@
-﻿using OS.Smog.Domain.Sensors.Interpreter.Expressions;
-using OS.Smog.Dto;
+﻿using OS.Smog.Dto;
 using OS.Smog.Dto.Sensors;
+using OS.Smog.Validation.Expressions;
+using OS.Smog.Validation.UnitTests.Utils;
 using Shouldly;
 using Xunit;
 
-namespace OS.Smog.Domain.UnitTests
+namespace OS.Smog.Validation.UnitTests
 {
     public class GivenTempCExpression : ExpressionTestFixture
     {

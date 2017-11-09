@@ -1,16 +1,16 @@
 ﻿using MediatR;
 using OS.Core;
-using OS.Smog.Dto.Sensors;
+using OS.Smog.Dto;
 
 namespace OS.Smog.Domain.Sensors
 {
     public class UploadMeasurementsCommand : IRequest<ApiResult>
     {
-        public UploadMeasurementsCommand(Payload payload)
+        public UploadMeasurementsCommand(Measurements payload)
         {
             Payload = payload;
         }
 
-        public Payload Payload { get; private set; }
+        public Measurements Payload { get; private set; }
     }
 }

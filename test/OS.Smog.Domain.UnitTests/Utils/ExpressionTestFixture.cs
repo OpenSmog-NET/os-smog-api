@@ -1,5 +1,5 @@
 ﻿using OS.Smog.Domain.Sensors.Interpreter;
-using OS.Smog.Dto.Sensors;
+using OS.Smog.Dto;
 
 namespace OS.Smog.Domain.UnitTests
 {
@@ -7,11 +7,11 @@ namespace OS.Smog.Domain.UnitTests
     {
         protected ExpressionTestFixture()
         {
-            Payload = new Payload();
+            Payload = new Measurements();
             Context = new PayloadInterpretationContext(Payload);
         }
 
-        public Payload Payload { get; }
+        public Measurements Payload { get; }
         public PayloadInterpretationContext Context { get; }
     }
 }

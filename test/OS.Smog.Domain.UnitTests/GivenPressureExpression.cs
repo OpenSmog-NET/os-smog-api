@@ -1,4 +1,5 @@
 ﻿using OS.Smog.Domain.Sensors.Interpreter.Expressions;
+using OS.Smog.Dto;
 using OS.Smog.Dto.Sensors;
 using Shouldly;
 using Xunit;
@@ -14,7 +15,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new PressureValidationExpression();
             Payload.Add(new Measurement
             {
-                Data = new Data {Press = 1020.0f}
+                Data = new Data { Press = 1020.0f }
             });
 
             // Act
@@ -32,7 +33,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new PressureValidationExpression();
             Payload.Add(new Measurement
             {
-                Data = new Data {Press = 799.0f}
+                Data = new Data { Press = 799.0f }
             });
 
             // Act
@@ -49,7 +50,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new PressureValidationExpression();
             Payload.Add(new Measurement
             {
-                Data = new Data {Press = 1201.0f}
+                Data = new Data { Press = 1201.0f }
             });
 
             // Act

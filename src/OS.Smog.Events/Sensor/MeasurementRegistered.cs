@@ -1,6 +1,6 @@
-﻿using System.Runtime.Serialization;
-using OS.Events;
-using OS.Smog.Dto.Sensors;
+﻿using OS.Events;
+using OS.Smog.Dto;
+using System.Runtime.Serialization;
 
 namespace OS.Smog.Events.Sensor
 {

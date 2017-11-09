@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using OS.Events;
-using OS.Smog.Dto.Sensors;
+﻿using OS.Events;
+using OS.Smog.Dto;
+using System.Collections.Generic;
 
 namespace OS.Smog.Events.Sensor
 {

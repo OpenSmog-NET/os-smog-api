@@ -1,21 +1,22 @@
-﻿using OS.Smog.Domain.Sensors.Interpreter.Expressions;
-using OS.Smog.Dto;
+﻿using OS.Smog.Dto;
 using OS.Smog.Dto.Sensors;
+using OS.Smog.Validation.Expressions;
+using OS.Smog.Validation.UnitTests.Utils;
 using Shouldly;
 using Xunit;
 
-namespace OS.Smog.Domain.UnitTests
+namespace OS.Smog.Validation.UnitTests
 {
-    public class GivenTempCExpression : ExpressionTestFixture
+    public class GivenPressureExpression : ExpressionTestFixture
     {
         [Fact]
-        public void WhenTempIsInRange_NoError()
+        public void WhenPressIsInRange_NoError()
         {
             // Arrange
-            var expression = new TempCValidationExpression();
+            var expression = new PressureValidationExpression();
             Payload.Add(new Measurement
             {
-                Data = new Data { Temp = 45.0f }
+                Data = new Data { Press = 1020.0f }
             });
 
             // Act
@@ -26,14 +27,14 @@ namespace OS.Smog.Domain.UnitTests
         }
 
         [Fact]
-        public void WhenTempIsLessThenNegative100_Error()
+        public void WhenPressIsLessThen800hPa_Error()
 
         {
             // Arrange
-            var expression = new TempCValidationExpression();
+            var expression = new PressureValidationExpression();
             Payload.Add(new Measurement
             {
-                Data = new Data { Temp = -101.0f }
+                Data = new Data { Press = 799.0f }
             });
 
             // Act
@@ -44,13 +45,13 @@ namespace OS.Smog.Domain.UnitTests
         }
 
         [Fact]
-        public void WhenTempIsMoreThen100_Error()
+        public void WhenPressIsMoreThen1200_Error()
         {
             // Arrange
-            var expression = new TempCValidationExpression();
+            var expression = new PressureValidationExpression();
             Payload.Add(new Measurement
             {
-                Data = new Data { Temp = 101.0f }
+                Data = new Data { Press = 1201.0f }
             });
 
             // Act

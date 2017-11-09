@@ -1,13 +1,12 @@
-﻿using OS.Core.Interpreter;
-using OS.Smog.Dto;
+﻿using OS.Smog.Dto;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OS.Smog.Domain.Sensors.Interpreter
+namespace OS.Smog.Validation
 {
-    public class PayloadInterpretationContext : IInterpretationContext<IList<Measurement>>
+    public class MeasurementsInterpretationContext : IInterpretationContext<IList<Measurement>>
     {
-        public PayloadInterpretationContext(IList<Measurement> input)
+        public MeasurementsInterpretationContext(IList<Measurement> input)
         {
             Input = input;
         }

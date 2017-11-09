@@ -1,8 +1,7 @@
-﻿using System.Linq;
-using System.Reflection;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using OS.Smog.Domain;
+using System.Linq;
+using System.Reflection;
 
 namespace OS.Smog.Api
 {
@@ -19,9 +18,9 @@ namespace OS.Smog.Api
         public static IServiceCollection AddMediator(this IServiceCollection services)
         {
             services.AddScoped<IMediator, Mediator>();
-            services.AddTransient<SingleInstanceFactory>(sp => t => sp.GetService(t));
-            services.AddTransient<MultiInstanceFactory>(sp => t => sp.GetServices(t));
-            return services.AddMediatorHandlers(typeof(DomainModule).GetTypeInfo().Assembly);
+            services.AddTransient<SingleInstanceFactory>(sp => sp.GetService);
+            services.AddTransient<MultiInstanceFactory>(sp => sp.GetServices);
+            return services.AddMediatorHandlers(typeof(Startup).GetTypeInfo().Assembly);
         }
 
         private static IServiceCollection AddMediatorHandlers(this IServiceCollection services, Assembly assembly)

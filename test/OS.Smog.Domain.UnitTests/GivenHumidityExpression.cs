@@ -1,4 +1,5 @@
 ﻿using OS.Smog.Domain.Sensors.Interpreter.Expressions;
+using OS.Smog.Dto;
 using OS.Smog.Dto.Sensors;
 using Shouldly;
 using Xunit;
@@ -14,7 +15,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new HumidityValidationExpression();
             Payload.Add(new Measurement
             {
-                Data = new Data {Hum = 45.0f}
+                Data = new Data { Hum = 45.0f }
             });
 
             // Act
@@ -31,7 +32,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new HumidityValidationExpression();
             Payload.Add(new Measurement
             {
-                Data = new Data {Hum = -1.0f}
+                Data = new Data { Hum = -1.0f }
             });
 
             // Act
@@ -48,7 +49,7 @@ namespace OS.Smog.Domain.UnitTests
             var expression = new HumidityValidationExpression();
             Payload.Add(new Measurement
             {
-                Data = new Data {Hum = 101.0f}
+                Data = new Data { Hum = 101.0f }
             });
 
             // Act

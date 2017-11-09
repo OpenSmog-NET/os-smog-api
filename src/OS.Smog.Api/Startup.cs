@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.Azure.EventHubs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -39,12 +38,12 @@ namespace OS.Smog.Api
             services.AddSingleton<IConfiguration>(Configuration);
 
             // Add EventHub
-            var eventHubCsBuilder = new EventHubsConnectionStringBuilder(Configuration.GetConnectionString("EventHub"))
-            {
-                EntityPath = "os-smog-api-measurements"
-            };
+            //var eventHubCsBuilder = new EventHubsConnectionStringBuilder(Configuration.GetConnectionString("EventHub"))
+            //{
+            //    EntityPath = "os-smog-api-measurements"
+            //};
 
-            services.AddSingleton(EventHubClient.CreateFromConnectionString(eventHubCsBuilder.ToString()));
+            //services.AddSingleton(EventHubClient.CreateFromConnectionString(eventHubCsBuilder.ToString()));
 
             // Add framework services.
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();

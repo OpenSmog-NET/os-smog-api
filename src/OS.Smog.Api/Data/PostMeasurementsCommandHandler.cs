@@ -2,33 +2,37 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using OS.Core;
-using OS.Smog.Domain.Sensors.Interpreter;
+using OS.Smog.Validation;
+
+//using OS.Smog.Domain.Sensors.Interpreter;
 using System.Threading.Tasks;
 
-namespace OS.Smog.Domain.Sensors
+namespace OS.Smog.Api.Data
 {
-    public class UploadMeasurementsCommandHandler : IAsyncRequestHandler<UploadMeasurementsCommand, ApiResult>
+    public class PostMeasurementsCommandHandler : IAsyncRequestHandler<PostMeasurementsCommand, ApiResult>
     {
         private readonly IHttpContextAccessor contextAccessor;
-        private readonly ILogger<UploadMeasurementsCommandHandler> logger;
+        private readonly ILogger<PostMeasurementsCommandHandler> logger;
 
-        public UploadMeasurementsCommandHandler(
-            ILogger<UploadMeasurementsCommandHandler> logger,
+        public PostMeasurementsCommandHandler(
+            ILogger<PostMeasurementsCommandHandler> logger,
             IHttpContextAccessor contextAccessor)
         {
             this.logger = logger;
             this.contextAccessor = contextAccessor;
         }
 
-        public async Task<ApiResult> Handle(UploadMeasurementsCommand message)
+        public async Task<ApiResult> Handle(PostMeasurementsCommand command)
         {
-            logger.LogInformation("Validating: {@message}", message);
+            logger.LogInformation("Validating: {@message}", command);
 
-            var ctx = new PayloadInterpretationContext(message.Payload);
+            var ctx = new MeasurementsInterpretationContext(command);
 
-            PayloadInterpreter.Interpret(ctx);
+            MeasurementsInterpreter.Interpret(ctx);
 
             var result = new ApiResult(contextAccessor.HttpContext);
+
+            await Task.FromResult(0); // (!)
 
             foreach (var error in ctx.Errors)
             {
@@ -37,7 +41,7 @@ namespace OS.Smog.Domain.Sensors
             }
 
             logger.LogInformation(!result.HasError ? "Validated: {@message}" : "Failed to validate: {@message}",
-                message);
+                command);
 
             return result;
         }

@@ -1,24 +1,21 @@
-﻿using System.Runtime.Serialization;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using OS.Smog.Dto.Sensors;
 
-namespace OS.Smog.Dto.Sensors
+namespace OS.Smog.Dto
 {
-    [DataContract]
     public class Measurement
     {
-        [DataMember(Order = 0)]
-        [JsonProperty("timestamp")]
         /// <summary>
         /// Unix Epoch Time GMT+0000
         /// </summary>
+        [JsonProperty("timestamp")]
         public int Timestamp { get; set; }
 
-        [DataMember(Order = 1)]
         [JsonProperty("data")]
         public Data Data { get; set; } = new Data();
 
         /// <summary>
-        ///     At least a single measurement has a value?
+        /// At least a single measurement has a value?
         /// </summary>
         public bool IsNotNull() => Data.Temp.HasValue
                                    || Data.CO.HasValue
