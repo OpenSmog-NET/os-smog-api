@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using OS.Core.Middleware;
+using OS.Smog.ServiceBus;
 
 namespace OS.Smog.Api
 {
@@ -53,7 +54,8 @@ namespace OS.Smog.Api
                 .AddMVC()
                 .AddLogging()
                 .AddSwagger()
-                .AddMediator();
+                .AddMediator()
+                .AddServiceBus();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -42,7 +42,7 @@ namespace OS.Smog.Api.Data
         [ProducesResponseType(typeof(ApiResult), 500)]
         public async Task<IActionResult> Data(Guid id, [FromBody] Measurements data)
         {
-            var response = await mediator.Send(new PostMeasurementsCommand(id, data));
+            var response = await mediator.Send(new ValidateMeasurementsCommand(id, data));
 
             switch (response.HasError)
             {

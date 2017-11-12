@@ -6,15 +6,15 @@ using System.Collections.Generic;
 
 namespace OS.Smog.Api.Data
 {
-    public class PostMeasurementsCommand : List<Measurement>, IRequest<ApiResult>
+    public class ValidateMeasurementsCommand : List<Measurement>, IRequest<ApiResult>
     {
-        public PostMeasurementsCommand(Guid id, IEnumerable<Measurement> data)
+        public ValidateMeasurementsCommand(Guid id, IEnumerable<Measurement> data)
         {
             Id = id;
 
             this.AddRange(data);
         }
 
-        public Guid Id { get; private set; }
+        public Guid Id { get; }
     }
 }
