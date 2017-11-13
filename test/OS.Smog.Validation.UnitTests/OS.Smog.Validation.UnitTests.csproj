@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OS.Smog.Dto\OS.Smog.Dto.csproj" />
     <ProjectReference Include="..\..\src\OS.Smog.Validation\OS.Smog.Validation.csproj" />
   </ItemGroup>
 </Project>

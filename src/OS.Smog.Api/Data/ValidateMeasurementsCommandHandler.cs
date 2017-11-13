@@ -43,7 +43,7 @@ namespace OS.Smog.Api.Data
             }
             else
             {
-                await mediator.Publish(new MeasurementsValidated(command.Id, command));
+                await mediator.Publish(new MeasurementsValidated(command.DeviceId, command));
             }
 
             logger.LogInformation(!result.HasError ? "Validated: {@message}" : "Failed to validate: {@message}",

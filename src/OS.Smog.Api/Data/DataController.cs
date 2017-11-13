@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OS.Core;
-using OS.Smog.Dto;
+using OS.Dto;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

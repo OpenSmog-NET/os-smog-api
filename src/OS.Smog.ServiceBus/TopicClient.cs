@@ -1,5 +1,6 @@
 ﻿using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
+using OS.Events;
 using System.Threading.Tasks;
 
 namespace OS.Smog.ServiceBus
@@ -26,6 +27,7 @@ namespace OS.Smog.ServiceBus
         }
 
         public async Task SendAsync<T>(T message)
+            where T : IDomainEvent
         {
             await client.SendAsync(new BrokeredMessage(message));
         }

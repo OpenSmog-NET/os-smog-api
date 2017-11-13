@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using OS.Smog.Dto;
+using OS.Dto;
 using System;
 using System.Collections.Generic;
 
@@ -7,12 +7,12 @@ namespace OS.Smog.Api.Data
 {
     public class MeasurementsValidated : List<Measurement>, INotification
     {
-        public MeasurementsValidated(Guid correlationId, IEnumerable<Measurement> data)
+        public MeasurementsValidated(Guid deviceId, IEnumerable<Measurement> data)
         {
-            CorrelationId = correlationId;
+            DeviceId = deviceId;
             this.AddRange(data);
         }
 
-        public Guid CorrelationId { get; }
+        public Guid DeviceId { get; }
     }
 }

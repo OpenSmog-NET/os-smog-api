@@ -49,7 +49,6 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OS.Smog.Dto\OS.Smog.Dto.csproj" />
     <ProjectReference Include="..\OS.Smog.ServiceBus\OS.Smog.ServiceBus.csproj" />
     <ProjectReference Include="..\OS.Smog.Validation\OS.Smog.Validation.csproj" />
   </ItemGroup>

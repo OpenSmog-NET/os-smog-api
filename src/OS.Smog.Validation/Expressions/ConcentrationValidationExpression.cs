@@ -1,4 +1,4 @@
-﻿using OS.Smog.Dto.Sensors;
+﻿using OS.Dto;
 using System;
 
 namespace OS.Smog.Validation.Expressions
