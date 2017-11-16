@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  os.smog.api:
+    image: os.smog.api
+    build:
+      context: ./src/OS.Smog.Api
+      dockerfile: Dockerfile

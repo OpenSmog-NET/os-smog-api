@@ -1,0 +1,50 @@
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using System.Reflection;
+
+namespace OS.Smog.Api
+{
+    /// <summary>
+    ///     Startup Extensions for setting up the MediatR
+    /// </summary>
+    public static class StartupMediatrExtensions
+    {
+        /// <summary>
+        ///     Configures the Mediator. Automatically registers the IRequestHandlers&lt;,&gt;
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddMediator(this IServiceCollection services)
+        {
+            services.AddScoped<IMediator, Mediator>();
+            services.AddTransient<SingleInstanceFactory>(sp => sp.GetService);
+            services.AddTransient<MultiInstanceFactory>(sp => sp.GetServices);
+            return services.AddMediatorHandlers(typeof(Startup).GetTypeInfo().Assembly);
+        }
+
+        private static IServiceCollection AddMediatorHandlers(this IServiceCollection services, Assembly assembly)
+        {
+            var classTypes = assembly.ExportedTypes.Select(t => t.GetTypeInfo()).Where(t => t.IsClass && !t.IsAbstract);
+
+            foreach (var type in classTypes)
+            {
+                var interfaces = type.ImplementedInterfaces.Select(i => i.GetTypeInfo()).ToList();
+
+                interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequestHandler<,>))
+                    .ToList()
+                    .ForEach(i => services.AddTransient(i.AsType(), type.AsType()));
+
+                interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IAsyncRequestHandler<,>))
+                    .ToList()
+                    .ForEach(i => services.AddTransient(i.AsType(), type.AsType()));
+
+                interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IAsyncNotificationHandler<>))
+                    .ToList()
+                    .ForEach(i => services.AddTransient(i.AsType(), type.AsType()));
+            }
+
+            return services;
+        }
+    }
+}
