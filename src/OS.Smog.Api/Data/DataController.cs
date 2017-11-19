@@ -1,9 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OS.Core;
-using OS.Dto;
+using OS.Dto.v1;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OS.Smog.Api.Data
@@ -42,15 +41,17 @@ namespace OS.Smog.Api.Data
         [ProducesResponseType(typeof(ApiResult), 500)]
         public async Task<IActionResult> Data(Guid id, [FromBody] Measurements data)
         {
-            var response = await mediator.Send(new ValidateMeasurementsCommand(id, data));
+            var @event = await mediator.Send(new ValidateMeasurementsCommand(id, data));
 
-            switch (response.HasError)
+            if (@event is MeasurementsValidationFailed mvf)
             {
-                case true when response.Errors.Any(x => x.Type == ApiErrorType.Validation):
-                    return BadRequest(response);
+                return BadRequest(mvf.Result);
             }
 
-            return Ok(response);
+            if (@event != null) await mediator.Send((IRequest)@event);
+
+            return Ok();
+            //return Ok(events);
         }
     }
 }

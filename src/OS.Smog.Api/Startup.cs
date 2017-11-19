@@ -38,14 +38,6 @@ namespace OS.Smog.Api
             services.AddSingleton<IConfigurationRoot>(Configuration);
             services.AddSingleton<IConfiguration>(Configuration);
 
-            // Add EventHub
-            //var eventHubCsBuilder = new EventHubsConnectionStringBuilder(Configuration.GetConnectionString("EventHub"))
-            //{
-            //    EntityPath = "os-smog-api-measurements"
-            //};
-
-            //services.AddSingleton(EventHubClient.CreateFromConnectionString(eventHubCsBuilder.ToString()));
-
             // Add framework services.
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -55,6 +47,7 @@ namespace OS.Smog.Api
                 .AddLogging()
                 .AddSwagger()
                 .AddMediator()
+                .AddMarten(Configuration)
                 .AddServiceBus();
         }
 
@@ -63,7 +56,6 @@ namespace OS.Smog.Api
         {
             loggerFactory.ConfigureLogging(Configuration);
 
-            //app.UseOpenSmogMiddlewares();
             app.UseMiddleware<CorrelationIdMiddleware>();
             app.UseMiddleware<RequestLoggingMiddleware>();
             app.UseSwaggerMiddleware();

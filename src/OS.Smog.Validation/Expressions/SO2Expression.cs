@@ -1,4 +1,4 @@
-﻿using OS.Dto;
+﻿using OS.Dto.v1;
 using System;
 
 namespace OS.Smog.Validation.Expressions

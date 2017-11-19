@@ -7,9 +7,8 @@
 
         public bool Interpret(MeasurementsInterpretationContext context)
         {
-            for (var i = 0; i < context.Input.Count; i++)
+            foreach (var item in context.Input)
             {
-                var item = context.Input[i];
                 if (!item.Data.Hum.HasValue) continue;
 
                 if (!ValueIsInRange(item.Data.Hum.Value, 0.0f, 100.0f))

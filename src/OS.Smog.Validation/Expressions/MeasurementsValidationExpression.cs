@@ -1,4 +1,6 @@
-﻿namespace OS.Smog.Validation.Expressions
+﻿using System.Linq;
+
+namespace OS.Smog.Validation.Expressions
 {
     public class MeasurementsValidationExpression : IExpression<MeasurementsInterpretationContext>
     {
@@ -10,7 +12,7 @@
                 return false;
             }
 
-            if (context.Input.Count == 0)
+            if (!context.Input.Any())
                 context.Errors.Add("Request body is empty");
 
             return !context.HasError;

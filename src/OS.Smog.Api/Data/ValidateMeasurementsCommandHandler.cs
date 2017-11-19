@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using OS.Core;
+using OS.Events;
 using OS.Smog.Validation;
-using System.Threading.Tasks;
 
 namespace OS.Smog.Api.Data
 {
-    public class ValidateMeasurementsCommandHandler : IAsyncRequestHandler<ValidateMeasurementsCommand, ApiResult>
+    public class ValidateMeasurementsCommandHandler : IRequestHandler<ValidateMeasurementsCommand, IDomainEvent>
     {
         private readonly IMediator mediator;
         private readonly IHttpContextAccessor contextAccessor;
@@ -23,33 +23,27 @@ namespace OS.Smog.Api.Data
             this.contextAccessor = contextAccessor;
         }
 
-        public async Task<ApiResult> Handle(ValidateMeasurementsCommand command)
+        public IDomainEvent Handle(ValidateMeasurementsCommand command)
         {
             logger.LogInformation("Validating: {@message}", command);
 
-            var ctx = new MeasurementsInterpretationContext(command);
+            var ctx = new MeasurementsInterpretationContext(command.Data);
 
             MeasurementsInterpreter.Interpret(ctx);
 
-            var result = new ApiResult(contextAccessor.HttpContext);
-
             if (ctx.HasError)
             {
+                var result = new ApiResult(contextAccessor.HttpContext);
                 foreach (var error in ctx.Errors)
                 {
                     result.Errors.Add(new ApiError { Type = ApiErrorType.Validation, Message = error });
                     logger.LogWarning(error);
                 }
-            }
-            else
-            {
-                await mediator.Publish(new MeasurementsValidated(command.DeviceId, command));
+
+                return new MeasurementsValidationFailed(result);
             }
 
-            logger.LogInformation(!result.HasError ? "Validated: {@message}" : "Failed to validate: {@message}",
-                command);
-
-            return result;
+            return new MeasurementsValidated(command.DeviceId, command.Data);
         }
     }
 }

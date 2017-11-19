@@ -1,4 +1,4 @@
-﻿using OS.Dto;
+﻿using OS.Dto.v1;
 using OS.Smog.Validation.Expressions;
 using OS.Smog.Validation.UnitTests.Utils;
 using Shouldly;

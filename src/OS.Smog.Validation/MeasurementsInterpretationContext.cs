@@ -1,18 +1,18 @@
-﻿using OS.Dto;
+﻿using OS.Dto.v1;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace OS.Smog.Validation
 {
-    public class MeasurementsInterpretationContext : IInterpretationContext<IList<Measurement>>
+    public class MeasurementsInterpretationContext : IInterpretationContext<IEnumerable<Measurement>>
     {
-        public MeasurementsInterpretationContext(IList<Measurement> input)
+        public MeasurementsInterpretationContext(IEnumerable<Measurement> input)
         {
             Input = input;
         }
 
         public bool HasError => Errors.Any();
         public IList<string> Errors { get; } = new List<string>();
-        public IList<Measurement> Input { get; }
+        public IEnumerable<Measurement> Input { get; }
     }
 }

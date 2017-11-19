@@ -1,4 +1,4 @@
-﻿using OS.Dto;
+﻿using OS.Dto.v1;
 using System;
 
 namespace OS.Smog.Validation.Expressions
@@ -16,9 +16,8 @@ namespace OS.Smog.Validation.Expressions
 
         public bool Interpret(MeasurementsInterpretationContext context)
         {
-            for (var i = 0; i < context.Input.Count; i++)
+            foreach (var item in context.Input)
             {
-                var item = context.Input[i];
                 var value = ValueProvider(item.Data);
 
                 if (!value.HasValue) continue;

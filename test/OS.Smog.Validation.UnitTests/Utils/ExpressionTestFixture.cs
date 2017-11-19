@@ -1,4 +1,4 @@
-﻿using OS.Dto;
+﻿using OS.Dto.v1;
 
 namespace OS.Smog.Validation.UnitTests.Utils
 {

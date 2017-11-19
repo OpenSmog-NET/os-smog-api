@@ -9,9 +9,8 @@
 
         public bool Interpret(MeasurementsInterpretationContext context)
         {
-            for (var i = 0; i < context.Input.Count; i++)
+            foreach (var item in context.Input)
             {
-                var item = context.Input[i];
                 if (!item.Data.Temp.HasValue) continue;
 
                 if (!ValueIsInRange(item.Data.Temp.Value, TempMin, TempMax))
