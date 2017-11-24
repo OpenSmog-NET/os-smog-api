@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace OS.Smog.Api.Data
 {
-    public class ValidateMeasurementsRequest : IRequest<MeasurementsValidationResponse>
+    public class ValidateMeasurementsRequest : IRequest<ValidateMeasurementsResponse>
     {
         public ValidateMeasurementsRequest(Guid deviceId, IEnumerable<Measurement> data)
         {

@@ -6,7 +6,7 @@ using OS.Smog.Validation;
 
 namespace OS.Smog.Api.Data
 {
-    public class ValidateMeasurementsRequestHandler : IRequestHandler<ValidateMeasurementsRequest, MeasurementsValidationResponse>
+    public class ValidateMeasurementsRequestHandler : IRequestHandler<ValidateMeasurementsRequest, ValidateMeasurementsResponse>
     {
         private readonly IMediator mediator;
         private readonly IHttpContextAccessor contextAccessor;
@@ -22,7 +22,7 @@ namespace OS.Smog.Api.Data
             this.contextAccessor = contextAccessor;
         }
 
-        public MeasurementsValidationResponse Handle(ValidateMeasurementsRequest command)
+        public ValidateMeasurementsResponse Handle(ValidateMeasurementsRequest command)
         {
             logger.LogInformation("Validating: {@message}", command);
 
@@ -39,10 +39,10 @@ namespace OS.Smog.Api.Data
                     logger.LogWarning(error);
                 }
 
-                return new MeasurementsValidationResponse(false, result);
+                return new ValidateMeasurementsResponse(false, result);
             }
 
-            return new MeasurementsValidationResponse(true);
+            return new ValidateMeasurementsResponse(true);
         }
     }
 }
