@@ -2,19 +2,18 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using OS.Core;
-using OS.Events;
 using OS.Smog.Validation;
 
 namespace OS.Smog.Api.Data
 {
-    public class ValidateMeasurementsCommandHandler : IRequestHandler<ValidateMeasurementsCommand, IDomainEvent>
+    public class ValidateMeasurementsRequestHandler : IRequestHandler<ValidateMeasurementsRequest, MeasurementsValidationResponse>
     {
         private readonly IMediator mediator;
         private readonly IHttpContextAccessor contextAccessor;
-        private readonly ILogger<ValidateMeasurementsCommandHandler> logger;
+        private readonly ILogger<ValidateMeasurementsRequestHandler> logger;
 
-        public ValidateMeasurementsCommandHandler(
-            ILogger<ValidateMeasurementsCommandHandler> logger,
+        public ValidateMeasurementsRequestHandler(
+            ILogger<ValidateMeasurementsRequestHandler> logger,
             IMediator mediator,
             IHttpContextAccessor contextAccessor)
         {
@@ -23,7 +22,7 @@ namespace OS.Smog.Api.Data
             this.contextAccessor = contextAccessor;
         }
 
-        public IDomainEvent Handle(ValidateMeasurementsCommand command)
+        public MeasurementsValidationResponse Handle(ValidateMeasurementsRequest command)
         {
             logger.LogInformation("Validating: {@message}", command);
 
@@ -40,10 +39,10 @@ namespace OS.Smog.Api.Data
                     logger.LogWarning(error);
                 }
 
-                return new MeasurementsValidationFailed(result);
+                return new MeasurementsValidationResponse(false, result);
             }
 
-            return new MeasurementsValidated(command.DeviceId, command.Data);
+            return new MeasurementsValidationResponse(true);
         }
     }
 }

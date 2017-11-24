@@ -2,24 +2,22 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using OS.Core.Middleware;
 using OS.Core.Queues;
-using OS.Events;
-using System;
+using OS.Data.v1;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace OS.Smog.Api.Data
 {
-    public class MeasurementsValidatedEventHandler : IAsyncRequestHandler<MeasurementsValidated, IDomainEvent>
+    public class PersistMeasurementsRequestHandler : IAsyncRequestHandler<PersistMeasurementsRequest, PersistMeasurementsResponse>
     {
-        private readonly ILogger<MeasurementsValidatedEventHandler> logger;
+        private readonly ILogger<PersistMeasurementsRequestHandler> logger;
         private readonly IHttpContextAccessor contextAccessor;
         private readonly IDocumentStore store;
         private readonly IQueueClient client;
 
-        public MeasurementsValidatedEventHandler(
-                ILogger<MeasurementsValidatedEventHandler> logger,
+        public PersistMeasurementsRequestHandler(
+                ILogger<PersistMeasurementsRequestHandler> logger,
                 IHttpContextAccessor contextAccessor,
                 IDocumentStore store,
                 IQueueClient client)
@@ -30,31 +28,35 @@ namespace OS.Smog.Api.Data
             this.client = client;
         }
 
-        public async Task<IDomainEvent> Handle(MeasurementsValidated message)
+        public async Task<PersistMeasurementsResponse> Handle(PersistMeasurementsRequest request)
         {
-            message.CorrelationId = Guid.Parse(contextAccessor.HttpContext.Request.Headers[Constants.RequestCorrelation.RequestHeaderName]);
-
-            //await client.SendAsync(message, "measurements");
-            //var data = new OS.Data.v1.MeasurementData()
-            //{
-            //    //CorrelationId = correlationId,
-            //    //DeviceId = notification.DeviceId,
-            //    //Measurements = notification.Data.ToArray()
-            //};
+            //message = Guid.Parse(contextAccessor.HttpContext.Request.Headers[Constants.RequestCorrelation.RequestHeaderName]);
 
             using (var session = store.OpenSession())
             {
-                session.Store(message.Data.Select(x => MeasurementDataMapper.Map(x, message)));
-                session.SaveChanges();
+                var latestMeasurement = await session.Query<MeasurementData>()
+                    .Where(x => x.DeviceId == request.DeviceId)
+                    .MaxAsync(x => x.TimeStamp);
+
+                var notAdded = request.Data.Count();
+                request.Data.ToList().ForEach(x =>
+                {
+                    if (x.Timestamp <= latestMeasurement) return;
+
+                    session.Store(MeasurementDataMapper.Map(x, request));
+                    notAdded--;
+                });
+
+                await session.SaveChangesAsync();
             }
 
-            return null;
+            return new PersistMeasurementsResponse(true);
         }
     }
 
     internal static class MeasurementDataMapper
     {
-        internal static OS.Data.v1.MeasurementData Map(OS.Dto.v1.Measurement measurement, MeasurementsValidated msg)
+        internal static OS.Data.v1.MeasurementData Map(OS.Dto.v1.Measurement measurement, PersistMeasurementsRequest msg)
         {
             var data = measurement.Data;
 

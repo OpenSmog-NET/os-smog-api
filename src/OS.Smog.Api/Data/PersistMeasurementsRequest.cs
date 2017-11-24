@@ -1,14 +1,13 @@
 ﻿using MediatR;
 using OS.Dto.v1;
-using OS.Events;
 using System;
 using System.Collections.Generic;
 
 namespace OS.Smog.Api.Data
 {
-    public class MeasurementsValidated : DomainEvent, IRequest<IDomainEvent>
+    public class PersistMeasurementsRequest : IRequest<PersistMeasurementsResponse>
     {
-        public MeasurementsValidated(Guid deviceId, IEnumerable<Measurement> data)
+        public PersistMeasurementsRequest(Guid deviceId, IEnumerable<Measurement> data)
         {
             DeviceId = deviceId;
             Data = data;

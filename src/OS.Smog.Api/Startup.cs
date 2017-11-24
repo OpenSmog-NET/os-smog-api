@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using OS.Core.Middleware;
+using OS.Core.Queues;
 using OS.Smog.ServiceBus;
 
 namespace OS.Smog.Api
@@ -48,6 +49,7 @@ namespace OS.Smog.Api
                 .AddSwagger()
                 .AddMediator()
                 .AddMarten(Configuration)
+                .AddQueues(Configuration)
                 .AddServiceBus();
         }
 
