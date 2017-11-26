@@ -2,8 +2,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using OS.Core.Middleware;
 using OS.Core.Queues;
-using OS.Data.v1;
+using OS.Events.Data;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,25 +32,29 @@ namespace OS.Smog.Api.Data
 
         public async Task<PersistMeasurementsResponse> Handle(PersistMeasurementsRequest request)
         {
-            //message = Guid.Parse(contextAccessor.HttpContext.Request.Headers[Constants.RequestCorrelation.RequestHeaderName]);
-
-            using (var session = store.OpenSession())
+            await client.SendAsync(new SaveMeasurementsCommand()
             {
-                var latestMeasurement = await session.Query<MeasurementData>()
-                    .Where(x => x.DeviceId == request.DeviceId)
-                    .MaxAsync(x => x.TimeStamp);
+                CorrelationId = Guid.Parse(contextAccessor.HttpContext.Request.Headers[Constants.RequestCorrelation.RequestHeaderName]),
+                DeviceId = request.DeviceId,
+                Measurements = request.Data.ToArray()
+            }, "measurements");
+            //using (var session = store.OpenSession())
+            //{
+            //    var latestMeasurement = await session.Query<MeasurementData>()
+            //        .Where(x => x.DeviceId == request.DeviceId)
+            //        .MaxAsync(x => x.TimeStamp);
 
-                var notAdded = request.Data.Count();
-                request.Data.ToList().ForEach(x =>
-                {
-                    if (x.Timestamp <= latestMeasurement) return;
+            //    var notAdded = request.Data.Count();
+            //    request.Data.ToList().ForEach(x =>
+            //    {
+            //        if (x.Timestamp <= latestMeasurement) return;
 
-                    session.Store(MeasurementDataMapper.Map(x, request));
-                    notAdded--;
-                });
+            //        session.Store(MeasurementDataMapper.Map(x, request));
+            //        notAdded--;
+            //    });
 
-                await session.SaveChangesAsync();
-            }
+            //    await session.SaveChangesAsync();
+            //}
 
             return new PersistMeasurementsResponse(true);
         }
