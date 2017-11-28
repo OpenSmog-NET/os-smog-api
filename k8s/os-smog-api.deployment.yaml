@@ -1,0 +1,45 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: os-smog-api.deployment
+spec:
+  replicas: 4
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+      maxSurge: 2
+  template:
+    metadata:
+      labels:
+        app: os-smog-api
+    spec:
+      imagePullSecrets:
+      - name: os-secret-registry
+      containers:
+      - name: os-smog-api
+        image: opensmog.azurecr.io/os-smog-api:#{Release.ReleaseId}#
+        imagePullPolicy: IfNotPresent
+        env:
+            - name: 'ASPNETCORE_ENVIRONMENT'
+              valueFrom:
+                configMapKeyRef:
+                    name: 'cluster.config-map'
+                    key: 'cluster.environment'
+            - name: 'ConnectionStrings__Database'
+              valueFrom:
+                secretKeyRef:
+                    name: 'demo-app-config'
+                    key: 'demo-app.connectionString'
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /swagger
+            port: 80
+            httpHeaders:
+              - name: Content-Type
+                value: application/json
+          initialDelaySeconds: 10
+          periodSeconds: 5
