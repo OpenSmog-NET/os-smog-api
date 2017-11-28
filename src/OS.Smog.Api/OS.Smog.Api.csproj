@@ -42,7 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OS.Smog.ServiceBus\OS.Smog.ServiceBus.csproj" />
     <ProjectReference Include="..\OS.Smog.Validation\OS.Smog.Validation.csproj" />
   </ItemGroup>
 

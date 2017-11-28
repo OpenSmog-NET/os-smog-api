@@ -3,21 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B223A342-44C2-4FC5-93E8-8BA7B06E5A54}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{5CB272C9-803A-451C-8B17-1ED879211EDD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OS.Smog.Validation", "src\OS.Smog.Validation\OS.Smog.Validation.csproj", "{FEF2241E-5985-493E-9FA0-7A20FBE2B47E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OS.Smog.Validation.UnitTests", "test\OS.Smog.Validation.UnitTests\OS.Smog.Validation.UnitTests.csproj", "{42D04B37-28B0-4117-B11D-48B795800E0A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OS.Smog.ServiceBus", "src\OS.Smog.ServiceBus\OS.Smog.ServiceBus.csproj", "{1E303914-3786-465E-AAC3-8846C9C12163}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OS.Smog.Api", "src\OS.Smog.Api\OS.Smog.Api.csproj", "{EA08E81E-9EF7-4ACB-A40D-EFCE3EBBA1FB}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1C455C48-449E-45F1-A0C7-A429B0B2DDAE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OS.DAL", "src\OS.DAL\OS.DAL.csproj", "{D38031BF-B38F-4C2E-9438-C980E27CF965}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +27,6 @@ Global
 		{42D04B37-28B0-4117-B11D-48B795800E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42D04B37-28B0-4117-B11D-48B795800E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42D04B37-28B0-4117-B11D-48B795800E0A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E303914-3786-465E-AAC3-8846C9C12163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E303914-3786-465E-AAC3-8846C9C12163}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E303914-3786-465E-AAC3-8846C9C12163}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E303914-3786-465E-AAC3-8846C9C12163}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA08E81E-9EF7-4ACB-A40D-EFCE3EBBA1FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA08E81E-9EF7-4ACB-A40D-EFCE3EBBA1FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA08E81E-9EF7-4ACB-A40D-EFCE3EBBA1FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,17 +35,12 @@ Global
 		{1C455C48-449E-45F1-A0C7-A429B0B2DDAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C455C48-449E-45F1-A0C7-A429B0B2DDAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C455C48-449E-45F1-A0C7-A429B0B2DDAE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D38031BF-B38F-4C2E-9438-C980E27CF965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D38031BF-B38F-4C2E-9438-C980E27CF965}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D38031BF-B38F-4C2E-9438-C980E27CF965}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D38031BF-B38F-4C2E-9438-C980E27CF965}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EA08E81E-9EF7-4ACB-A40D-EFCE3EBBA1FB} = {5CB272C9-803A-451C-8B17-1ED879211EDD}
-		{D38031BF-B38F-4C2E-9438-C980E27CF965} = {B223A342-44C2-4FC5-93E8-8BA7B06E5A54}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9A877EF-86AB-4A0B-B0FA-AE9D9B607E40}
