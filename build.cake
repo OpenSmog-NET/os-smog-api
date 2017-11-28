@@ -16,7 +16,6 @@ var apps = getProjectsDirs(new string [] {
 });
 
 var webJobs = new Dictionary<string, string>() {
-    { "OS.Smog.Job", ContinuousWebJob }
 };
 
 var webJobHosts = new Dictionary<string, string>() {
