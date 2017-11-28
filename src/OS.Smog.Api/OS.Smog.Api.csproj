@@ -1,60 +1,50 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net462</TargetFramework>
-    <OutputType>exe</OutputType>
-    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>1a1d7c59-0596-43f4-9d29-976048115dc4</UserSecretsId>
+    <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <PlatformTarget>x86</PlatformTarget>
+    <DocumentationFile>bin\Debug\netcoreapp2.0\OS.Smog.Api.xml</DocumentationFile>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp1.1\OS.Smog.Api.xml</DocumentationFile>
-    <NoWarn>1701;1702;1705;1591</NoWarn>
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <TreatSpecificWarningsAsErrors />
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\$(Configuration)\win7-x86\OS.Smog.Api.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netcoreapp2.0\OS.Smog.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
+
   <ItemGroup>
+    <PackageReference Include="Marten" Version="2.4.0" />
     <PackageReference Include="MediatR" Version="3.0.1" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Azure.EventHubs" Version="1.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
-    <PackageReference Include="OS.Core.Api" Version="0.0.1-pre-201705037" />
-    <PackageReference Include="Serilog" Version="2.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.0.0" />
+    <PackageReference Include="OS.Core.Api" Version="0.0.1-pre-201711161" />
+    <PackageReference Include="OS.Core.Queues" Version="1.0.0-pre-201711173" />
+    <PackageReference Include="OS.Data" Version="1.0.0-pre-201711181" />
+    <PackageReference Include="OS.Events" Version="0.0.1-pre-201711181" />
+    <PackageReference Include="Serilog" Version="2.5.0" />
     <PackageReference Include="Serilog.Enrichers.Context" Version="2.3.0" />
     <PackageReference Include="Serilog.Enrichers.Environment" Version="2.1.2" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.0.0" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="1.4.0" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="2.2.0" />
-    <PackageReference Include="Serilog.Sinks.Literate" Version="2.1.0" />
-    <PackageReference Include="Serilog.Sinks.Logentries" Version="3.0.0-dev-00020" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="2.4.0" />
+    <PackageReference Include="Serilog.Sinks.Literate" Version="3.0.0" />
+    <PackageReference Include="Serilog.Sinks.Logentries" Version="3.0.26" />
     <PackageReference Include="Swashbuckle" Version="6.0.0-beta902" />
-    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\OS.Smog.Domain\OS.Smog.Domain.csproj" />
-    <ProjectReference Include="..\OS.Smog.Dto\OS.Smog.Dto.csproj" />
+    <ProjectReference Include="..\OS.Smog.Validation\OS.Smog.Validation.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0-msbuild3-final" />
-  </ItemGroup>
+
   <ItemGroup>
     <Content Update="appsettings.Development.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -66,7 +56,4 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <PropertyGroup>
-    <UserSecretsId>OpenSmog-c23d27a4-eb88</UserSecretsId>
-  </PropertyGroup>
 </Project>

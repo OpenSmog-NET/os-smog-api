@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.Azure.EventHubs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using OS.Core.Middleware;
+using OS.Core.Queues;
 
 namespace OS.Smog.Api
 {
@@ -38,14 +38,6 @@ namespace OS.Smog.Api
             services.AddSingleton<IConfigurationRoot>(Configuration);
             services.AddSingleton<IConfiguration>(Configuration);
 
-            // Add EventHub
-            var eventHubCsBuilder = new EventHubsConnectionStringBuilder(Configuration.GetConnectionString("EventHub"))
-            {
-                EntityPath = "os-smog-api-measurements"
-            };
-
-            services.AddSingleton(EventHubClient.CreateFromConnectionString(eventHubCsBuilder.ToString()));
-
             // Add framework services.
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -54,7 +46,9 @@ namespace OS.Smog.Api
                 .AddMVC()
                 .AddLogging()
                 .AddSwagger()
-                .AddMediator();
+                .AddMediator()
+                .AddMarten(Configuration)
+                .AddQueues(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +56,6 @@ namespace OS.Smog.Api
         {
             loggerFactory.ConfigureLogging(Configuration);
 
-            //app.UseOpenSmogMiddlewares();
             app.UseMiddleware<CorrelationIdMiddleware>();
             app.UseMiddleware<RequestLoggingMiddleware>();
             app.UseSwaggerMiddleware();

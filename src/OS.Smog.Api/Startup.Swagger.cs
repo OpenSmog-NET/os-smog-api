@@ -1,9 +1,8 @@
-﻿using System;
-using System.Reflection;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.Swagger.Model;
+using System;
+using System.Reflection;
 
 namespace OS.Smog.Api
 {
@@ -39,7 +38,7 @@ namespace OS.Smog.Api
             };
 
             //Determine base path for the application.
-            var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+            var basePath = AppContext.BaseDirectory;
             var assemblyName = Assembly.GetEntryAssembly().GetName().Name;
 
             services.ConfigureSwagger(appInfo, $"{basePath}\\{assemblyName}.xml");

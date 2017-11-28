@@ -1,8 +1,7 @@
-﻿using System.Linq;
-using System.Reflection;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using OS.Smog.Domain;
+using System.Linq;
+using System.Reflection;
 
 namespace OS.Smog.Api
 {
@@ -19,9 +18,9 @@ namespace OS.Smog.Api
         public static IServiceCollection AddMediator(this IServiceCollection services)
         {
             services.AddScoped<IMediator, Mediator>();
-            services.AddTransient<SingleInstanceFactory>(sp => t => sp.GetService(t));
-            services.AddTransient<MultiInstanceFactory>(sp => t => sp.GetServices(t));
-            return services.AddMediatorHandlers(typeof(DomainModule).GetTypeInfo().Assembly);
+            services.AddTransient<SingleInstanceFactory>(sp => sp.GetService);
+            services.AddTransient<MultiInstanceFactory>(sp => sp.GetServices);
+            return services.AddMediatorHandlers(typeof(Startup).GetTypeInfo().Assembly);
         }
 
         private static IServiceCollection AddMediatorHandlers(this IServiceCollection services, Assembly assembly)
@@ -30,19 +29,19 @@ namespace OS.Smog.Api
 
             foreach (var type in classTypes)
             {
-                var interfaces = type.ImplementedInterfaces.Select(i => i.GetTypeInfo());
+                var interfaces = type.ImplementedInterfaces.Select(i => i.GetTypeInfo()).ToList();
 
-                foreach (
-                    var handlerType in
-                    interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequestHandler<,>))
-                )
-                    services.AddTransient(handlerType.AsType(), type.AsType());
+                interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequestHandler<,>))
+                    .ToList()
+                    .ForEach(i => services.AddTransient(i.AsType(), type.AsType()));
 
-                foreach (
-                    var handlerType in
-                    interfaces.Where(
-                        i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IAsyncRequestHandler<,>)))
-                    services.AddTransient(handlerType.AsType(), type.AsType());
+                interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IAsyncRequestHandler<,>))
+                    .ToList()
+                    .ForEach(i => services.AddTransient(i.AsType(), type.AsType()));
+
+                interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IAsyncNotificationHandler<>))
+                    .ToList()
+                    .ForEach(i => services.AddTransient(i.AsType(), type.AsType()));
             }
 
             return services;
