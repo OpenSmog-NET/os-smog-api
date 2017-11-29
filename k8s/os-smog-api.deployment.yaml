@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: os-smog-api.deployment
+  name: os-smog-api
 spec:
   replicas: 4
   minReadySeconds: 5
