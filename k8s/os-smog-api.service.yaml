@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: os-smog-api.service
+  name: os-smog-api
   labels:
     app: os-smog-api
     stage: #{Environment.Name}#
