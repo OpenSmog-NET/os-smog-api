@@ -27,7 +27,7 @@ spec:
             - name: 'ASPNETCORE_ENVIRONMENT'
               valueFrom:
                 configMapKeyRef:
-                    name: 'cluster.config-map'
+                    name: '#{k8s.namespace}#.shared.config-map'
                     key: 'cluster.environment'
             - name: 'ConnectionStrings__AzureStorage'
               valueFrom:
