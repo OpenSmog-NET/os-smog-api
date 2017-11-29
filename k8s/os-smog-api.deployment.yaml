@@ -14,12 +14,13 @@ spec:
     metadata:
       labels:
         app: os-smog-api
+        stage: #{Environment.Name}#
     spec:
       imagePullSecrets:
       - name: os-secret-registry
       containers:
       - name: os-smog-api
-        image: opensmog.azurecr.io/os-smog-api:#{Release.ReleaseId}#
+        image: opensmog.azurecr.io/os-smog-api:#{Build.BuildId}#
         imagePullPolicy: IfNotPresent
         env:
             - name: 'ASPNETCORE_ENVIRONMENT'
@@ -27,11 +28,11 @@ spec:
                 configMapKeyRef:
                     name: 'cluster.config-map'
                     key: 'cluster.environment'
-            - name: 'ConnectionStrings__Database'
+            - name: 'ConnectionStrings__AzureStorage'
               valueFrom:
                 secretKeyRef:
-                    name: 'demo-app-config'
-                    key: 'demo-app.connectionString'
+                    name: 'os-smog-api.secrets'
+                    key: 'os-smog-api.azureStorage'
         ports:
         - containerPort: 80
         livenessProbe:
