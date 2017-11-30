@@ -53,6 +53,9 @@
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="appSettings.Production.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="appSettings.test.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
