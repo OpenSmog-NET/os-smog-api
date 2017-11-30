@@ -35,11 +35,11 @@ spec:
                     name: 'os-smog-api.secrets'
                     key: 'os-smog-api.azureStorage'
         ports:
-        - containerPort: 5000
+        - containerPort: 80
         livenessProbe:
           httpGet:
             path: /swagger
-            port: 5000
+            port: 80
             httpHeaders:
               - name: Content-Type
                 value: application/json
