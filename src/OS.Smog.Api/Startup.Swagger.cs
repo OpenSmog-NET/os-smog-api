@@ -41,7 +41,7 @@ namespace OS.Smog.Api
             var basePath = AppContext.BaseDirectory;
             var assemblyName = Assembly.GetEntryAssembly().GetName().Name;
 
-            services.ConfigureSwagger(appInfo, $"{basePath}\\{assemblyName}.xml");
+            services.ConfigureSwagger(appInfo, $"{basePath}/{assemblyName}.xml");
 
             return services;
         }
