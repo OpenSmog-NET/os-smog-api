@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using OS.Core;
 using OS.Smog.Validation;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace OS.Smog.Api.Data
 {
@@ -22,7 +24,7 @@ namespace OS.Smog.Api.Data
             this.contextAccessor = contextAccessor;
         }
 
-        public ValidateMeasurementsResponse Handle(ValidateMeasurementsRequest command)
+        public Task<ValidateMeasurementsResponse> Handle(ValidateMeasurementsRequest command, CancellationToken token)
         {
             logger.LogInformation("Validating: {@message}", command);
 
@@ -30,19 +32,19 @@ namespace OS.Smog.Api.Data
 
             MeasurementsInterpreter.Interpret(ctx);
 
-            if (ctx.HasError)
+            if (!ctx.HasError)
             {
-                var result = new ApiResult(contextAccessor.HttpContext);
-                foreach (var error in ctx.Errors)
-                {
-                    result.Errors.Add(new ApiError { Type = ApiErrorType.Validation, Message = error });
-                    logger.LogWarning(error);
-                }
-
-                return new ValidateMeasurementsResponse(false, result);
+                return Task.FromResult(new ValidateMeasurementsResponse(true));
             }
 
-            return new ValidateMeasurementsResponse(true);
+            var result = new ApiResult(contextAccessor.HttpContext);
+            foreach (var error in ctx.Errors)
+            {
+                result.Errors.Add(new ApiError { Type = ApiErrorType.Validation, Message = error });
+                logger.LogWarning(error);
+            }
+
+            return Task.FromResult(new ValidateMeasurementsResponse(false, result));
         }
     }
 }

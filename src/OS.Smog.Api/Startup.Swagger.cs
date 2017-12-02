@@ -22,7 +22,7 @@ namespace OS.Smog.Api
             var appInfo = new Info
             {
                 Version = "v1",
-                Title = "OpenSmog API (0.0.1)",
+                Title = "OpenSmog API (0.0.2)",
                 Description =
                     "OpenSmog API data ingress API" +
                     "\nBased on the OpenSmog specification:" +
