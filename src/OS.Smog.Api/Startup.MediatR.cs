@@ -35,11 +35,7 @@ namespace OS.Smog.Api
                     .ToList()
                     .ForEach(i => services.AddTransient(i.AsType(), type.AsType()));
 
-                interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IAsyncRequestHandler<,>))
-                    .ToList()
-                    .ForEach(i => services.AddTransient(i.AsType(), type.AsType()));
-
-                interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IAsyncNotificationHandler<>))
+                interfaces.Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(INotificationHandler<>))
                     .ToList()
                     .ForEach(i => services.AddTransient(i.AsType(), type.AsType()));
             }

@@ -7,11 +7,12 @@ using OS.Core.Queues;
 using OS.Events.Data;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace OS.Smog.Api.Data
 {
-    public class PersistMeasurementsRequestHandler : IAsyncRequestHandler<PersistMeasurementsRequest, PersistMeasurementsResponse>
+    public class PersistMeasurementsRequestHandler : IRequestHandler<PersistMeasurementsRequest, PersistMeasurementsResponse>
     {
         private readonly ILogger<PersistMeasurementsRequestHandler> logger;
         private readonly IHttpContextAccessor contextAccessor;
@@ -30,7 +31,7 @@ namespace OS.Smog.Api.Data
             this.client = client;
         }
 
-        public async Task<PersistMeasurementsResponse> Handle(PersistMeasurementsRequest request)
+        public async Task<PersistMeasurementsResponse> Handle(PersistMeasurementsRequest request, CancellationToken cancellationToken)
         {
             await client.SendAsync(new SaveMeasurementsCommand()
             {
@@ -38,23 +39,6 @@ namespace OS.Smog.Api.Data
                 DeviceId = request.DeviceId,
                 Measurements = request.Data.ToArray()
             }, "measurements");
-            //using (var session = store.OpenSession())
-            //{
-            //    var latestMeasurement = await session.Query<MeasurementData>()
-            //        .Where(x => x.DeviceId == request.DeviceId)
-            //        .MaxAsync(x => x.TimeStamp);
-
-            //    var notAdded = request.Data.Count();
-            //    request.Data.ToList().ForEach(x =>
-            //    {
-            //        if (x.Timestamp <= latestMeasurement) return;
-
-            //        session.Store(MeasurementDataMapper.Map(x, request));
-            //        notAdded--;
-            //    });
-
-            //    await session.SaveChangesAsync();
-            //}
 
             return new PersistMeasurementsResponse(true);
         }
