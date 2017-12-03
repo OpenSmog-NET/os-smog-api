@@ -58,6 +58,7 @@ namespace OS.Smog.Api
 
             app.UseMiddleware<CorrelationIdMiddleware>();
             app.UseMiddleware<RequestLoggingMiddleware>();
+            app.UseMiddleware<HealthCheckMiddleware>();
             app.UseSwaggerMiddleware();
             app.UseMvc();
         }
