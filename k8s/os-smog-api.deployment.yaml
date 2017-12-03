@@ -29,8 +29,8 @@ spec:
                 configMapKeyRef:
                     name: '#{k8s.namespace}#.shared.config-map'
                     key: 'cluster.environment'
-            - name: 'Serilog__WriteTo__0__Name'
-              value: 'Logentries'
+            # - name: 'Serilog__WriteTo__0__Name'
+            #   value: 'Logentries'
             # - name: 'Serilog__WriteTo__0__Args__outputTemplate'
             #   value: '"{Timestamp:HH:mm} [{Application}] [{Stage}] [{Level}] {MachineName} {CorrelationId} {Message}{NewLine}{Exception}"'
             - name: 'Serilog__WriteTo__0__Args__token'
@@ -54,10 +54,7 @@ spec:
         - containerPort: 80
         livenessProbe:
           httpGet:
-            path: /swagger/v1/swagger.json
+            path: /probe
             port: 80
-            httpHeaders:
-              - name: Content-Type
-                value: application/json
           initialDelaySeconds: 10
           periodSeconds: 5
