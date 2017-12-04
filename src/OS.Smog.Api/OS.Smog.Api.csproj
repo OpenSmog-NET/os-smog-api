@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
     <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
     <UserSecretsId>1a1d7c59-0596-43f4-9d29-976048115dc4</UserSecretsId>
     <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
@@ -33,6 +34,7 @@
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.0.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="2.4.0" />
+    <PackageReference Include="Serilog.Sinks.AzureAnalytics" Version="2.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.Logentries" Version="3.0.26" />
     <PackageReference Include="Swashbuckle" Version="6.0.0-beta902" />
