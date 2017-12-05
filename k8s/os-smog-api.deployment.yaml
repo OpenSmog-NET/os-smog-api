@@ -31,7 +31,7 @@ spec:
                     key: 'cluster.environment'
             - name: 'Serilog__WriteTo__0__Name'
               value: 'AzureLogAnalytics'
-            - name: 'Serilog_WriteTo__0__Args__logName'
+            - name: 'Serilog__WriteTo__0__Args__logName'
               value: 'OpenSmog'
             - name: 'Serilog__WriteTo__0__Args__workspaceId'
               valueFrom:
