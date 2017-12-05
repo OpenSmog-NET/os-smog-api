@@ -30,26 +30,24 @@ spec:
                     name: '#{k8s.namespace}#.shared.config-map'
                     key: 'cluster.environment'
             - name: 'Serilog__WriteTo__0__Name'
-              value: 'Logentries'
-            - name: 'Serilog__WriteTo__0__Args__outputTemplate'
-              value: '{Timestamp:HH:mm} [{Application}] [{Stage}] [{Level}] {MachineName} {CorrelationId} {Message}{NewLine}{Exception}'
-            - name: 'Serilog__WriteTo__0__Args__token'
+              value: 'AzureLogAnalytics'
+            - name: 'Serilog_WriteTo__0__Args__logName':
+              value: 'OpenSmog'
+            - name: 'Serilog__WriteTo__0__Args__workspaceId'
               valueFrom:
                 secretKeyRef:
                     name: 'os-smog-api.secrets'
-                    key: 'os-smog-api.logentriesToken'
+                    key: 'os-smog-api.logAnalyticsWorkspaceId'
+            - name: 'Serilog__WriteTo__0__Args__authenticationId'
+              valueFrom:
+                secretKeyRef:
+                    name: 'os-smog-api.secrets'
+                    key: 'os-smog-api.logAnalyticsAuthenticationId'
             - name: 'ConnectionStrings__AzureStorage'
               valueFrom:
                 secretKeyRef:
                     name: 'os-smog-api.secrets'
                     key: 'os-smog-api.azureStorage'
-        # resources:
-        #   requests:
-        #     memory: "128Mi"
-        #     cpu: "100m"
-        #   limits:
-        #     memory: "512Mi"
-        #     cpu: "250m"
         ports:
         - containerPort: 80
         livenessProbe:
