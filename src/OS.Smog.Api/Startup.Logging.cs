@@ -17,7 +17,7 @@ namespace OS.Smog.Api
                 var args = sink.GetSection("Args").GetChildren();
                 foreach (var arg in args)
                 {
-                    Console.WriteLine($"{arg.Key} : {arg.Value}");
+                    Console.WriteLine($"{arg.Key} : {arg.Value} [{arg.Value.Length} chars]");
                 }
             }
 
