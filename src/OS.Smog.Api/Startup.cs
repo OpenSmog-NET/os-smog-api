@@ -56,11 +56,13 @@ namespace OS.Smog.Api
         {
             loggerFactory.ConfigureLogging(Configuration);
 
-            app.UseMiddleware<CorrelationIdMiddleware>();
-            app.UseMiddleware<RequestLoggingMiddleware>();
-            app.UseMiddleware<HealthCheckMiddleware>();
-            app.UseSwaggerMiddleware();
-            app.UseMvc();
+            app.UseMiddleware<CorrelationIdMiddleware>()
+                .UseMiddleware<RequestLoggingMiddleware>()
+                .UseApplicationInsightsExceptionTelemetry()
+                .UseApplicationInsightsRequestTelemetry()
+                .UseMiddleware<HealthCheckMiddleware>()
+                .UseSwaggerMiddleware()
+                .UseMvc();
         }
     }
 }
