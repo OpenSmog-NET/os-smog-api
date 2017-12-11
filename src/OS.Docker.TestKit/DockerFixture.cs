@@ -15,6 +15,8 @@ namespace OS.Docker.TestKit
 
         protected DockerFixture()
         {
+            CleanUp();
+
             var builder = new StringBuilder($"run --name {ContainerName}");
 
             EnvironmentVariables?.ForEach(kvp => builder.Append($" -e {kvp.Key}={kvp.Value}"));
@@ -55,13 +57,18 @@ namespace OS.Docker.TestKit
 
             if (CleanUpAfterTest)
             {
-                Process.Start("docker", $"stop {ContainerName}")
-                .WaitForExit();
-                Process.Start("docker", $"rm {ContainerName}")
-                    .WaitForExit();
+                CleanUp();
             }
 
             base.Dispose(disposing);
+        }
+
+        private void CleanUp()
+        {
+            Process.Start("docker", $"stop {ContainerName}")
+                .WaitForExit();
+            Process.Start("docker", $"rm {ContainerName}")
+                .WaitForExit();
         }
     }
 }

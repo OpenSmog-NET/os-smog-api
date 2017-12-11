@@ -1,29 +1,75 @@
 using Microsoft.EntityFrameworkCore;
 using OS.DAL.PgSql.Migrator;
+using OS.Domain;
+using Shouldly;
+using System.Collections.Generic;
 using Xunit;
 
 namespace OS.DAL.PgSql.IntegrationTests
 {
-    public class VendorRepositoryTests : IClassFixture<PostgresFixture>
+    public class VendorRepositoryTests
     {
-        private readonly PostgresFixture fixture;
-        private readonly DeviceDbContext context;
-
-        public VendorRepositoryTests(PostgresFixture fixture)
+        public class GivenAnUninsertedVendor : IClassFixture<PostgresFixture>
         {
-            this.fixture = fixture;
+            private readonly PostgresFixture fixture;
+            private readonly DeviceDbContext context;
 
-            var builder = new DbContextOptionsBuilder<DeviceDbContext>()
-                .UseNpgsql(fixture.ConnectionString, x => x.MigrationsAssembly(MigrationsAssembly.Assembly));
+            public GivenAnUninsertedVendor(PostgresFixture fixture)
+            {
+                this.fixture = fixture;
 
-            context = new DeviceDbContext(builder.Options);
-            context.Database.Migrate();
-        }
+                var builder = new DbContextOptionsBuilder<DeviceDbContext>()
+                    .UseNpgsql(fixture.ConnectionString, x => x.MigrationsAssembly(MigrationsAssembly.Assembly));
 
-        [Fact]
-        public void Test1()
-        {
-            context.Database.EnsureCreated();
+                context = new DeviceDbContext(builder.Options);
+                context.Database.Migrate();
+            }
+
+            [Fact]
+            public void WhenInsertingVendorWithBasicInfo_IdReturned()
+            {
+                // Arrange
+                var mapper = new VendorMapper();
+                var repository = new VendorRepository(context, mapper);
+
+                var vendor = new Vendor()
+                {
+                    Name = "OpenSmog#1",
+                    Url = "https://opensmog.org"
+                };
+
+                // Act
+                var id = repository.Create(vendor);
+
+                // Assert
+                id.ShouldNotBe(default(long));
+            }
+
+            [Fact]
+            public void WhenInsertingVendorWithApiKeys_IdReturned()
+            {
+                // Arrange
+                var mapper = new VendorMapper();
+                var repository = new VendorRepository(context, mapper);
+
+                var vendor = new Vendor()
+                {
+                    Name = "OpenSmog#2",
+                    Url = "https://opensmog.org",
+                    Keys = new List<VendorApiKey>()
+                    {
+                        new VendorApiKey() { Key = "513E647B-97EF-4AF4-96A2-24F18D11DF4A", Limit = 100 },
+                        new VendorApiKey() { Key = "513E647B-97EF-4AF4-96A2-24F18D11DF4B", Limit = 200 },
+                        new VendorApiKey() { Key = "513E647B-97EF-4AF4-96A2-24F18D11DF4C", Limit = 300 },
+                    }
+                };
+
+                // Act
+                var id = repository.Create(vendor);
+
+                // Assert
+                id.ShouldNotBe(default(long));
+            }
         }
     }
 }
