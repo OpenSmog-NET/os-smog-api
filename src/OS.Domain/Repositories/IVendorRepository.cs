@@ -4,7 +4,7 @@ namespace OS.Domain.Repositories
 {
     public interface IVendorRepository
     {
-        long Create(Vendor vendor);
+        long Insert(Vendor vendor);
 
         Vendor Get(long id);
 

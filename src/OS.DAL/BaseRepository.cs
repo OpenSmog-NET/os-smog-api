@@ -16,14 +16,14 @@ namespace OS.DAL
             Context = context;
         }
 
-        protected static Expression<Func<TModel, bool>> EqualsPredicate<TModel, TId>(TId id)
-            where TModel : Entity<TId>
+        protected static Expression<Func<TEntity, bool>> EqualsPredicate<TEntity, TId>(TId id)
+            where TEntity : Entity<TId>
             where TId : struct, IEquatable<TId>, IComparable<TId>
         {
-            Expression<Func<TModel, TId>> selector = (x) => x.Id;
+            Expression<Func<TEntity, TId>> selector = (x) => x.Id;
             Expression<Func<TId>> closure = () => id;
             return Expression
-                .Lambda<Func<TModel, bool>>(
+                .Lambda<Func<TEntity, bool>>(
                     Expression.Equal(selector.Body, closure.Body), selector.Parameters);
         }
 

@@ -2,7 +2,7 @@
 
 namespace OS.DAL.PgSql.Model
 {
-    public class Vendor : Entity<long>
+    public class Vendor : Entity<long>, IAggregateRoot
     {
         public string Name { get; set; }
 

@@ -5,6 +5,6 @@
         public string Key { get; set; }
         public int Limit { get; set; }
 
-        public Vendor Vendor { get; set; }
+        public long VendorId { get; set; }
     }
 }

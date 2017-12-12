@@ -1,12 +1,12 @@
 ﻿namespace OS.DAL
 {
     /// <summary>
-    /// Interface for Entity Mappers
+    /// Performs 2-way entity mapping
     /// </summary>
-    /// <typeparam name="TDomain">Domain object type</typeparam>
+    /// <typeparam name="TDomainModel">Domain object type</typeparam>
     /// <typeparam name="TEntity">Entity type</typeparam>
-    public interface IEntityMapper<TDomain, TEntity>
-        where TDomain : class
+    public interface IEntityMapper<TDomainModel, TEntity>
+        where TDomainModel : class
         where TEntity : class
     {
         /// <summary>
@@ -14,13 +14,13 @@
         /// </summary>
         /// <param name="object"></param>
         /// <returns></returns>
-        TEntity MapToModel(TDomain @object);
+        TEntity MapToModel(TDomainModel @object);
 
         /// <summary>
         /// Map value from underlying entity to domain
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        TDomain MapFromModel(TEntity @entity);
+        TDomainModel MapFromModel(TEntity @entity);
     }
 }

@@ -24,10 +24,12 @@ namespace OS.DAL.PgSql
             builder.Entity<Vendor>().HasKey(x => x.Id);
             builder.Entity<Vendor>().HasIndex(x => x.Name).IsUnique();
             builder.Entity<Vendor>().HasMany(x => x.Keys)
-                .WithOne(x => x.Vendor)
+                .WithOne()
+                .HasForeignKey(x => x.VendorId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Vendor>().HasMany(x => x.Devices)
-                .WithOne(x => x.Vendor)
+                .WithOne()
+                .HasForeignKey(x => x.VendorId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // VendorApiKey
@@ -38,8 +40,10 @@ namespace OS.DAL.PgSql
             builder.Entity<Device>().ToTable("Devices");
             builder.Entity<Device>().HasKey(x => x.Id);
             builder.Entity<Device>().HasOne(x => x.Address)
-                .WithOne(x => x.Device)
+                .WithOne()
+                .HasForeignKey<PostalAddress>(x => x.DeviceId)
                 .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Device>().HasIndex(x => new { x.Lon, x.Lat }).HasName("IX_Location");
 
             // PostalAddress
             builder.Entity<PostalAddress>().ToTable("PostalAddresses");

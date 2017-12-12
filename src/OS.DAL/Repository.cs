@@ -1,37 +1,47 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OS.DAL
 {
-    public class Repository<TContext, TModel, TId> : BaseRepository<TContext>
+    public class Repository<TContext, TEntity, TId> : BaseRepository<TContext>
         where TContext : DbContext
-        where TModel : Entity<TId>
+        where TEntity : Entity<TId>, IAggregateRoot
         where TId : struct, IEquatable<TId>, IComparable<TId>
     {
         public Repository(TContext context) : base(context)
         {
         }
 
-        protected virtual IQueryable<TModel> Query => Context.Set<TModel>().AsNoTracking().AsQueryable();
+        protected virtual IQueryable<TEntity> Query => Context.Set<TEntity>().AsNoTracking().AsQueryable();
 
-        protected T Get<T>(TId id, Func<TModel, T> mapper)
+        protected T Get<T>(TId id, Func<TEntity, T> mapper)
         {
-            var model = Query.FirstOrDefault(EqualsPredicate<TModel, TId>(id));
-            return model == null ? default(T) : mapper(model);
+            var entity = Query.FirstOrDefault(EqualsPredicate<TEntity, TId>(id));
+            return entity == null ? default(T) : mapper(entity);
         }
 
-        protected virtual TId Insert(TModel model, Action<TModel, EntityEntry> updateAction = null)
+        protected virtual TId Insert(TEntity entity, Action<TEntity, EntityEntry> updateAction = null)
         {
-            var added = Context.Add(model);
+            var added = Context.Add(entity);
 
             OnInsert(updateAction);
 
             return added.Entity.Id;
         }
 
-        private void OnInsert(Action<TModel, EntityEntry> updateAction)
+        protected virtual IList<TId> Insert(IList<TEntity> entities, Action<TEntity, EntityEntry> updateAction = null)
+        {
+            Context.AddRange(entities);
+
+            OnInsert(updateAction);
+
+            return entities.Select(x => x.Id).ToList();
+        }
+
+        private void OnInsert(Action<TEntity, EntityEntry> updateAction)
         {
             var allModified = Context.ChangeTracker.Entries().Where(r => r.State == EntityState.Modified).ToList();
 

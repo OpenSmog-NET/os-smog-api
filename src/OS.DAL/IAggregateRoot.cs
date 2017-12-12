@@ -1,4 +1,4 @@
-﻿namespace OS.Domain
+﻿namespace OS.DAL
 {
     public interface IAggregateRoot
     {

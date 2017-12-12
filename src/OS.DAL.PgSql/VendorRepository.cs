@@ -1,32 +1,42 @@
-﻿using OS.DAL.PgSql.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using OS.DAL.PgSql.Model;
 using OS.Domain.Queries;
 using OS.Domain.Repositories;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OS.DAL.PgSql
 {
     public class VendorRepository : Repository<DeviceDbContext, Vendor, long>, IVendorRepository
     {
-        private IEntityMapper<Domain.Vendor, Vendor> mapper;
+        private readonly IEntityMapper<Domain.Vendor, Vendor> mapper;
 
         public VendorRepository(DeviceDbContext context, IEntityMapper<Domain.Vendor, Vendor> mapper) : base(context)
         {
             this.mapper = mapper;
         }
 
-        public long Create(Domain.Vendor vendor)
+        public long Insert(Domain.Vendor vendor)
         {
-            //todo: implement basic CR(ud) methods
             return Insert(mapper.MapToModel(vendor));
+        }
+
+        public IList<long> Insert(IList<Domain.Vendor> vendors)
+        {
+            return Insert(vendors.Select(v => mapper.MapToModel(v)).ToList());
         }
 
         public Domain.Vendor Get(long id)
         {
-            throw new System.NotImplementedException();
+            return Get(id, mapper.MapFromModel);
         }
 
         public QueryResult<Domain.Vendor> Get(Query query)
         {
             throw new System.NotImplementedException();
         }
+
+        protected override IQueryable<Vendor> Query => base.Query
+            .Include(x => x.Keys);
     }
 }

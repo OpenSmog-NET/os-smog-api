@@ -35,6 +35,7 @@ namespace OS.DAL.PgSql
         {
             return new Domain.Vendor()
             {
+                Id = entity.Id,
                 Name = entity.Name,
                 Url = entity.Url,
                 Keys = entity.Keys.Select(x => new Domain.VendorApiKey()
