@@ -10,6 +10,6 @@ namespace OS.DAL.PgSql.Model
         public string Name { get; set; }
         public int Type { get; set; }
 
-        public long VendorId { get; set; }
+        public long? VendorId { get; set; }
     }
 }

@@ -96,7 +96,6 @@ namespace OS.DAL.PgSql.IntegrationTests
             public GivenAnInsertedVendor(PostgresFixture fixture)
             {
                 this.fixture = fixture;
-                this.fixture.CleanUpAfterTest = false;
 
                 var builder = new DbContextOptionsBuilder<DeviceDbContext>()
                     .UseNpgsql(fixture.ConnectionString, x => x.MigrationsAssembly(MigrationsAssembly.Assembly));

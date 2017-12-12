@@ -23,7 +23,7 @@ namespace OS.DAL.PgSql
             return new Domain.Device()
             {
                 Id = entity.Id,
-                VendorId = entity.VendorId,
+                VendorId = entity.VendorId ?? default(long),
                 Name = entity.Name,
                 Type = (DeviceType)entity.Type,
                 Location = new Location()

@@ -1,0 +1,42 @@
+﻿[
+  {
+    "name": "device01",
+    "type": "DIY",
+    "location": {
+      "lon": "21.0116667",
+      "lat": "52.2297222"
+    }
+  },
+  {
+    "name": "device02",
+    "type": "DIY",
+    "location": {
+      "lon": "22.0116667",
+      "lat": "53.2297222"
+    }
+  },
+  {
+    "name": "device03",
+    "type": "DIY",
+    "location": {
+      "lon": "23.0116667",
+      "lat": "54.2297222"
+    }
+  },
+  {
+    "name": "device04",
+    "type": "DIY",
+    "location": {
+      "lon": "24.0116667",
+      "lat": "55.2297222"
+    }
+  },
+  {
+    "name": "device05",
+    "type": "DIY",
+    "location": {
+      "lon": "25.0116667",
+      "lat": "56.2297222"
+    }
+  }
+]
