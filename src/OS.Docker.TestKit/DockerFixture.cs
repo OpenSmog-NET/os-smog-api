@@ -10,12 +10,11 @@ namespace OS.Docker.TestKit
 {
     public abstract class DockerFixture : DisposableFixture
     {
-        private Process containerProcess;
-        public bool CleanUpAfterTest { get; set; } = true;
+        private readonly Process containerProcess;
 
         protected DockerFixture()
         {
-            CleanUp();
+            DoCleanUp();
 
             var builder = new StringBuilder($"run --name {ContainerName}");
 
@@ -39,14 +38,13 @@ namespace OS.Docker.TestKit
             }
         }
 
+        public virtual bool CleanUp => true;
         public abstract string ContainerImageName { get; }   // Container image name. Example: alpine
         public abstract string ContainerName { get; }        // Container name
 
         public abstract IReadOnlyDictionary<string, string> EnvironmentVariables { get; }
         public abstract IReadOnlyDictionary<ushort, ushort> PortMappings { get; }
         public abstract IReadOnlyDictionary<string, string> VolumeMappings { get; }
-
-        protected abstract Task<bool> WaitForContainerInitialization(TimeSpan timeout);
 
         protected override void Dispose(bool disposing)
         {
@@ -55,15 +53,17 @@ namespace OS.Docker.TestKit
                 containerProcess?.Dispose();
             }
 
-            if (CleanUpAfterTest)
+            if (CleanUp)
             {
-                CleanUp();
+                DoCleanUp();
             }
 
             base.Dispose(disposing);
         }
 
-        private void CleanUp()
+        protected abstract Task<bool> WaitForContainerInitialization(TimeSpan timeout);
+
+        private void DoCleanUp()
         {
             Process.Start("docker", $"stop {ContainerName}")
                 .WaitForExit();

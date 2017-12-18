@@ -8,16 +8,12 @@ namespace OS.DAL.PgSql.IntegrationTests
 {
     public class PostgresFixture : DockerFixture
     {
-        private const string DbName = "test";
+        public readonly ushort HostPort = PortManager.GetAvailablePort(5432);
+        private const string DbName = "os-devices-integration-tests-db";
         private const string DbPassword = "postgres";
-        private const string DbUser = "postgres";
         private const ushort DbPort = 5432;
-        public readonly ushort HostPort = PortManager.GetAvailablePort(5342);
-
-        public PostgresFixture()
-        {
-        }
-
+        private const string DbUser = "postgres";
+        public override bool CleanUp => false;
         public string ConnectionString => $"host=localhost;port={HostPort};database={DbName};username={DbUser};password={DbPassword}";
         public override string ContainerImageName { get; } = "postgres:alpine";
         public override string ContainerName { get; } = "os-dal-pgsql-integration-tests";
@@ -34,7 +30,7 @@ namespace OS.DAL.PgSql.IntegrationTests
             { HostPort, DbPort }
         };
 
-        public override IReadOnlyDictionary<string, string> VolumeMappings { get; }
+        public override IReadOnlyDictionary<string, string> VolumeMappings => null;
 
         protected override async Task<bool> WaitForContainerInitialization(TimeSpan timeout)
         {
