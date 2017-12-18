@@ -10,25 +10,31 @@ namespace OS.DAL.PgSql.IntegrationTests
     {
         private const string DbName = "test";
         private const string DbPassword = "postgres";
-        private const ushort DbPort = 5432;
         private const string DbUser = "postgres";
-        public string ConnectionString => $"host=localhost;port={DbPort};database={DbName};username={DbUser};password={DbPassword}";
+        private const ushort DbPort = 5432;
+        public readonly ushort HostPort = PortManager.GetAvailablePort(5342);
+
+        public PostgresFixture()
+        {
+        }
+
+        public string ConnectionString => $"host=localhost;port={HostPort};database={DbName};username={DbUser};password={DbPassword}";
         public override string ContainerImageName { get; } = "postgres:alpine";
         public override string ContainerName { get; } = "os-dal-pgsql-integration-tests";
 
-        public override IReadOnlyDictionary<string, string> EnvironmentVariables { get; } = new Dictionary<string, string>()
+        public override IReadOnlyDictionary<string, string> EnvironmentVariables => new Dictionary<string, string>()
         {
             { "POSTGRES_USER", DbUser },
             { "POSTGRES_PASSWORD", DbPassword },
             { "POSTGRES_DB", DbName }
         };
 
-        public override IReadOnlyDictionary<ushort, ushort> PortMappings { get; } = new Dictionary<ushort, ushort>
+        public override IReadOnlyDictionary<ushort, ushort> PortMappings => new Dictionary<ushort, ushort>
         {
-            { 5432, DbPort }
+            { HostPort, DbPort }
         };
 
-        public override IReadOnlyDictionary<string, string> VolumeMappings { get; } = new Dictionary<string, string>();
+        public override IReadOnlyDictionary<string, string> VolumeMappings { get; }
 
         protected override async Task<bool> WaitForContainerInitialization(TimeSpan timeout)
         {

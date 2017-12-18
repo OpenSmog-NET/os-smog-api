@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OS.DAL.PgSql.Migrator;
 using OS.Domain;
-using System.IO;
 using System.Linq;
 using Xunit;
 
 namespace OS.DAL.PgSql.IntegrationTests
 {
-    public class DeviceRepositoryTests : IClassFixture<PostgresFixture>
+    [Collection(Constants.IntegrationTestsCollection)]
+    public class DeviceRepositoryTests
     {
         private readonly DeviceMapper mapper = new DeviceMapper();
         private readonly DeviceRepository repository;
@@ -36,18 +36,10 @@ namespace OS.DAL.PgSql.IntegrationTests
         public void Test(string fileName)
         {
             // Arrange
-            repository.Insert(GetTestDevices(fileName).Select(d => { d.VendorId = vendorId; return d; }).ToArray());
+            repository.Insert(fileName.Get<Device>().Select(d => { d.VendorId = vendorId; return d; }).ToArray());
             // Act
-            // Assert
-        }
 
-        private Device[] GetTestDevices(string fileName)
-        {
-            using (var stream = new FileStream(fileName, FileMode.Open))
-            using (var reader = new StreamReader(stream))
-            {
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<Device[]>(reader.ReadToEnd());
-            }
+            // Assert
         }
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using OS.DAL.PgSql.Migrator;
 using OS.Domain;
 using Shouldly;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -40,56 +41,11 @@ namespace OS.DAL.PgSql.IntegrationTests
             };
         }
 
-        public class GivenAnUninsertedVendor : IClassFixture<PostgresFixture>
+        [Collection(Constants.IntegrationTestsCollection)]
+        public class GivenAnInsertedVendor
         {
-            private readonly PostgresFixture fixture;
             private readonly DeviceDbContext context;
-            private readonly VendorMapper mapper = new VendorMapper();
-            private readonly VendorRepository repository;
-
-            public GivenAnUninsertedVendor(PostgresFixture fixture)
-            {
-                this.fixture = fixture;
-                var builder = new DbContextOptionsBuilder<DeviceDbContext>()
-                    .UseNpgsql(fixture.ConnectionString, x => x.MigrationsAssembly(MigrationsAssembly.Assembly));
-
-                context = new DeviceDbContext(builder.Options);
-                context.Database.Migrate();
-
-                repository = new VendorRepository(context, mapper);
-            }
-
-            [Fact]
-            public void WhenInsertingVendorWithBasicInfo_IdReturned()
-            {
-                // Arrange
-                var vendor = CreateVendor("OpenSmog#1", "https://opensmog.org");
-
-                // Act
-                var id = repository.Insert(vendor);
-
-                // Assert
-                id.ShouldNotBe(default(long));
-            }
-
-            [Fact]
-            public void WhenInsertingVendorWithApiKeys_IdReturned()
-            {
-                // Arrange
-                var vendor = CreateVendor("OpenSmog#2", "https://opensmog.org", true);
-
-                // Act
-                var id = repository.Insert(vendor);
-
-                // Assert
-                id.ShouldNotBe(default(long));
-            }
-        }
-
-        public class GivenAnInsertedVendor : IClassFixture<PostgresFixture>
-        {
             private readonly PostgresFixture fixture;
-            private readonly DeviceDbContext context;
             private readonly VendorMapper mapper = new VendorMapper();
             private readonly VendorRepository repository;
 
@@ -121,6 +77,62 @@ namespace OS.DAL.PgSql.IntegrationTests
                 vendor.Url.ShouldNotBeNullOrEmpty();
                 vendor.Keys.ShouldNotBe(null);
                 vendor.Keys.Count.ShouldBeGreaterThan(0);
+            }
+        }
+
+        [Collection(Constants.IntegrationTestsCollection)]
+        public class GivenAnUninsertedVendor
+        {
+            private readonly DeviceDbContext context;
+            private readonly PostgresFixture fixture;
+            private readonly VendorMapper mapper = new VendorMapper();
+            private readonly VendorRepository repository;
+
+            public GivenAnUninsertedVendor(PostgresFixture fixture)
+            {
+                this.fixture = fixture;
+
+                var builder = new DbContextOptionsBuilder<DeviceDbContext>()
+                    .UseNpgsql(fixture.ConnectionString, x => x.MigrationsAssembly(MigrationsAssembly.Assembly));
+
+                context = new DeviceDbContext(builder.Options);
+                context.Database.Migrate();
+
+                repository = new VendorRepository(context, mapper);
+            }
+
+            [Fact]
+            public void WhenInsertingVendorWithApiKeys_IdReturned()
+            {
+                // Arrange
+                var vendor = CreateVendor("OpenSmog#2", "https://opensmog.org", true);
+
+                // Act
+                var id = repository.Insert(vendor);
+
+                // Assert
+                id.ShouldNotBe(default(long));
+            }
+
+            [Fact]
+            public void WhenInsertingVendorWithBasicInfo_IdReturned()
+            {
+                // Arrange
+                var vendor = CreateVendor("OpenSmog#1", "https://opensmog.org");
+
+                // Act
+                var id = repository.Insert(vendor);
+
+                // Assert
+                id.ShouldNotBe(default(long));
+            }
+
+            public void Dispose()
+            {
+                this.context?.Dispose();
+                this.fixture?.Dispose();
+
+                GC.SuppressFinalize(this);
             }
         }
     }

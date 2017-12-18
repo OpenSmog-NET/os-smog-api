@@ -10,7 +10,7 @@ namespace OS.Docker.TestKit
 {
     public abstract class DockerFixture : DisposableFixture
     {
-        private readonly Process containerProcess;
+        private Process containerProcess;
         public bool CleanUpAfterTest { get; set; } = true;
 
         protected DockerFixture()
