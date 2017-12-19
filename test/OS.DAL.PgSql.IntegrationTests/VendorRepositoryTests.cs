@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using OS.DAL.PgSql.Migrator;
 using OS.Domain;
 using Shouldly;
-using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -45,14 +44,11 @@ namespace OS.DAL.PgSql.IntegrationTests
         public class GivenAnInsertedVendor
         {
             private readonly DeviceDbContext context;
-            private readonly PostgresFixture fixture;
             private readonly VendorMapper mapper = new VendorMapper();
             private readonly VendorRepository repository;
 
             public GivenAnInsertedVendor(PostgresFixture fixture)
             {
-                this.fixture = fixture;
-
                 var builder = new DbContextOptionsBuilder<DeviceDbContext>()
                     .UseNpgsql(fixture.ConnectionString, x => x.MigrationsAssembly(MigrationsAssembly.Assembly));
 
@@ -84,14 +80,11 @@ namespace OS.DAL.PgSql.IntegrationTests
         public class GivenAnUninsertedVendor
         {
             private readonly DeviceDbContext context;
-            private readonly PostgresFixture fixture;
             private readonly VendorMapper mapper = new VendorMapper();
             private readonly VendorRepository repository;
 
             public GivenAnUninsertedVendor(PostgresFixture fixture)
             {
-                this.fixture = fixture;
-
                 var builder = new DbContextOptionsBuilder<DeviceDbContext>()
                     .UseNpgsql(fixture.ConnectionString, x => x.MigrationsAssembly(MigrationsAssembly.Assembly));
 
@@ -125,14 +118,6 @@ namespace OS.DAL.PgSql.IntegrationTests
 
                 // Assert
                 id.ShouldNotBe(default(long));
-            }
-
-            public void Dispose()
-            {
-                this.context?.Dispose();
-                this.fixture?.Dispose();
-
-                GC.SuppressFinalize(this);
             }
         }
     }

@@ -10,7 +10,7 @@ namespace OS.Domain
         /// <summary>
         /// Geographical Longitude
         /// </summary>
-        [JsonProperty("long")]
+        [JsonProperty("lon")]
         public double Lon { get; set; }
 
         /// <summary>

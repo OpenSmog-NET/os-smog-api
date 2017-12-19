@@ -11,14 +11,11 @@ namespace OS.DAL.PgSql.IntegrationTests
     {
         private readonly DeviceMapper mapper = new DeviceMapper();
         private readonly DeviceRepository repository;
-        private readonly PostgresFixture fixture;
         private readonly DeviceDbContext context;
         private readonly long vendorId;
 
         public DeviceRepositoryTests(PostgresFixture fixture)
         {
-            this.fixture = fixture;
-
             var builder = new DbContextOptionsBuilder<DeviceDbContext>()
                 .UseNpgsql(fixture.ConnectionString, x => x.MigrationsAssembly(MigrationsAssembly.Assembly));
 
@@ -33,10 +30,11 @@ namespace OS.DAL.PgSql.IntegrationTests
 
         [Theory]
         [InlineData("DeviceRepository.TestData01.json")]
-        public void Test(string fileName)
+        public void WhenTestDataIsInserted_ThenCoordinatesAreSet(string fileName)
         {
             // Arrange
             repository.Insert(fileName.Get<Device>().Select(d => { d.VendorId = vendorId; return d; }).ToArray());
+
             // Act
 
             // Assert
