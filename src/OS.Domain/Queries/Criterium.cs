@@ -2,7 +2,7 @@
 
 namespace OS.Domain.Queries
 {
-    public abstract class Criteria
+    public abstract class Criterium
     {
         public bool HasNestedProperty => !string.IsNullOrEmpty(NestedProperty);
         public string NestedProperty { get; set; }

@@ -2,8 +2,8 @@
 {
     public class Query
     {
-        public int PageIndex { get; set; }
+        public uint PageIndex { get; set; }
 
-        public int PageSize { get; set; }
+        public uint PageSize { get; set; }
     }
 }
