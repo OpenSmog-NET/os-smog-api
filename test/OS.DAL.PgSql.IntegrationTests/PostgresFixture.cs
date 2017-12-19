@@ -13,7 +13,7 @@ namespace OS.DAL.PgSql.IntegrationTests
         private const string DbPassword = "postgres";
         private const ushort DbPort = 5432;
         private const string DbUser = "postgres";
-        public override bool CleanUp => false;
+        public override bool CleanUp => true;
         public string ConnectionString => $"host=localhost;port={HostPort};database={DbName};username={DbUser};password={DbPassword}";
         public override string ContainerImageName { get; } = "postgres:alpine";
         public override string ContainerName { get; } = "os-dal-pgsql-integration-tests";
