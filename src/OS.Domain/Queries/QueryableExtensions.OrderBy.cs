@@ -4,23 +4,30 @@ using System.Linq.Expressions;
 
 namespace OS.Domain.Queries
 {
-    public static class QueryableExtensions
+    public static partial class QueryableExtensions
     {
-        public static IQueryable<T> OrderBy<T>(this IQueryable<T> source, IList<SortCriterium> criteriums)
+        public static IQueryable<T> OrderByAndPage<T>(this IQueryable<T> source, Query query)
+        {
+            return source.OrderBy(query.SortCriteria)
+                .Skip(query.PageSize * (query.PageIndex - 1))
+                .Take(query.PageSize);
+        }
+
+        public static IQueryable<T> OrderBy<T>(this IQueryable<T> source, IList<SortCriterium> criteria)
         {
             var expression = source.Expression;
 
-            if (criteriums.Count == 0)
+            if (criteria.Count == 0)
             {
                 return source;
             }
 
-            for (var i = 0; i < criteriums.Count; i++)
+            for (var i = 0; i < criteria.Count; i++)
             {
-                var @param = Expression.Parameter(typeof(T), "x");      // x =>
-                var @property = criteriums[i].GetProperty(@param);      // x => x.Property
+                var @param = Expression.Parameter(typeof(T), "x");
+                var @property = criteria[i].GetProperty(@param);
 
-                var method = criteriums[i].Ascending ?
+                var method = criteria[i].Ascending ?
                     i == 0 ? nameof(Queryable.OrderBy) : nameof(Queryable.ThenBy) :
                     i == 0 ? nameof(Queryable.OrderByDescending) : nameof(Queryable.ThenByDescending);
 

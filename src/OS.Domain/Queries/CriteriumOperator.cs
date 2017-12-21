@@ -10,7 +10,7 @@
     /// lk (Like)
     /// in (In)
     /// </summary>
-    public enum CriteriaOperator
+    public enum CriteriumOperator
     {
         Eq,
         Gt,

@@ -69,8 +69,9 @@ namespace OS.DAL.UnitTests
             public void WhenEqualsSameEntity_ShouldBeFalse()
             {
                 var entity = TestEntity.Create(5);
+                var sameEntity = entity;
 
-                (entity != entity).ShouldBe(false);
+                (entity != sameEntity).ShouldBe(false);
             }
 
             [Fact]
