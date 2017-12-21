@@ -66,9 +66,9 @@ namespace OS.Docker.TestKit
         private void DoCleanUp()
         {
             Process.Start("docker", $"stop {ContainerName}")
-                .WaitForExit();
+                ?.WaitForExit();
             Process.Start("docker", $"rm {ContainerName}")
-                .WaitForExit();
+                ?.WaitForExit();
         }
     }
 }
