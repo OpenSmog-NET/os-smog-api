@@ -39,7 +39,7 @@ namespace OS.DAL.PgSql.IntegrationTests
         public void WhenTestDataIsInserted_TheDataCountMatches(string fileName)
         {
             // Arrange
-            var devices = EnsureDevicesAreInserted(fileName);
+            var devices = fixture.EnsureDevicesAreInserted(fileName, repository, ThisTestCriterium);
 
             // Act
             var count = repository.Count();
@@ -55,7 +55,7 @@ namespace OS.DAL.PgSql.IntegrationTests
         public void WhenTypeFilterIsApplied_ResultIsReturned(string fileName, string key, int expectedCount)
         {
             // Arrange
-            var devices = EnsureDevicesAreInserted(fileName);
+            var devices = fixture.EnsureDevicesAreInserted(fileName, repository, ThisTestCriterium);
 
             var query = new Query();
             query.FilterCriteria.Add(ThisTestCriterium);
@@ -66,23 +66,6 @@ namespace OS.DAL.PgSql.IntegrationTests
 
             // Assert
             result.Items.Count.ShouldBe(expectedCount);
-        }
-
-        private Device[] EnsureDevicesAreInserted(string fileName)
-        {
-            var devices = fileName.Get<Device>(d =>
-            {
-                d.VendorId = this.fixture.VendorId;
-                return d;
-            });
-            var query = new Query();
-            query.FilterCriteria.Add(ThisTestCriterium);
-
-            if (repository.Count(query) != 0) return devices;
-
-            repository.Insert(devices);
-
-            return devices;
         }
     }
 }

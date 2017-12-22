@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OS.DAL.PgSql.Migrator;
+using OS.DAL.Queries;
 using OS.Domain;
 
 namespace OS.DAL.PgSql.IntegrationTests
@@ -20,6 +21,23 @@ namespace OS.DAL.PgSql.IntegrationTests
 
             var repository = new VendorRepository(Context, new VendorMapper());
             VendorId = repository.Insert(new Vendor() { Name = "OpenSmog", Url = "http://opensmog.org" });
+        }
+
+        public Device[] EnsureDevicesAreInserted(string fileName, DeviceRepository repository, FilterCriterium criterium)
+        {
+            var devices = fileName.Get<Device>(d =>
+            {
+                d.VendorId = this.VendorId;
+                return d;
+            });
+            var query = new Query();
+            query.FilterCriteria.Add(criterium);
+
+            if (repository.Count(query) != 0) return devices;
+
+            repository.Insert(devices);
+
+            return devices;
         }
     }
 }
