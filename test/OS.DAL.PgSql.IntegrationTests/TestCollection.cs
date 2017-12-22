@@ -2,8 +2,12 @@
 
 namespace OS.DAL.PgSql.IntegrationTests
 {
-    [CollectionDefinition(Constants.IntegrationTestsCollection)]
-    public class TestCollection : ICollectionFixture<PostgresFixture>
+    [CollectionDefinition(Constants.VendorRepositoryTestsCollection)]
+    public class TestCollection : ICollectionFixture<VendorRepositoryFixture>
     {
     }
+
+    [CollectionDefinition(Constants.DeviceRepositoryTestsCollection)]
+    public class DeviceRepositoryTestsCollection : ICollectionFixture<DeviceRepositoryFixture>
+    { }
 }

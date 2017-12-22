@@ -1,9 +1,9 @@
-﻿using OS.Domain.Queries;
+﻿using OS.DAL.Queries;
 using Shouldly;
 using System.Linq;
 using Xunit;
 
-namespace OS.Domain.UnitTests
+namespace OS.DAL.UnitTests
 {
     public partial class QueryableExtensionsTests
     {

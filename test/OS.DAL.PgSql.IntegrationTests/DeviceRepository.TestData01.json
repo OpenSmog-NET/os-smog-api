@@ -1,6 +1,6 @@
 ﻿[
   {
-    "name": "device01",
+    "name": "devicerepository.testdata01.device01",
     "type": "DIY",
     "location": {
       "lon": "21.0116667",
@@ -8,7 +8,7 @@
     }
   },
   {
-    "name": "device02",
+    "name": "devicerepository.testdata01.device02",
     "type": "DIY",
     "location": {
       "lon": "22.0116667",
@@ -16,7 +16,7 @@
     }
   },
   {
-    "name": "device03",
+    "name": "devicerepository.testdata01.device03",
     "type": "DIY",
     "location": {
       "lon": "23.0116667",
@@ -24,19 +24,27 @@
     }
   },
   {
-    "name": "device04",
-    "type": "DIY",
+    "name": "devicerepository.testdata01.device04",
+    "type": "API",
     "location": {
       "lon": "24.0116667",
       "lat": "55.2297222"
     }
   },
   {
-    "name": "device05",
-    "type": "DIY",
+    "name": "devicerepository.testdata01.device05",
+    "type": "Retail",
     "location": {
       "lon": "25.0116667",
       "lat": "56.2297222"
+    }
+  },
+  {
+    "name": "devicerepository.testdata01.device06",
+    "type": "Retail",
+    "location": {
+      "lon": "25.0146667",
+      "lat": "56.2293222"
     }
   }
 ]

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace OS.DAL.PgSql.IntegrationTests
 {
-    public class PostgresFixture : DockerFixture
+    public abstract class PostgresFixture : DockerFixture
     {
-        public readonly ushort HostPort = PortManager.GetAvailablePort(5432);
+        public virtual ushort HostPort { get; } = PortManager.GetAvailablePort(5432);
+
         private const string DbName = "os-devices-integration-tests-db";
         private const string DbPassword = "postgres";
         private const ushort DbPort = 5432;

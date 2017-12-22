@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace OS.Domain.Queries
+namespace OS.DAL.Queries
 {
     public static class CriteriumExtensions
     {

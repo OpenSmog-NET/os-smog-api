@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using OS.DAL.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+// ReSharper disable PossibleUnintendedQueryableAsEnumerable
 
 namespace OS.DAL
 {
@@ -17,11 +20,29 @@ namespace OS.DAL
 
         protected virtual IQueryable<TEntity> Query => Context.Set<TEntity>().AsNoTracking().AsQueryable();
 
+        protected long Count(IQueryable<TEntity> q, Query query = null)
+        {
+            return q.Where(query ?? new Query()).Count();
+        }
+
         protected T Get<T>(TId id, Func<TEntity, T> mapper)
         {
             var entity = Query.FirstOrDefault(EqualsPredicate<TEntity, TId>(id));
             return entity == null ? default(T) : mapper(entity);
         }
+
+        protected QueryResult<T> Get<T>(IQueryable<TEntity> source, Query query, Func<TEntity, T> mapper)
+        {
+            var unfilteredCount = source.Count();
+            var q = source.Where(query);
+            var filteredCount = q.Count();
+
+            var items = q.OrderByAndPage(query).Select(mapper).ToList();
+
+            return new QueryResult<T>(items, unfilteredCount, filteredCount);
+        }
+
+        #region Insert
 
         protected virtual TId Insert(TEntity entity, Action<TEntity, EntityEntry> updateAction = null)
         {
@@ -57,5 +78,7 @@ namespace OS.DAL
 
             Context.SaveChanges();
         }
+
+        #endregion Insert
     }
 }

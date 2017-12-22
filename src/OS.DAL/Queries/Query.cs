@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace OS.Domain.Queries
+namespace OS.DAL.Queries
 {
     public class Query
     {
-        public int PageIndex { get; set; }
+        public int PageIndex { get; set; } = 1;
 
-        public int PageSize { get; set; }
+        public int PageSize { get; set; } = 25;
 
         public IList<SortCriterium> SortCriteria { get; set; } = new List<SortCriterium>();
 

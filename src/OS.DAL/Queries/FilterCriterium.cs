@@ -1,4 +1,4 @@
-﻿namespace OS.Domain.Queries
+﻿namespace OS.DAL.Queries
 {
     public class FilterCriterium : Criterium
     {

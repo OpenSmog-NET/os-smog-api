@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace OS.Domain.Queries
+namespace OS.DAL.Queries
 {
     public abstract class Criterium
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OS.Domain.Queries
+namespace OS.DAL.Queries
 {
     internal static class InternalExtensions
     {

@@ -1,4 +1,4 @@
-﻿using OS.Domain.Queries;
+﻿using OS.DAL.Queries;
 
 namespace OS.Domain.Repositories
 {
@@ -8,6 +8,6 @@ namespace OS.Domain.Repositories
 
         Vendor Get(long id);
 
-        QueryResult<Vendor> Get(Query query);
+        QueryResult<Vendor> Get(Query query = null);
     }
 }

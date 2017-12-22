@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OS.DAL.PgSql.Model;
-using OS.Domain.Queries;
+using OS.DAL.Queries;
 using OS.Domain.Repositories;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +31,9 @@ namespace OS.DAL.PgSql
             return Get(id, mapper.MapFromModel);
         }
 
-        public QueryResult<Domain.Vendor> Get(Query query)
+        public QueryResult<Domain.Vendor> Get(Query query = null)
         {
-            throw new System.NotImplementedException();
+            return Get(Query, query ?? new Query(), mapper.MapFromModel);
         }
 
         protected override IQueryable<Vendor> Query => base.Query

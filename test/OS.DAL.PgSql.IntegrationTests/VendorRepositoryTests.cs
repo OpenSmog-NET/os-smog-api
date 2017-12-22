@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using OS.DAL.PgSql.Migrator;
 using OS.Domain;
 using Shouldly;
 using System.Collections.Generic;
@@ -40,22 +38,15 @@ namespace OS.DAL.PgSql.IntegrationTests
             };
         }
 
-        [Collection(Constants.IntegrationTestsCollection)]
+        [Collection(Constants.VendorRepositoryTestsCollection)]
         public class GivenAnInsertedVendor
         {
-            private readonly DeviceDbContext context;
             private readonly VendorMapper mapper = new VendorMapper();
             private readonly VendorRepository repository;
 
-            public GivenAnInsertedVendor(PostgresFixture fixture)
+            public GivenAnInsertedVendor(VendorRepositoryFixture fixture)
             {
-                var builder = new DbContextOptionsBuilder<DeviceDbContext>()
-                    .UseNpgsql(fixture.ConnectionString, x => x.MigrationsAssembly(MigrationsAssembly.Assembly));
-
-                context = new DeviceDbContext(builder.Options);
-                context.Database.Migrate();
-
-                repository = new VendorRepository(context, mapper);
+                repository = new VendorRepository(fixture.Context, mapper);
             }
 
             [Fact]
@@ -76,22 +67,15 @@ namespace OS.DAL.PgSql.IntegrationTests
             }
         }
 
-        [Collection(Constants.IntegrationTestsCollection)]
+        [Collection(Constants.VendorRepositoryTestsCollection)]
         public class GivenAnUninsertedVendor
         {
-            private readonly DeviceDbContext context;
             private readonly VendorMapper mapper = new VendorMapper();
             private readonly VendorRepository repository;
 
-            public GivenAnUninsertedVendor(PostgresFixture fixture)
+            public GivenAnUninsertedVendor(VendorRepositoryFixture fixture)
             {
-                var builder = new DbContextOptionsBuilder<DeviceDbContext>()
-                    .UseNpgsql(fixture.ConnectionString, x => x.MigrationsAssembly(MigrationsAssembly.Assembly));
-
-                context = new DeviceDbContext(builder.Options);
-                context.Database.Migrate();
-
-                repository = new VendorRepository(context, mapper);
+                repository = new VendorRepository(fixture.Context, mapper);
             }
 
             [Fact]

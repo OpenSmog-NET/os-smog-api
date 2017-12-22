@@ -6,6 +6,7 @@ namespace OS.DAL.PgSql.IntegrationTests
 {
     public static class Constants
     {
-        public const string IntegrationTestsCollection = "IntegrationTests";
+        public const string VendorRepositoryTestsCollection = "VendorRepositoryTests";
+        public const string DeviceRepositoryTestsCollection = "DeviceRepositoryTests";
     }
 }

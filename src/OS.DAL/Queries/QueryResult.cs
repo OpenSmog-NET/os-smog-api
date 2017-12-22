@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OS.Domain.Queries
+namespace OS.DAL.Queries
 {
     public class QueryResult<T>
     {

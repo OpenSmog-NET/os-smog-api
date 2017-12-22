@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace OS.Domain.Queries
+namespace OS.DAL.Queries
 {
     public static partial class QueryableExtensions
     {

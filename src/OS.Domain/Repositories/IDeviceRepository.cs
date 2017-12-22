@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OS.DAL.Queries;
+using System;
 
 namespace OS.Domain.Repositories
 {
@@ -7,5 +8,9 @@ namespace OS.Domain.Repositories
         Guid Insert(Domain.Device device);
 
         Domain.Device Get(Guid id);
+
+        QueryResult<Domain.Device> Get(Query query = null);
+
+        long Count(Query query = null);
     }
 }
