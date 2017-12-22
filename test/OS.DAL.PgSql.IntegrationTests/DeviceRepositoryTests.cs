@@ -1,6 +1,7 @@
 ﻿using OS.DAL.Queries;
 using OS.Domain;
 using Shouldly;
+using System.Collections.Generic;
 using Xunit;
 
 namespace OS.DAL.PgSql.IntegrationTests
@@ -18,6 +19,21 @@ namespace OS.DAL.PgSql.IntegrationTests
             repository = new DeviceRepository(this.fixture.Context, new DeviceMapper());
         }
 
+        public static readonly FilterCriterium ThisTestCriterium = new FilterCriterium()
+        {
+            PropertyName = nameof(Device.Name),
+            Operator = CriteriumOperator.Sw,
+            Value = "devicerepository.testdata01"
+        };
+
+        public static readonly IReadOnlyDictionary<string, FilterCriterium> FilterCriteria =
+            new Dictionary<string, FilterCriterium>()
+            {
+                { "1", new FilterCriterium() { PropertyName = nameof(Device.Type), Operator = CriteriumOperator.Eq, Value = (int)DeviceType.DIY  } },
+                { "2", new FilterCriterium() { PropertyName = nameof(Device.Type), Operator = CriteriumOperator.Eq, Value = (int)DeviceType.API } },
+                { "3", new FilterCriterium() { PropertyName = nameof(Device.Type), Operator = CriteriumOperator.Eq, Value = (int)DeviceType.Retail  } }
+            };
+
         [Theory]
         [InlineData("DeviceRepository.TestData01.json")]
         public void WhenTestDataIsInserted_TheDataCountMatches(string fileName)
@@ -33,21 +49,17 @@ namespace OS.DAL.PgSql.IntegrationTests
         }
 
         [Theory]
-        [InlineData("DeviceRepository.TestData01.json", nameof(Device.Type), CriteriumOperator.Eq, DeviceType.DIY, 3)]
-        [InlineData("DeviceRepository.TestData01.json", nameof(Device.Type), CriteriumOperator.Eq, DeviceType.API, 1)]
-        [InlineData("DeviceRepository.TestData01.json", nameof(Device.Type), CriteriumOperator.Eq, DeviceType.Retail, 2)]
-        public void WhenTypeFilterIsApplied_ResultIsReturned(string fileName, string property, CriteriumOperator @operator, object @value, int expectedCount)
+        [InlineData("DeviceRepository.TestData01.json", "1", 3)]
+        [InlineData("DeviceRepository.TestData01.json", "2", 1)]
+        [InlineData("DeviceRepository.TestData01.json", "3", 2)]
+        public void WhenTypeFilterIsApplied_ResultIsReturned(string fileName, string key, int expectedCount)
         {
             // Arrange
             var devices = EnsureDevicesAreInserted(fileName);
 
             var query = new Query();
-            query.FilterCriteria.Add(new FilterCriterium()
-            {
-                PropertyName = property,
-                Operator = @operator,
-                Value = (int)@value
-            });
+            query.FilterCriteria.Add(ThisTestCriterium);
+            query.FilterCriteria.Add(FilterCriteria[key]);
 
             // Act
             var result = repository.Get(query);
@@ -64,22 +76,11 @@ namespace OS.DAL.PgSql.IntegrationTests
                 return d;
             });
             var query = new Query();
-            query.FilterCriteria.Add(new FilterCriterium()
-            {
-                PropertyName = nameof(Device.Name),
-                Operator = CriteriumOperator.Sw,
-                Value = "devicerepository.testdata01"
-            });
+            query.FilterCriteria.Add(ThisTestCriterium);
 
             if (repository.Count(query) != 0) return devices;
 
-            try
-            {
-                repository.Insert(devices);
-            }
-            catch (Npgsql.PostgresException pex)
-            {
-            }
+            repository.Insert(devices);
 
             return devices;
         }
