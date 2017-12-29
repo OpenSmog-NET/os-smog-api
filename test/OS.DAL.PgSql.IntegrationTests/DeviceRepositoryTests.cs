@@ -1,4 +1,4 @@
-﻿using OS.DAL.Queries;
+﻿using OS.Core.Queries;
 using OS.Domain;
 using Shouldly;
 using System.Collections.Generic;

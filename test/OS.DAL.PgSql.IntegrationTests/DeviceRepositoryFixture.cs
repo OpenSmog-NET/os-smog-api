@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OS.Core.Queries;
 using OS.DAL.PgSql.Migrator;
-using OS.DAL.Queries;
 using OS.Domain;
 
 namespace OS.DAL.PgSql.IntegrationTests

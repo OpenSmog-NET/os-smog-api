@@ -1,5 +1,5 @@
-﻿using OS.DAL.PgSql.Model;
-using OS.DAL.Queries;
+﻿using OS.Core.Queries;
+using OS.DAL.PgSql.Model;
 using OS.Domain.Repositories;
 using System;
 using System.Collections.Generic;

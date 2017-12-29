@@ -6,10 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\OS.DAL\OS.DAL.csproj" />
+    <PackageReference Include="OS.Core.Queries" Version="0.0.1-pre-201712282" />
   </ItemGroup>
 
 </Project>

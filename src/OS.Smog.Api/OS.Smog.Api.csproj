@@ -25,7 +25,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.0.0" />
-    <PackageReference Include="OS.Core.Api" Version="0.0.1-pre-201712031" />
+    <PackageReference Include="OS.Core.Api" Version="0.0.1-pre-201712292" />
     <PackageReference Include="OS.Core.Queues" Version="1.0.0-pre-201711173" />
     <PackageReference Include="OS.Data" Version="1.0.0-pre-201711181" />
     <PackageReference Include="OS.Events" Version="0.0.1-pre-201711262" />
@@ -38,7 +38,8 @@
     <PackageReference Include="Serilog.Sinks.AzureAnalytics" Version="2.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.Logentries" Version="3.0.26" />
-    <PackageReference Include="Swashbuckle" Version="6.0.0-beta902" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="1.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OS.Domain\OS.Domain.csproj" />
     <ProjectReference Include="..\OS.Smog.Validation\OS.Smog.Validation.csproj" />
   </ItemGroup>
 

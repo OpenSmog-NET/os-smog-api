@@ -1,4 +1,4 @@
-﻿using OS.DAL.Queries;
+﻿using OS.Core.Queries;
 using System;
 
 namespace OS.Domain.Repositories

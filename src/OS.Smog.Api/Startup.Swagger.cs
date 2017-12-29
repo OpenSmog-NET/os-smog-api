@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.Swagger.Model;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Reflection;
 
@@ -11,7 +11,7 @@ namespace OS.Smog.Api
         public static IApplicationBuilder UseSwaggerMiddleware(this IApplicationBuilder appBuilder)
         {
             appBuilder.UseSwagger();
-            appBuilder.UseSwaggerUi();
+            appBuilder.UseSwaggerUI(cfg => { cfg.SwaggerEndpoint("../swagger/v1/swagger.json", "OpenSmog API"); });
 
             return appBuilder;
         }
@@ -49,16 +49,17 @@ namespace OS.Smog.Api
         private static void ConfigureSwagger(this IServiceCollection serviceCollection, Info swaggerInfo,
             string swaggerUiPath)
         {
-            serviceCollection.AddSwaggerGen();
+            serviceCollection.AddSwaggerGen(cfg =>
+            {
+                cfg.SwaggerDoc("v1", swaggerInfo);
+            });
 
             serviceCollection.ConfigureSwaggerGen(options =>
             {
-                options.SingleApiVersion(swaggerInfo);
-
                 //Set the comments path for the swagger json and ui.
                 options.IncludeXmlComments(swaggerUiPath);
                 options.DescribeAllEnumsAsStrings();
-                options.CustomSchemaIds(type => type.Name);
+                options.CustomSchemaIds(type => type.FullName);
             });
         }
     }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OS.Core.Queries;
 using OS.DAL.PgSql.Model;
-using OS.DAL.Queries;
 using OS.Domain.Repositories;
 using System.Collections.Generic;
 using System.Linq;
