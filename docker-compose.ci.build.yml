@@ -2,8 +2,10 @@ version: '3'
 
 services:
   ci-build:
-    image: microsoft/aspnetcore-build:1.0-2.0
+    image: microsoft/aspnetcore-build:1.0-2.0    
     volumes:
       - .:/src
+      - "${AppData}/NuGet/NuGet:/root/.nuget/NuGet"
+      - "${UserProfile}/.nuget/packages:/root/.nuget/packages"
     working_dir: /src
-    command: /bin/bash -c "dotnet restore ./OS.Smog.Api.sln && dotnet publish ./OS.Smog.Api.sln -c Release  -r debian.8-x64 -o ./obj/Docker/publish"
+    command: /bin/bash -c "dotnet restore ./OS.Smog.Api.sln && dotnet publish ./OS.Smog.Api.sln -c Release -r debian.8-x64 -o ./obj/Docker/publish"

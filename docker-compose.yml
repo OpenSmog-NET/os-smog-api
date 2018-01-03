@@ -1,8 +1,14 @@
 version: '3'
 
 services:
-  os.smog.api:
-    image: os.smog.api
+  os-devices-db.svc:
+    image: postgres:alpine    
+  os-azure-storage.svc:
+    image: arafato/azurite
+  os-smog-api.svc:
+    depends_on:
+      - os-devices-db.svc
+    image: os-smog-api    
     build:
       context: ./src/OS.Smog.Api
       dockerfile: Dockerfile

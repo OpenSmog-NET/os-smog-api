@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
-    <PackageReference Include="OS.Core.Queries" Version="0.0.1-pre-201712282" />
+    <PackageReference Include="OS.Core.Queries" Version="0.0.1-pre-201801031" />
   </ItemGroup>
 
 </Project>

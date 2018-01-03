@@ -9,7 +9,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
-    <PackageReference Include="OS.Core.Hosting" Version="0.0.1-pre-201712023" />
+    <PackageReference Include="OS.Core.Hosting" Version="0.0.1-pre-201801031" />
   </ItemGroup>
   <!--Required for 'dotnet' CLI-->
   <ItemGroup>

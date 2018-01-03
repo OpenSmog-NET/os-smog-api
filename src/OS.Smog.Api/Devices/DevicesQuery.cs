@@ -1,4 +1,5 @@
-﻿using OS.Core;
+﻿using MediatR;
+using OS.Core;
 using OS.Core.Queries;
 using OS.Domain;
 using System;
@@ -6,10 +7,10 @@ using System.Collections.Generic;
 
 namespace OS.Smog.Api.Devices
 {
-    /// <inheritdoc />
-    public class DevicesQuery : ApiQuery
+    public sealed class DevicesQuery : ApiQuery, IRequest<ApiResult<QueryResult<Device>>>
     {
         private readonly Func<string, bool> nestedPropertyFilter = (property) =>
+
         {
             var allowedProperties = new List<string>
             {

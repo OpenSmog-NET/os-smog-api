@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="OS.Core.Queries" Version="0.0.1-pre-201712282" />
+    <PackageReference Include="OS.Core.Queries" Version="0.0.1-pre-201801031" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,30 @@
+﻿version: '3'
+
+services:
+  os.devices.db:
+    image: postgres:alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=os-devices-db-test01
+  os.azure.storage:
+    image: arafato/azurite
+    ports:
+      - 10000:10000
+      - 10001:10001
+    environment:
+      - executable=queue
+      - executable=blob
+  os.smog.api:
+    depends_on:
+      - os.devices.db
+    image: os-smog-api
+    env_file:
+      - ./docker-compose.test01.env
+    build:
+      context: ../../src/OS.Smog.Api
+      dockerfile: Dockerfile
+      args:
+        source: .

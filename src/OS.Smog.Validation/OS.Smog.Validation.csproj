@@ -5,6 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OS.Dto" Version="0.0.1-pre-201711181" />
+    <PackageReference Include="OS.Dto" Version="0.0.1-pre-201711262" />
   </ItemGroup>
 </Project>
