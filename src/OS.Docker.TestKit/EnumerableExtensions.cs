@@ -7,7 +7,7 @@ namespace OS.Docker.TestKit
     {
         public static void ForEach<T>(this IEnumerable<T> collection, Action<T> action)
         {
-            if (collection == null) return;
+            if (collection == null) throw new ArgumentNullException(nameof(collection));
 
             foreach (var item in collection)
             {
