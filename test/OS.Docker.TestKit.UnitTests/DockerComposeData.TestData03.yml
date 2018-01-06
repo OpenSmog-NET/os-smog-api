@@ -1,0 +1,36 @@
+﻿version: '3'
+
+services:
+  os-devices-db.svc:    
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=os-devices-db-functional-tests
+    ports:
+      - 5432:5432
+  os-azure-storage.svc:    
+    image: redis:latest
+    deploy:
+      replicas: 1
+    configs:
+      - my_config
+      - my_other_config
+    networks:
+      - overlay
+    environment:
+      - executable=queue
+      - executable=blob
+    ports:
+      - 10000:10000
+      - 10001:10001
+  os-smog-api.svc:
+    build:
+      context: .
+      shm_size: '2gb'
+    depends_on:
+      - os-devices-db.svc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5000
+    ports:      
+      - 5000:5000

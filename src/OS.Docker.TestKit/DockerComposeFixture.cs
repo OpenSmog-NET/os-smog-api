@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YamlDotNet.Serialization;
 
 // ReSharper disable VirtualMemberCallInConstructor
 
@@ -16,15 +17,8 @@ namespace OS.Docker.TestKit
     /// </summary>
     public abstract class DockerComposeFixture : DisposableFixture
     {
-        public virtual bool CleanUp => true;
         protected string WorkingDirectory;
-
-        private readonly Process containerProcess;
-
-        /// <summary>
-        /// a FIFO list of docker-compose files which will be merged by docker-compose using the -f option
-        /// </summary>
-        public abstract IReadOnlyList<string> ComposeFiles { get; }
+        private readonly Process composeProcess;
 
         protected DockerComposeFixture()
         {
@@ -33,39 +27,77 @@ namespace OS.Docker.TestKit
                 throw new ArgumentNullException(nameof(ComposeFiles));
             }
 
-            var builder = new StringBuilder($"");
-
-            ComposeFiles.ForEach(x => builder.Append($" -f {x}"));
+            var builder = ConfigureComposeProcess();
 
             builder.Append($" up");
 
             var startInfo = new ProcessStartInfo("docker-compose", builder.ToString())
             {
-                WorkingDirectory = this.WorkingDirectory = GetWorkingDirectory(ComposeFiles),
+                WorkingDirectory = this.WorkingDirectory = GetWorkingDirectory(null, ComposeFiles.ToArray()),
                 RedirectStandardOutput = false
             };
 
-            containerProcess = Process.Start(startInfo);
+            composeProcess = Process.Start(startInfo);
 
-            var started = WaitForContainerInitialization(TimeSpan.FromSeconds(10)).Result;
+            var started = ValidateComposeStartupAsync(TimeSpan.FromSeconds(10)).Result;
             if (!started)
             {
                 throw new Exception($"The docker-compose project failed to initialize within the allowed time");
             }
         }
 
-        protected abstract Task<bool> WaitForContainerInitialization(TimeSpan timeout);
+        public virtual bool CleanUp => true;
+
+        /// <summary>
+        /// a FIFO list of docker-compose files which will be merged by docker-compose using the -f option
+        /// </summary>
+        public abstract IReadOnlyList<string> ComposeFiles { get; }
+
+        /// <summary>
+        /// When used on a docker-compose.*.yml file, will parse the services' environment and ports
+        /// </summary>
+        /// <param name="filename">docker-compose override file</param>
+        /// <returns></returns>
+        public static DockerComposeData ParseDockerComposeSettings(string filename)
+        {
+            var deserializer = new Deserializer();
+            return deserializer.Deserialize<DockerComposeData>(File.ReadAllText(filename));
+        }
 
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
+            if (disposing)
+            {
+                composeProcess?.Dispose();
+            }
+
+            var builder = ConfigureComposeProcess();
+
+            builder.Append($" rm --force");
+
+            var startInfo = new ProcessStartInfo("docker-compose", builder.ToString())
+            {
+                WorkingDirectory = this.WorkingDirectory = GetWorkingDirectory(null, ComposeFiles.ToArray()),
+                RedirectStandardOutput = false
+            };
+
+            Process.Start(startInfo)
+                .WaitForExit();
         }
 
-        private static string GetWorkingDirectory(IReadOnlyList<string> composeFiles, string directory = null)
+        protected abstract Task<bool> ValidateComposeStartupAsync(TimeSpan timeout);
+
+        public static string GetFullPath(string fileName)
+        {
+            return $"{GetWorkingDirectory(null, fileName)}/{fileName}";
+        }
+
+        public static string GetWorkingDirectory(string directory = null, params string[] composeFiles)
         {
             directory = string.IsNullOrEmpty(directory) ? Directory.GetCurrentDirectory() : directory;
+            var files = Directory.GetFiles(directory, "*.yml").Select(x => Path.GetFileName(x));
 
-            if (Directory.GetFiles(directory, "*.yml").All(file => composeFiles.Contains(file)))
+            if (files.Intersect(composeFiles).Count() == composeFiles.Count())
             {
                 return directory;
             }
@@ -78,7 +110,16 @@ namespace OS.Docker.TestKit
                     "Unable to locate the directory containing the docker-compose-files: ", composeFiles));
             }
 
-            return GetWorkingDirectory(composeFiles, parent.FullName);
+            return GetWorkingDirectory(parent.FullName, composeFiles);
+        }
+
+        private StringBuilder ConfigureComposeProcess()
+        {
+            var builder = new StringBuilder();
+
+            ComposeFiles?.ForEach(x => builder.Append($" -f {x}"));
+
+            return builder;
         }
     }
 }

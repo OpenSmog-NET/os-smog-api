@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace OS.Docker.TestKit
 {
+    public abstract class DockerFixture<TStartupValidator> : DockerFixture
+        where TStartupValidator : IContainerStartupValidator, new()
+    {
+        protected IContainerStartupValidator StartupValidator { get; } = new TStartupValidator();
+    }
+
     public abstract class DockerFixture : DisposableFixture
     {
         private readonly Process containerProcess;

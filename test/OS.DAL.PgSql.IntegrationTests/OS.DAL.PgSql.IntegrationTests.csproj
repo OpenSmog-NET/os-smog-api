@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\OS.Docker.TestKit.PgSql\OS.Docker.TestKit.PgSql.csproj" />
     <ProjectReference Include="..\..\src\OS.DAL.PgSql.Migrator\OS.DAL.PgSql.Migrator.csproj" />
     <ProjectReference Include="..\..\src\OS.DAL.PgSql\OS.DAL.PgSql.csproj" />
     <ProjectReference Include="..\..\src\OS.Docker.TestKit\OS.Docker.TestKit.csproj" />

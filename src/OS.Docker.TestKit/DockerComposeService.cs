@@ -57,10 +57,31 @@ namespace OS.Docker.TestKit
             }
         }
 
+        /// <summary>
+        /// We don't really care what's in here right now.
+        /// </summary>
+        [YamlMember(Alias = "build")]
+        public dynamic YamlBuild { get; set; }
+
+        [YamlMember(Alias = "depends_on")]
+        public List<string> YamlDependsOn { get; set; }
+
         [YamlMember(Alias = "environment")]
         public List<string> YamlEnvironment { get; set; }
 
         [YamlMember(Alias = "ports")]
         public List<string> YamlPorts { get; set; }
+
+        [YamlMember(Alias = "image")]
+        public string YamlImage { get; set; }
+
+        [YamlMember(Alias = "deploy")]
+        public dynamic YamlDeploy { get; set; }
+
+        [YamlMember(Alias = "configs")]
+        public dynamic YamlConfigs { get; set; }
+
+        [YamlMember(Alias = "networks")]
+        public dynamic YamlNetworks { get; set; }
     }
 }

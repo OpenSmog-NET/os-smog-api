@@ -10,6 +10,7 @@ namespace OS.Docker.TestKit.UnitTests
         [Theory]
         [InlineData("DockerComposeData.TestData01.yml")]
         [InlineData("DockerComposeData.TestData02.yml")]
+        [InlineData("DockerComposeData.TestData03.yml")]
         public void GivenYamlConfiguration_WhenDeserializing_ThenDockerComposeServicesShouldBeDeserialized(string fileName)
         {
             // Arrange
